@@ -15,7 +15,8 @@ NAME = asm
 SRC = main.c \
 fill_structures.c \
 read_name.c \
-read_comment.c 
+read_comment.c \
+read_instructions.c
 
 FLAGS = -Wall -Wextra -Werror
 

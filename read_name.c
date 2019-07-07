@@ -26,7 +26,6 @@ int			finish_name(t_pack *data, int count)	//check this name to be not bigger th
 	lseek(data->dsc, -count, 1);
 	bytes = read(data->dsc, buf, count - 1);
 	buf[bytes] = '\0';
-	ft_printf(" name bitch [%s]\n", buf);
 	del = data->name;
 	data->name = ft_strjoin(data->name, buf);
 	free(del);
@@ -49,8 +48,7 @@ int         actual_name(t_pack *data, char *line)
 	if (!data->name)
 			data->name = ft_strsub(line, 0, i);
 	if (line[i] == '"')
-		return (1);
-	ft_printf("Hey [%s]\n", data->name);
+		return (check_after(line + i + 1));
     while ((bytes = read(data->dsc, buf, BUF_SIZE)))
     {
 		count++;
@@ -68,16 +66,18 @@ int         read_name(t_pack *data, char *line)
     
 	if (data->name)
 		return (0);
-    ft_printf("|%s|\n", line);
     i = -1;
     while (line[++i] && ((line[i] != '"' && (line[i] == ' ' || line[i] == '\t'))))
         ;
     if (line[i] && line[i] != '"')
+	{
+		ft_printf("Syntax error at token [TOKEN] ENDLINE\n");
         return (0);
-	ft_printf("|%s|\n", line + i);
+	}
     if (!(res = actual_name(data, line + i + 1)))
+	{
 		ft_printf("Serious error at token [NAME]: wrong size!\n");
-	else
-		ft_printf("== %s ==", data->name);
+		return (0);
+	}
     return (1);
 }

@@ -35,6 +35,21 @@ int			finish_comment(t_pack *data, int count)	//check this name to be not bigger
 	return (1);
 }
 
+int			check_after(char *line)
+{
+	int		i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '#')
+			return (1);
+		if (!(line[i] == ' ') && !(line[i] == '\t'))
+			return (0);
+	}
+	return (1);
+}
+
 int         actual_comment(t_pack *data, char *line)
 {
     char    buf[BUF_SIZE + 1];
@@ -47,10 +62,9 @@ int         actual_comment(t_pack *data, char *line)
 	while (line[++i] && line[i] != '"')
 		;
 	if (!data->comment)
-			data->comment = ft_strsub(line, 0, i);
+		data->comment = ft_strsub(line, 0, i);
 	if (line[i] == '"')
-		return (1);
-	ft_printf("Hey [%s]\n", data->name);
+		return (check_after(line + i + 1));
     while ((bytes = read(data->dsc, buf, BUF_SIZE)))
     {
 		count++;
@@ -68,16 +82,18 @@ int         read_comment(t_pack *data, char *line)
 	
     if (data->comment)
 		return (0);
-    ft_printf("|%s|\n", line);
     i = -1;
     while (line[++i] && ((line[i] != '"' && (line[i] == ' ' || line[i] == '\t'))))
         ;
     if (line[i] && line[i] != '"')
+	{
+		ft_printf("Syntax error at token [TOKEN] ENDLINE\n");
         return (0);
-	ft_printf("|%s|\n", line + i);
+	}
     if (!(res = actual_comment(data, line + i + 1)))
-		ft_printf("Serious error at token [NAME]: wrong size!\n");
-	else
-		ft_printf("== %s ==", data->comment);
+	{
+		ft_printf("Serious error at token [COMMENT]: wrong size!\n");
+		return (0);
+	}
     return (1);
 }

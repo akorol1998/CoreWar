@@ -44,20 +44,19 @@ int			search_dot(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] != ' ' && line[i] != '\t')
-		{
-			ft_printf("symbol [%c][%d]", line[i], i);
+		if (line[i] == '#')
+			break ;
+		else if (line[i] != ' ' && line[i] != '\t')
 			return (0);
-		}
 	}
 	return (1);
 }
 
-// Didn't take into account the '#' symbols (normal comments) revamp this code to meet the criteria
-void		start_reading(t_pack *data)
+int			name_comment_block(t_pack *data)
 {
 	char	*line;
 	int		c;
+	int		res;
 
 	c = 2;
 	line = NULL;
@@ -69,13 +68,32 @@ void		start_reading(t_pack *data)
 				break;
 			free(line);
 		}
-		if (!read_name_comment(data, line))
+		if (!(res = read_name_comment(data, line)))
 			c = 0;
 		free(line);
 	}
-	system("leaks asm");
-	ft_printf("Name [%s]\n", data->name);
-	ft_printf("Comment [%s]\n", data->comment);
+	// system("leaks asm");
+	if (res)
+	{
+		ft_printf("Name [%s]\n", data->name);
+		ft_printf("Comment [%s]\n", data->comment);
+		return (1);
+	}
+	else
+	{
+		ft_printf("Something wrong with Name or Comment\n");
+		// free structure, stop the program
+		return (0);
+	}
+}
+
+void		start_reading(t_pack *data)
+{
+	int		nc;
+	
+	nc = name_comment_block(data);
+	if (nc)
+		read_instructions(data);
 }
 
 int			main(int argc, char **argv)

@@ -75,6 +75,7 @@ SRC =   ft_bzero.c \
 		ft_add_break.c \
 		ft_min.c \
 		ft_max.c \
+		space_tab_split.c \
 
 CFLAGS = -Wextra -Wall -Werror
 
