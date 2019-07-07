@@ -12,49 +12,9 @@
 
 #include "core_war.h"
 
-void		shift_pointers(char ***tokens, int j, int i)
-{
-	char	*ptr;
-	char	**ptr2;
-	int		leng;
-
-	leng = -1;
-	ptr = tokens[i][j];
-	ptr2 = tokens[i];
-	while (tokens[++leng])
-		;
-	while (i < leng)
-	{
-		tokens[i] = tokens[i + 1];
-		i++;
-	}
-	free(ptr);
-	free(ptr2);
-}
-
-// void		clean_from_spaces_tabs(t_pack *data)
-// {
-// 	int		i;
-
-// 	i = -1;
-// 	while (data->tokens[++i])
-// 	{
-// 		if (data->tokens[i][0])
-// 		{
-// 			ft_printf("line exists [%s]\n", data->tokens[i][0]);
-// 		}
-// 		if (data->tokens[i][0] && data->tokens[i][0][0] == '\n')
-// 		{
-// 			shift_pointers(data->tokens, 0, i);
-// 			ft_printf("shifting [%d]\n", i);
-// 		}
-// 	}
-// }
-
 int			read_instructions(t_pack *data)
 {
 	char	*line;
-	// char	**line_arr;
 	int		i;
 	int		j;
 
@@ -72,7 +32,6 @@ int			read_instructions(t_pack *data)
 		}
 		free(line);
 	}
-	// clean_from_spaces_tabs(data);
 	i = -1;
 	j = -1;
 	while (data->tokens[++i])
@@ -84,8 +43,6 @@ int			read_instructions(t_pack *data)
 		}
 		printf("\n");
 	}
-	// get_next_line(data->dsc, &line);
-	// ft_printf("{%d} size - [%u]\n",ft_strlen(line_arr[0]), sizeof(line_arr[0]));
 	system("leaks asm");
 	exit(1);
 	return (1);
