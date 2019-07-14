@@ -1,14 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_check.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/14 10:34:22 by akorol            #+#    #+#             */
+/*   Updated: 2019/07/14 10:34:53 by akorol           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "core_war.h"
 
 int			op_bridge(t_pack *data, char *buf, int line, int w)
 {
 
 	// 'w' is the index of current string in which the operation is
-	// check awether it is possible to 
-	ft_printf("%s", buf);
+	// being checked wether it is possible to 
+	ft_printf("%s\n", buf);
 	if (!ft_strcmp(buf, "sti"))
 	{
 		// for each operation the fucntion and arguments will be different
+		ft_printf("end...\n");
+		system("leaks asm");
+		exit(1);
 		return (check_sti_op(data, line, w + 1)); 
 	}
 	return (1);
@@ -19,7 +34,7 @@ int			possible_ops(t_pack *data, char **buf, char *word, int i)
 	int		n;
 
 	n = -1;
-	while (!compare_func(*buf, data))
+	while (compare_func(*buf, data)) //changed !
 	{
 		n = i;
 		if (word[++i])
@@ -55,10 +70,6 @@ int         check_for_being_op(t_pack *data, int line)
 					free(buf);
                     return (1);
                 }
-				return (0);
-			}
-			if (i + 1 > 5)
-			{
 				free(buf);
 				return (0);
 			}

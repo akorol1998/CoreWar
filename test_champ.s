@@ -4,9 +4,7 @@
            .name    	"Batman"  	# weGWRG WR QG # GEAR 
 		   .comment 			 "This city needs me me" #eQFQFEWwg
 
-sti r1,%:live,%1#wqefewf#aet 
-loop: 
-
+loop:йцу# sti r1,%:live,%1#wqefewf#aet 
 take:
 
 		#ewgew
@@ -17,3 +15,7 @@ live:
         ld%0,r2
         zjmp %:pask
 pask:
+
+pask:
+
+

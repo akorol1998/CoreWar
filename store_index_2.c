@@ -1,6 +1,18 @@
-#include "core_war.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   store_index_2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/14 10:35:40 by akorol            #+#    #+#             */
+/*   Updated: 2019/07/14 10:36:31 by akorol           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "core_war.h"
 // This fucntion will only work adter we handle all possible labels and then run the cycle again
+
 int			sti_direct_label(t_pack *data, char **line, int w)
 {
 	int		i;

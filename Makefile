@@ -18,6 +18,7 @@ read_name.c \
 read_comment.c \
 read_instructions.c \
 help_functions.c \
+help_functions_2.c \
 op_check.c \
 label_check.c \
 comment_check.c \

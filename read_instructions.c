@@ -28,12 +28,28 @@ int			actual_instructions(t_pack *data)
 	line = -1;
 	// ft_printf("darou");
 	while (data->tokens[++line])
-		read_first_element(data, line);
+	{
+		if (!label_check(data, line))
+			ft_printf("WEll it is really weird error\n");
+	}
 	line = -1;
 	while (data->tokens[++line])
-		check_for_being_op(data, line))
-	return (1);
-	
+	{
+		if (!check_if_label(data, line))
+		{
+			ft_printf("Line is %d\n", line);
+			if (!check_for_being_op(data, line))
+				ft_printf("pizdz\n");
+			else
+				ft_printf("all systems are steady\n");
+		}
+	}
+	for(int i=0;data->labels[i];i++)
+	{
+		ft_printf("LBL [%s]\n", data->labels[i]);
+	}
+	system("leaks asm");
+	exit(1);
 	return (1);
 }
 
@@ -49,18 +65,11 @@ int			read_instructions(t_pack *data)
 	while (get_next_line(data->dsc, &line) && ++i < CHAMP_MAX_SIZE)
 	{
 		data->tokens[i] = ft_space_tab_split(line);
-		// if (data->tokens[i] && !data->tokens[i][0])
-		// {
-		// 	free(data->tokens[i]);
-		// 	i--;
-		// }
 		if (!data->tokens[i])
 			i--;
 		free(line);
 	}
 	print_tokens(data);
 	actual_instructions(data);
-	system("leaks asm");
-	exit(1);
 	return (1);
 }

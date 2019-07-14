@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/14 10:36:44 by akorol            #+#    #+#             */
+/*   Updated: 2019/07/14 10:36:45 by akorol           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "core_war.h"
 
 int			len_arr(char **arr)
@@ -17,8 +29,8 @@ int			compare_func(char *buf, t_pack *data)
 	i = -1;
 	while (data->op[++i])
 		if (!ft_strcmp(data->op[i], buf))
-			return (0);
-	return (1);
+			return (1); // changed 0
+	return (0); // changed 1
 }
 
 void         merge_chars(char **buf, char c)
@@ -53,17 +65,25 @@ int         char_in_array(char c)
     return (0);
 }
 
-void		check_after_token(t_pack *data, int line, int word, int i)
+int			check_after_token(t_pack *data, int line, int word, int i)
 {
-	int		j;
+	int		res;
+	int		c;
 	char	*buf;
 
-	j = i;
 	buf = NULL;
-	while (data->tokens[line][word][++j])
+	c = 0;
+	while (data->tokens[line][word][++i])
 		merge_chars(&buf, data->tokens[line][word][i]);
 	if (buf)
 	{
+		if (!(res = valid_invalid_comment(buf)))
+		{
+			free(buf);
+			return (0);
+		}
+		else if (res == -1)
+			delete_commented_part_of_the_line(data, line, word);
 		if (!data->buf)
 			data->buf = buf;
 		else
@@ -72,4 +92,5 @@ void		check_after_token(t_pack *data, int line, int word, int i)
 			data->buf = buf;
 		}
 	}
+	return (1);
 }
