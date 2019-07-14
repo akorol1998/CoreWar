@@ -12,37 +12,54 @@
 
 #include "core_war.h"
 
+//2 & 5
+int			read_first_element(t_pack *data, int line)
+{
+	if (label_check(data, line))
+		return (1);
+	return (0);
+	ft_printf("start checking for label");
+}
+
+int			actual_instructions(t_pack *data)
+{
+	int		line;
+
+	line = -1;
+	// ft_printf("darou");
+	while (data->tokens[++line])
+		read_first_element(data, line);
+	line = -1;
+	while (data->tokens[++line])
+		check_for_being_op(data, line))
+	return (1);
+	
+	return (1);
+}
+
 int			read_instructions(t_pack *data)
 {
 	char	*line;
 	int		i;
-	int		j;
 
-	if (!(data->tokens = (char***)malloc(sizeof(char**) * (MEM_SIZE / 6) + 1)))
+	if (!(data->tokens = (char***)malloc(sizeof(char**) * CHAMP_MAX_SIZE + 1)))
 		return (0); //free structure and exit the program
-	data->tokens[(MEM_SIZE / 6)] = NULL;
+	data->tokens[CHAMP_MAX_SIZE] = NULL;
 	i = -1;
-	while (get_next_line(data->dsc, &line) && ++i < (MEM_SIZE / 6))
+	while (get_next_line(data->dsc, &line) && ++i < CHAMP_MAX_SIZE)
 	{
 		data->tokens[i] = ft_space_tab_split(line);
-		if (!data->tokens[i][0])
-		{
-			free(data->tokens[i]);
+		// if (data->tokens[i] && !data->tokens[i][0])
+		// {
+		// 	free(data->tokens[i]);
+		// 	i--;
+		// }
+		if (!data->tokens[i])
 			i--;
-		}
 		free(line);
 	}
-	i = -1;
-	j = -1;
-	while (data->tokens[++i])
-	{
-		j = -1;
-		while (data->tokens[i][++j])
-		{
-			printf("%s ", data->tokens[i][j]);
-		}
-		printf("\n");
-	}
+	print_tokens(data);
+	actual_instructions(data);
 	system("leaks asm");
 	exit(1);
 	return (1);

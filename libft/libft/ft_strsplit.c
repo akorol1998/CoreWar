@@ -46,12 +46,15 @@ char			**ft_strsplit(char const *s, char c)
 	char		**tab;
 	size_t		words;
 	size_t		k;
+	size_t		p;
 
 	k = -1;
 	if (s == NULL)
 		return (NULL);
 	words = 0;
-	tab = (char**)malloc(sizeof(char*) * count_words(s, c, &words) + 1);
+	if (!(p = count_words(s, c, &words)))
+		return (NULL);
+	tab = (char**)malloc(sizeof(char*) * p + 1);
 	if (tab == NULL)
 		return (NULL);
 	while (++k < words)

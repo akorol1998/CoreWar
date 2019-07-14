@@ -45,13 +45,16 @@ char			**ft_space_tab_split(char const *s)
 {
 	char		**tab;
 	size_t		words;
+	size_t		p;
 	size_t		k;
 
 	k = -1;
 	if (s == NULL)
 		return (NULL);
 	words = 0;
-	tab = (char**)malloc(sizeof(char*) * count_words(s, &words) + 1);
+	if (!(p = count_words(s, &words)))
+		return (NULL);
+	tab = (char**)malloc(sizeof(char*) * p + 1);
 	if (tab == NULL)
 		return (NULL);
 	while (++k < words)

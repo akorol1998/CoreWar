@@ -16,7 +16,13 @@ SRC = main.c \
 fill_structures.c \
 read_name.c \
 read_comment.c \
-read_instructions.c
+read_instructions.c \
+help_functions.c \
+op_check.c \
+label_check.c \
+comment_check.c \
+store_index.c \
+store_index_2.c \
 
 FLAGS = -Wall -Wextra -Werror
 
