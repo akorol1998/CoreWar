@@ -21,9 +21,7 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	if (!ft_strcmp(buf, "sti"))
 	{
 		// for each operation the fucntion and arguments will be different
-		ft_printf("end...\n");
-		system("leaks asm");
-		exit(1);
+		ft_printf("AAABBTTT\n");
 		return (check_sti_op(data, line, w + 1)); 
 	}
 	return (1);
@@ -32,17 +30,29 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 int			possible_ops(t_pack *data, char **buf, char *word, int i)
 {
 	int		n;
+	char	*norm;
 
 	n = -1;
+	norm = NULL;
 	while (compare_func(*buf, data)) //changed !
 	{
 		n = i;
 		if (word[++i])
+		{
+			if (norm)
+				free(norm);
+			norm = ft_strdup(*buf);
 			merge_chars(buf, word[i]);
+		}
 		else
 			break ;
-		
 	}
+	if (norm && !compare_func(*buf, data))
+	{
+		free((*buf));
+		(*buf) = ft_strdup(norm);
+	}
+	free(norm);
 	return (n != -1 ? n : 0);
 }
 
@@ -60,8 +70,9 @@ int         check_for_being_op(t_pack *data, int line)
 			merge_chars(&buf, data->tokens[line][0][i]);
             if (i + 1 >= 2 && i + 1 <= 5)
 			{
+				
 				i = possible_ops(data, &buf, data->tokens[line][0], i);
-				ft_printf("enter [%s]\n", buf);
+				ft_printf("enter [%i]\n", i);
 				if (i)
                 {
 					check_after_token(data, line, 0, i);

@@ -48,8 +48,7 @@ int			actual_instructions(t_pack *data)
 	{
 		ft_printf("LBL [%s]\n", data->labels[i]);
 	}
-	system("leaks asm");
-	exit(1);
+	
 	return (1);
 }
 

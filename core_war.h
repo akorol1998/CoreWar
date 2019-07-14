@@ -55,4 +55,5 @@ int					label_is_present(char *lbl, t_pack *data);
 int					check_if_label(t_pack *data, int line);
 int					op_bridge(t_pack *data, char *buf, int line, int w);
 void				delete_commented_part_of_the_line(t_pack *data, int	line, int word);
+int					register_sti(char **line, int w, int i);
 #endif

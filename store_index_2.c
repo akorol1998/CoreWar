@@ -28,20 +28,19 @@ int			sti_direct_label(t_pack *data, char **line, int w)
 	{
 		if (!ft_strcmp(data->labels[i], buf))
 		{
-			line[w] = realloc(line[w], ft_strlen(buf) + 1);
-			line[w][ft_strlen(buf)] = 'L';
 			ft_printf("{%s}\n", line[w]);
 			free(buf);
+			return (1);
 		}
 	}
-
+	free(buf);
 	return (0);
 }
 
 int			register_check(char **line, int w)
 {
 	// char	*reg;
-	char	*nbr;
+	// char	*nbr;
 	int		i;
 	int		flag;
 
@@ -57,10 +56,7 @@ int			register_check(char **line, int w)
 	}
 	if (!flag)
 		return (0);
-	nbr = ft_strsub(line[w], 1, i - 1);
-	free(line[w]);
-	line[w] = nbr;
-	printf("Second register [%s]\n", line[w]);
+	register_sti(line, w, i);
 	return (1);
 }
 
@@ -75,7 +71,7 @@ int			next_argument(t_pack *data, char **line, int w)
 		if (line[w][1] == ':' && sti_direct_label(data, line, w))
 			ft_printf("Direct label\n"); // process this case
 		if (ft_isdigit(line[w][1]))
-			ft_printf("Direct number\n");
+			ft_printf("Direct number\n"); //Check zerooooos and + sign
 	}
 	return (1);
 }

@@ -36,8 +36,6 @@ int         label_check(t_pack *data, int line)
 		while (data->labels[++j])
 			;
 		data->labels[j] = ft_strdup(buf); // Do not know what to do when the label already exists in the list
-        ft_printf("Realoccing here for [%s]-i-[%d]-arr-[%s]\n", buf, j, data->labels[j]);
-		ft_printf("check rest of the element\n");
 		free(buf);
         return (1);
     }
@@ -55,29 +53,37 @@ int			op_after_label(t_pack *data, int line, int w)
 
 	buf = NULL;
 	if (data->buf)
+	{
 		buf = ft_strdup(data->buf);
+	}
 	if (data->tokens[line][w])
 	{
 		i = -1;
 		leng = 0;
-		while (data->tokens[line][w][++i])
+		if (buf && (leng = ft_strlen(buf)) >= 2 && leng <= 5)
 		{
-			merge_chars(&buf, data->tokens[line][w][i]);
-			leng = ft_strlen(buf);
-			if (leng >= 2 && leng <= 5)
+			possible_ops(data, &buf, data->tokens[line][w], -1);
+			ft_printf("wefewfewfewf [%s]-word[%d]\n", buf, w);
+			return (op_bridge(data, buf, line, w - 1));	
+		}
+		else
+		{
+			while (data->tokens[line][w][++i])
 			{
-				i = possible_ops(data, &buf, data->tokens[line][w], i);
-				ft_printf("reading the operation [%p]\n", buf);
-				if (i)
+				if (!(buf && (leng = ft_strlen(buf)) >= 2 && leng <= 5))
+					merge_chars(&buf, data->tokens[line][w][i]);
+				if ((leng = ft_strlen(buf)) >= 2 && leng <= 5)
 				{
-					if (check_after_token(data, line, w, i))
+					i = possible_ops(data, &buf, data->tokens[line][w], i);
+					if (i)
 					{
-						ft_printf("Everything works fine\n");
-						return (op_bridge(data, buf, line, w));	
+						ft_printf("eto zhostka\n");
+						i = op_bridge(data, buf, line, w);
+						free(buf);
+						return (i);
 					}
+					return (0);
 				}
-				free(buf);
-				return (0);
 			}
 		}
 	}
@@ -101,12 +107,10 @@ int         check_if_label(t_pack *data, int line)
 	}
 	if (data->tokens[line][0][i] == LABEL_CHAR)
 	{
-		ft_printf("[%c]", data->tokens[line][0][i]);
 		if (label_is_present(buf, data) && check_after_token(data, line, 0, i))
 		{
-			ft_printf("|\n");
+			ft_printf("eto labl ====%s\n", buf);
 			free(buf);
-			ft_printf("activated\n");
 			return (op_after_label(data, line, 1));
 		}
 		free(buf);
