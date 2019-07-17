@@ -30,7 +30,8 @@ int			register_sti(char **line, int w, int i)
 		if (nbr[j] == '+' || nbr[j] == '-')
 			return (0);
 	}
-	if (j > 2 || ft_atoi(nbr) > 99 || ft_atoi(nbr) < 0)
+	if (j > 2 || ft_atoi(nbr) > 99 || ft_atoi(nbr) < 0 ||
+	ft_atoi(nbr) > REG_NUMBER)
 		return (0);
 	printf("first register [%s]\n", line[w]);
 	return (1);

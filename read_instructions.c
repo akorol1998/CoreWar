@@ -51,6 +51,7 @@ int			actual_instructions(t_pack *data)
 	return (1);
 }
 
+
 int			read_instructions(t_pack *data)
 {
 	char	*line;
@@ -67,6 +68,7 @@ int			read_instructions(t_pack *data)
 			i--;
 		free(line);
 	}
+	delete_comments(data);
 	print_tokens(data);
 	actual_instructions(data);
 	return (1);

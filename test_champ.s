@@ -15,8 +15,8 @@ take:
 		#ewgwe
 
 live:
-        live %0
-        ld%0,r2
+        live%6 #werh
+        ld %5, r2
         zjmp %:pask
 
 pask:

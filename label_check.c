@@ -110,7 +110,7 @@ int         check_if_label(t_pack *data, int line)
 	}
 	if (data->tokens[line][0][i] == LABEL_CHAR)
 	{
-		ft_printf("At least we are here :) %s\n", buf);
+		ft_printf("At least we are in 'check_if_label' - label [%s]\n", buf);
 		if (label_is_present(buf, data) && check_after_token(data, line, 0, i))
 		{
 			ft_printf("Check inside %s\n", buf);

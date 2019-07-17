@@ -24,6 +24,9 @@ label_check.c \
 comment_check.c \
 store_index.c \
 store_index_2.c \
+live_op.c \
+delete_comments.c \
+load.c \
 
 FLAGS = -Wall -Wextra -Werror
 

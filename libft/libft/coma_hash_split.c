@@ -69,4 +69,3 @@ char			**ft_coma_hash_split(char const *s)
 	tab[k] = NULL;
 	return (tab);
 }
-

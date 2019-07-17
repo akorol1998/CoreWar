@@ -60,4 +60,11 @@ int					op_bridge(t_pack *data, char *buf, int line, int w);
 void				delete_commented_part_of_the_line(t_pack *data, int	line, int word);
 int					register_sti(char **line, int w, int i);
 void				clean_line(char **line);
+int					check_live_op(char *buf, t_pack *data);
+int					direct_label(t_pack *data, char **line, int i, int arg);
+int					direct_number(t_pack *data, char **line, int w, int arg);
+int					indirect_arg(t_pack *data, char **line, int w);
+void				delete_comments(t_pack *data);
+int					check_ld_op(t_pack *data, char *buf);
+int					register_check(char **line, int w);
 #endif

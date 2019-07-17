@@ -28,8 +28,8 @@ static	size_t	count_words(char const *s, size_t *times)
 
 static	size_t	count_letters(char const *s)
 {
-	int		i;
-	size_t	letter;
+	int			i;
+	size_t		letter;
 
 	i = 0;
 	letter = 0;
@@ -41,21 +41,34 @@ static	size_t	count_letters(char const *s)
 	return (letter);
 }
 
+static	char	**create_arr(size_t *words, char const *s)
+{
+	int			p;
+	int			i;
+	char		**tab;
+
+	if (!(p = count_words(s, words)))
+		return (NULL);
+	tab = (char**)malloc(sizeof(char*) * p + 1);
+	i = -1;
+	while (++i < p)
+		tab[i] = NULL;
+	if (tab == NULL)
+		return (NULL);
+	return (tab);
+}
+
 char			**ft_space_tab_split(char const *s)
 {
 	char		**tab;
 	size_t		words;
-	size_t		p;
 	size_t		k;
 
 	k = -1;
 	if (s == NULL)
 		return (NULL);
 	words = 0;
-	if (!(p = count_words(s, &words)))
-		return (NULL);
-	tab = (char**)malloc(sizeof(char*) * p + 1);
-	if (tab == NULL)
+	if (!(tab = create_arr(&words, s)))
 		return (NULL);
 	while (++k < words)
 	{

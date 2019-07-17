@@ -15,21 +15,30 @@
 int			op_bridge(t_pack *data, char *buf, int line, int w)
 {
 	int		res;
-	// 'w' is the index of current string in which the operation is
-	// being checked wether it exists
-	ft_printf("Operation {%s}\n", buf);
+
+	data->line = line;
+	data->w = w + 1;
 	res = 0;
 	if (!ft_strcmp(buf, "sti"))
 	{
-		// for each operation the fucntion and arguments will be different
-		ft_printf("AAABBTTT\n");
+		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w], data->buf);
 		res = check_sti_op(data, line, w + 1); 
-		ft_printf("The res is [%d]\n", res);
-		// system("leaks asm");
-		// exit(1);
-		return (res);
 	}
-	return (1);
+	else if (!ft_strcmp(buf, "live"))
+	{
+		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w], data->buf);
+		res = check_live_op(buf, data);
+		
+	}
+	else if (!ft_strcmp(buf, "ld"))
+	{
+		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w], data->buf);
+		res = check_ld_op(data, buf);
+	}
+	free(data->buf);
+	data->buf = NULL;
+	ft_printf("Result = [%d]\n", res);
+	return (res);
 }
 
 int			possible_ops(t_pack *data, char **buf, char *word, int i)
@@ -52,8 +61,6 @@ int			possible_ops(t_pack *data, char **buf, char *word, int i)
 		else
 			break ;
 	}
-	if (!compare_func(*buf, data))
-		ft_printf("|%s|\n", *buf);
 	if (norm && !compare_func(*buf, data))
 	{
 		free((*buf));
@@ -79,9 +86,9 @@ int         check_for_being_op(t_pack *data, int line)
 			{
 				
 				i = possible_ops(data, &buf, data->tokens[line][0], i);
-				ft_printf("enter [%i]\n", i);
 				if (i)
                 {
+					ft_printf("Enter [%i] - op [%s]\n", i, buf);
 					check_after_token(data, line, 0, i);
 					op_bridge(data, buf, line, 0);
 					ft_printf("Checking what is after operation in the element\n");
