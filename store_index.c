@@ -80,7 +80,7 @@ void		create_coma_separated_array(t_pack *data, int line, int w)
 		arr = ft_strjoin(arr, data->tokens[line][w]);
 		free(del);
 	}
-	arr2d = ft_strsplit(arr, ',');
+	arr2d = ft_coma_hash_split(arr);
 	free(arr);
 	
 	replace_array(data, line, i, arr2d);
@@ -90,7 +90,6 @@ void		create_coma_separated_array(t_pack *data, int line, int w)
 	free(arr2d);
 	for(int k = 0;data->tokens[line][k];k++)
 		ft_printf("hey efew [%s]\n", data->tokens[line][k]);
-	
 }
 
 int			check_sti_op(t_pack *data, int line, int w)
@@ -100,17 +99,15 @@ int			check_sti_op(t_pack *data, int line, int w)
 	int		res;
 
 	reg = NULL;
-	
+	if (data->buf && ft_strcmp(data->buf, "sti"))
+		return (0);
 	create_coma_separated_array(data, line, w);
-	
 	ft_printf("bil pazan [%s] ", data->tokens[line][w]);
 	if (!(data->tokens[line][w][0] == 'r'))
 		return (0);
 	ft_printf(" net pazana\n");
-	
 	merge_chars(&reg, data->tokens[line][w][0]);
 	i = 0;
-	
 	while (data->tokens[line][w][++i])
 	{
 		if (!ft_isdigit(data->tokens[line][w][i]))
@@ -123,7 +120,6 @@ int			check_sti_op(t_pack *data, int line, int w)
 	res = register_sti(data->tokens[line], w, i);
 	res = res ? next_argument(data, data->tokens[line], w + 1) : 0;
 	ft_printf("res [%d]\n", res);
-	system("leaks asm");
-	exit(1);
+
 	return (res);
 }

@@ -76,6 +76,7 @@ SRC =   ft_bzero.c \
 		ft_min.c \
 		ft_max.c \
 		space_tab_split.c \
+		coma_hash_split.c \
 
 CFLAGS = -Wextra -Wall -Werror
 

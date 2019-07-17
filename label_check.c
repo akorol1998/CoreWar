@@ -64,7 +64,9 @@ int			op_after_label(t_pack *data, int line, int w)
 		{
 			possible_ops(data, &buf, data->tokens[line][w], -1);
 			ft_printf("wefewfewfewf [%s]-word[%d]\n", buf, w);
-			return (op_bridge(data, buf, line, w - 1));	
+			i = op_bridge(data, buf, line, w - 1);
+			free(buf);
+			return (i);	
 		}
 		else
 		{
@@ -82,6 +84,7 @@ int			op_after_label(t_pack *data, int line, int w)
 						free(buf);
 						return (i);
 					}
+					free(buf);
 					return (0);
 				}
 			}
@@ -107,9 +110,10 @@ int         check_if_label(t_pack *data, int line)
 	}
 	if (data->tokens[line][0][i] == LABEL_CHAR)
 	{
+		ft_printf("At least we are here :) %s\n", buf);
 		if (label_is_present(buf, data) && check_after_token(data, line, 0, i))
 		{
-			ft_printf("eto labl ====%s\n", buf);
+			ft_printf("Check inside %s\n", buf);
 			free(buf);
 			return (op_after_label(data, line, 1));
 		}

@@ -14,15 +14,20 @@
 
 int			op_bridge(t_pack *data, char *buf, int line, int w)
 {
-
+	int		res;
 	// 'w' is the index of current string in which the operation is
-	// being checked wether it is possible to 
-	ft_printf("%s\n", buf);
+	// being checked wether it exists
+	ft_printf("Operation {%s}\n", buf);
+	res = 0;
 	if (!ft_strcmp(buf, "sti"))
 	{
 		// for each operation the fucntion and arguments will be different
 		ft_printf("AAABBTTT\n");
-		return (check_sti_op(data, line, w + 1)); 
+		res = check_sti_op(data, line, w + 1); 
+		ft_printf("The res is [%d]\n", res);
+		// system("leaks asm");
+		// exit(1);
+		return (res);
 	}
 	return (1);
 }
@@ -47,6 +52,8 @@ int			possible_ops(t_pack *data, char **buf, char *word, int i)
 		else
 			break ;
 	}
+	if (!compare_func(*buf, data))
+		ft_printf("|%s|\n", *buf);
 	if (norm && !compare_func(*buf, data))
 	{
 		free((*buf));

@@ -24,9 +24,7 @@ int			valid_invalid_comment(char *buf)
 	else if (buf[i] == '#' && !i)
 		return (-1);
 	else
-	{
 		return (0);
-	}
 }
 
 int			label_is_present(char *lbl, t_pack *data)
@@ -49,4 +47,14 @@ void		delete_commented_part_of_the_line(t_pack *data, int	line, int word)
 		free(data->tokens[line][word]);
 		data->tokens[line][word] = NULL;
 	}
+}
+
+void		clean_line(char **line)
+{
+	int		i;
+
+	i = -1;
+	while (line[++i])
+		free(line[i]);
+	free(line);
 }

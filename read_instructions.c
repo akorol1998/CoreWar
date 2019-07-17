@@ -26,7 +26,6 @@ int			actual_instructions(t_pack *data)
 	int		line;
 
 	line = -1;
-	// ft_printf("darou");
 	while (data->tokens[++line])
 	{
 		if (!label_check(data, line))
@@ -37,11 +36,11 @@ int			actual_instructions(t_pack *data)
 	{
 		if (!check_if_label(data, line))
 		{
-			ft_printf("Line is %d\n", line);
+			ft_printf("The first element ======= %s ======\n", data->tokens[line][0]);
 			if (!check_for_being_op(data, line))
-				ft_printf("pizdz\n");
+				ft_printf("Some shit, i don't know\n");
 			else
-				ft_printf("all systems are steady\n");
+				ft_printf("Works fine");
 		}
 	}
 	for(int i=0;data->labels[i];i++)

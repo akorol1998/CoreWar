@@ -25,11 +25,16 @@ int			len_arr(char **arr)
 int			compare_func(char *buf, t_pack *data)
 {
 	int		i;
+	int		j;
 
 	i = -1;
+	j = ft_strlen(buf);
 	while (data->op[++i])
-		if (!ft_strcmp(data->op[i], buf))
+	{
+		if (!ft_strncmp(data->op[i], buf, j))
 			return (1); // changed 0
+	}
+	ft_printf("Watch attentively [%s] != [%s]", buf, data->op[i]);
 	return (0); // changed 1
 }
 
@@ -91,6 +96,7 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 			free(data->buf);
 			data->buf = buf;
 		}
+		ft_printf("data->buf [%s]\n", data->buf);
 	}
 	return (1);
 }

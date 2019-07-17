@@ -17,6 +17,7 @@
 # include "fcntl.h"
 # include "op.h"
 # define BUF_SIZE 1
+# define HASH(C) (((C) == ('#')) ? 1 : 0)
 # define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 # define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
@@ -29,6 +30,8 @@ typedef struct      s_pack
     char			*comment;
 	char			*buf;
     int				dsc;
+	int				line;
+	int				w;
     int				min;
     int				max;
 	int				bytes;
@@ -56,4 +59,5 @@ int					check_if_label(t_pack *data, int line);
 int					op_bridge(t_pack *data, char *buf, int line, int w);
 void				delete_commented_part_of_the_line(t_pack *data, int	line, int word);
 int					register_sti(char **line, int w, int i);
+void				clean_line(char **line);
 #endif
