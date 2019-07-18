@@ -22,7 +22,7 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	if (!ft_strcmp(buf, "sti"))
 	{
 		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w], data->buf);
-		res = check_sti_op(data, line, w + 1); 
+		res = check_sti_op(data, line, w + 1);
 	}
 	else if (!ft_strcmp(buf, "live"))
 	{

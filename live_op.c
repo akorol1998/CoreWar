@@ -27,7 +27,7 @@ int			read_arg(t_pack *data)
 		}
 		else
 		{
-			res = direct_number(data, data->tokens[data->line], data->w, 2);
+			res = direct_number(data, data->tokens[data->line], data->w);
 			ft_printf("Direct Number res [%d]\n", res);
 		}
 		

@@ -13,19 +13,19 @@
 #include "core_war.h"
 // This fucntion will only work adter we handle all possible labels and then run the cycle again
 
-int			direct_label(t_pack *data, char **line, int i, int arg)
+int			direct_label(t_pack *data, char **line, int i, int s)
 {
 	char	*buf;
 
-	arg = 1;
 	while (line[data->w][++i] && line[data->w][i] != '#')
 		;
-	buf = ft_strsub(line[data->w], 2, i - 2);
+	buf = ft_strsub(line[data->w], s, i - s);
 	i = -1;
 	while (data->labels[++i])
 	{
 		if (!ft_strcmp(data->labels[i], buf))
 		{
+			ft_printf("Direct Label [%s]\n", buf);
 			free(buf);
 			return (1);
 		}
@@ -39,11 +39,12 @@ int			register_check(char **line, int w)
 	// char	*reg;
 	// char	*nbr;
 	int		i;
+	int		res;
 	int		flag;
 
-	// reg = NULL;
-	// merge_chars(&reg, line[w][1]);
-	i = 0;
+	i = -1;
+	if (line[w][++i] != 'r')
+		return (0);
 	flag = 0;
 	while (line[w][++i])
 	{
@@ -53,71 +54,31 @@ int			register_check(char **line, int w)
 	}
 	if (!flag)
 		return (0);
-	register_sti(line, w, i);
-	return (1);
+	
+	res = register_sti(line, w, i);
+	return (res);
 }
 
-int			direct_number(t_pack *data, char **line, int w, int arg)
+int			direct_number(t_pack *data, char **line, int w)
 {
 	int		i;
 	char	*nbr;
 
-	ft_printf("Hello this is direct number [%s]\n", line[w]);
 	i = 0;
-	arg = 1;
 	while (line[w][++i])
 	{
 		if ((line[w][i] == '+' || (line[w][i] == '-' && i != 1)) ||
 		(!ft_isdigit(line[w][i])))
 		{
-			// Check this case, should not work  ((arg != 3) || line[w][i] != '#')
+			ft_printf("Error [%c]\n", line[w][i]);
 			return (0);
 		}
 	}	
-	nbr = ft_strsub(line[w], 1, i);
-	ft_printf("This is nbr [%s]\n", nbr);
-	// if (!ft_atoi(nbr) )
-	// {
-	// 	free(nbr);
-	// 	return (0);
-	// }
-	free(line[w]);
-	line[w] = nbr;
-	data = NULL;
-	return (1);
-}
-
-int			third_argument(t_pack *data, char **line, int w)
-{
-	if (line[w][0] == 'r' && register_check(line, w))
-		return (1);
-	else if (line[w][0] == '%')
-	{
-		if (line[w][1] == ':' && direct_label(data, line, w, 1))
-			return (1);
-		else if (direct_number(data, line, w, 3))
-			return (1);
-		return (0);
-	}
-	return (0);
-}
-
-int			indirect_arg(t_pack *data, char **line, int w)
-{
-	char 	*nbr;
-	int		i;
-
-	i = -1;
-	while (line[w][++i])
-	{
-		if (line[w][i] == '+')
-			return (0);
-	}
 	nbr = ft_strsub(line[w], 0, i);
-	i = ft_atoi(nbr);
+	ft_printf("Hello this is direct number [%s]\n", nbr);
 	free(nbr);
 	data = NULL;
-	return (i);
+	return (1);
 }
 
 int			next_argument(t_pack *data, char **line, int w)
@@ -129,26 +90,27 @@ int			next_argument(t_pack *data, char **line, int w)
 	if (!line[w])
 		return (0);
 	if (line[w][0] == 'r' && register_check(line, w)) //+
+	{
 		res = third_argument(data, line, data->w + 1);
+	}
 	else if (line[w][0] == '%')
 	{
 		if (line[w][1] == ':' && direct_label(data, line, 1, 2))
 		{
 			res = third_argument(data, line, data->w + 1);
 		}
-		else if (direct_number(data, line, w, 2))
+		else if (direct_number(data, line, w))
 			res = third_argument(data, line, data->w + 1); //Check zerooooos and + sign
-		return (res);
 	}
-	else if (ft_isdigit(line[w][0]) || line[w][0] == ':') // Doesn't "ft_isdigit(line[w][0])" work for negative numbers
-	{
-		if (ft_isdigit(line[w][0]), indirect_arg(data, line, data->w))
-		{
-			res = third_argument(data, line, data->w + 1);
-		}
-		else if (direct_label(data, line, 0, 2))
-			res = third_argument(data, line, data->w + 1);
-		return (res);
-	}
-	return (0);
+	else if (indirect_validation(data, line, w)) // Doesn't "ft_isdigit(line[w][0])" work for negative numbers
+		res = third_argument(data, line, data->w + 1);
+		// if (ft_isdigit(line[w][0]), indirect_arg(data, line, data->w))
+		// {
+		// 	ft_printf("Indirect argument is valid :)\n");
+		// 	res = third_argument(data, line, data->w + 1);
+		// }
+		// else if (direct_label(data, line, 0, 2))
+		// 	res = third_argument(data, line, data->w + 1);
+	// ft_printf("R - %d\n", res);
+	return (res);
 }

@@ -23,8 +23,8 @@ int			register_sti(char **line, int w, int i)
 
 	j = -1;
 	nbr = ft_strsub(line[w], 1, i - 1);
-	free(line[w]);
-	line[w] = nbr;
+	// free(line[w]);
+	// line[w] = nbr;
 	while(nbr[++j])
 	{
 		if (nbr[j] == '+' || nbr[j] == '-')
@@ -32,8 +32,12 @@ int			register_sti(char **line, int w, int i)
 	}
 	if (j > 2 || ft_atoi(nbr) > 99 || ft_atoi(nbr) < 0 ||
 	ft_atoi(nbr) > REG_NUMBER)
+	{
+		free(nbr);
 		return (0);
-	printf("first register [%s]\n", line[w]);
+	}
+	free(nbr);
+	printf("Register [%s]\n", line[w]);
 	return (1);
 }
 
@@ -74,7 +78,6 @@ void		create_coma_separated_array(t_pack *data, int line, int w)
 
 	i = w;
 	arr = ft_strdup(data->tokens[line][w]);
-	ft_printf("arr [%s]", arr);
 	while (data->tokens[line][++w])
 	{
 		del = arr;
@@ -103,10 +106,8 @@ int			check_sti_op(t_pack *data, int line, int w)
 	if (data->buf && ft_strcmp(data->buf, "sti"))
 		return (0);
 	create_coma_separated_array(data, line, w);
-	ft_printf("bil pazan [%s] ", data->tokens[line][w]);
 	if (!(data->tokens[line][w][0] == 'r'))
 		return (0);
-	ft_printf(" net pazana\n");
 	merge_chars(&reg, data->tokens[line][w][0]);
 	i = 0;
 	while (data->tokens[line][w][++i])
@@ -120,7 +121,6 @@ int			check_sti_op(t_pack *data, int line, int w)
 	free(reg);
 	res = register_sti(data->tokens[line], w, i);
 	res = res ? next_argument(data, data->tokens[line], w + 1) : 0;
-	ft_printf("res [%d]\n", res);
-
+	ft_printf("Next argument [%d]\n", res);
 	return (res);
 }

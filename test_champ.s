@@ -6,7 +6,7 @@
 
 loop: 
 	
-	sti r01,%:live,%4     #wef
+	sti r01, %:live, %434     #wef
 
 take:
 
@@ -15,8 +15,8 @@ take:
 		#ewgwe
 
 live:
-        live%6 #werh
-        ld %5, r2
+        live %6
+        ld%4, r2 #Case 'ld: live, r2' should not work !!!
         zjmp %:pask
 
 pask:
@@ -24,3 +24,4 @@ pask:
 pask:
 
 
+#Handle case with lots of commas

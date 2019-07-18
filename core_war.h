@@ -32,8 +32,11 @@ typedef struct      s_pack
     int				dsc;
 	int				line;
 	int				w;
-    int				min;
-    int				max;
+	int				arg1;
+	int				arg2;
+	int				arg3;
+    // int				min;
+    // int				max;
 	int				bytes;
 }					t_pack;
 
@@ -62,9 +65,13 @@ int					register_sti(char **line, int w, int i);
 void				clean_line(char **line);
 int					check_live_op(char *buf, t_pack *data);
 int					direct_label(t_pack *data, char **line, int i, int arg);
-int					direct_number(t_pack *data, char **line, int w, int arg);
+int					direct_number(t_pack *data, char **line, int w);
 int					indirect_arg(t_pack *data, char **line, int w);
 void				delete_comments(t_pack *data);
 int					check_ld_op(t_pack *data, char *buf);
 int					register_check(char **line, int w);
+int					indirect_validation(t_pack *data, char **line, int w);
+int					third_argument(t_pack *data, char **line, int w);
+int					buf_manager(t_pack *data, char *fst);
+int					read_ld_args(t_pack *data, char **line);
 #endif

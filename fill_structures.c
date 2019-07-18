@@ -69,8 +69,11 @@ t_pack		*fill_data(void)
 	data->dsc = 0;
 	data->line = 0;
 	data->w = 0;
-	data->min = 0;
-	data->max = 0;
+	data->arg1 = 0;
+	data->arg2 = 0;
+	data->arg3 = 0;
+	// data->min = 0;
+	// data->max = 0;
 	data->bytes = 0;
 	return (data);
 }

@@ -12,6 +12,7 @@
 
 #include "core_war.h"
 
+//{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0}
 char 		**squeeze_elements(t_pack *data)
 {
 	int		i;
@@ -71,8 +72,6 @@ int			replace_elements(t_pack *data, char *arg)
 	{
 		if (data->buf)
 		{
-			if (data->buf[0] != '0')
-				return (0);
 			buf = data->buf;
 			data->buf = ft_strjoin(buf, data->tokens[data->line][i]);
 			free(buf);
@@ -90,56 +89,58 @@ int			replace_elements(t_pack *data, char *arg)
 
 int			check_indirect_arg(t_pack *data)
 {
+	ft_printf("Indirect argument [%s]\n", data->tokens[data->line][data->w]);
 	data = NULL;
 	return (1);
 }
 
-int			check_2nd_arg(t_pack *data)
+int			check_2nd_arg(t_pack *data, char **line)
 {
-	char 	**str;
 	int		w;
 
-	w = data->w++;
-	str = data->tokens[data->line];
-	if (str[w][0] == 'r' && register_check(str, w))
+	w = ++data->w;
+	ft_printf(" LINE - %s\n", line[data->w]);
+	if (line[w] && line[w][0] == 'r' && register_check(line, w))
 		return (1);
 	return (0);
 }
 
-int			read_ld_args(t_pack *data)
+int			read_ld_args(t_pack *data, char **line)
 {
 	int		res;
 
 	res = 0;
-	ft_printf("------%s\n", data->tokens[data->line][data->w]);
-	if (data->tokens[data->line][data->w][0] == '%')
+	ft_printf("------%s\n", line[data->w]);
+	if (line[data->w][0] == '%')
 	{
-		if (data->tokens[data->line][data->w][1] == ':'
-		&& direct_label(data, data->tokens[data->line], 1, 2))
+		if (line[data->w][1] == ':'
+		&& direct_label(data, line, 1, 2))
 		{
-			check_2nd_arg(data);
+			data->arg1 = 1;
+			res = check_2nd_arg(data, line);
+			data->arg2 = res ? 1 : 0;
 			ft_printf("Direct label res [%d]\n", res);
 		}
-		else if (direct_number(data, data->tokens[data->line], data->w, 2))
+		else if (direct_number(data, line, data->w))
 		{
-			check_2nd_arg(data);
+			data->arg1 = 1;
+			res = check_2nd_arg(data, line);
 			ft_printf("Direct Number res [%d]\n", res);
+			data->arg2 = res ? 1 : 0;
 		}
 		else
-			ft_printf("Wrong moves\n");
-		for(int k = 0; data->tokens[data->line][k];k++)
-			ft_printf("==%s==\n", data->tokens[data->line][k]);
+			res = 0;
 	}
-	else if (check_indirect_arg(data))
+	else if (indirect_validation(data, line, data->w))
 	{
-		check_2nd_arg(data);
-		ft_printf("do some stuff\n");
+		data->arg1 = 1;
+		res = check_2nd_arg(data, line);
+		data->arg2 = res ? 1 : 0;
 	}
 	else
-	{
-		ft_printf("wrong instruciton!\n");
-	}
-	
+		res = 0;
+	for(int k = 0; line[k];k++)
+		ft_printf("==%s==\n", line[k]);
 	return (res);
 }
 
@@ -147,14 +148,18 @@ int			check_ld_op(t_pack *data, char *buf)
 {
 	int		res;
 
-	res = 0;
-	// if (data->buf)
-	// {
-	res = replace_elements(data, buf);
-	data->w++;
-	read_ld_args(data);
-	// }
+	//Function that counts ','
+	if (data->buf)
+		buf_manager(data, buf);
+	ft_printf("Buffer - %s\n", data->buf);
 	system("leaks asm");
 	exit(1);
+	res = 0;
+	res = replace_elements(data, buf);
+	data->w++;
+	if (res)
+		res = read_ld_args(data, data->tokens[data->line]);
+	
+	ft_printf("Hey = %d\n", res);	
 	return (1);
 }
