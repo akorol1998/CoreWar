@@ -26,7 +26,6 @@ int			finish_comment(t_pack *data, int count)	//check this name to be not bigger
 	lseek(data->dsc, -count, 1);
 	bytes = read(data->dsc, buf, count - 1);
 	buf[bytes] = '\0';
-	ft_printf(" name bitch [%s]\n", buf);
 	del = data->comment;
 	data->comment = ft_strjoin(data->comment, buf);
 	free(del);

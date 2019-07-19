@@ -141,7 +141,7 @@ int			read_ld_args(t_pack *data, char **line)
 		res = 0;
 	for(int k = 0; line[k];k++)
 		ft_printf("==%s==\n", line[k]);
-	return (res);
+	return (data->arg1 || data->arg2);
 }
 
 int			check_ld_op(t_pack *data, char *buf)
@@ -150,7 +150,11 @@ int			check_ld_op(t_pack *data, char *buf)
 
 	//Function that counts ','
 	if (data->buf)
-		buf_manager(data, buf);
+	{
+		res = buf_manager(data, buf);
+		ft_printf("token [%s], word - [%d], res - [%d]\n", data->tokens[data->line][data->w], data->w, res);
+		concatenate_buf(data);
+	}
 	ft_printf("Buffer - %s\n", data->buf);
 	system("leaks asm");
 	exit(1);

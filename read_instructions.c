@@ -34,6 +34,7 @@ int			actual_instructions(t_pack *data)
 	line = -1;
 	while (data->tokens[++line])
 	{
+		ft_printf("Seg fault here - %s\n", data->tokens[line][0]);
 		if (!check_if_label(data, line))
 		{
 			ft_printf("The first element ======= %s ======\n", data->tokens[line][0]);
@@ -42,6 +43,7 @@ int			actual_instructions(t_pack *data)
 			else
 				ft_printf("Works fine");
 		}
+		ft_printf("Seg fault here - %s\n", data->tokens[line][0]);
 	}
 	for(int i=0;data->labels[i];i++)
 	{
@@ -67,6 +69,7 @@ int			read_instructions(t_pack *data)
 		if (!data->tokens[i])
 			i--;
 		free(line);
+		data->file_lines++;
 	}
 	delete_comments(data);
 	print_tokens(data);

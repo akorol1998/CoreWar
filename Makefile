@@ -29,6 +29,7 @@ live_op.c \
 delete_comments.c \
 load.c \
 buf_manager.c \
+line_manipulation.c \
 
 FLAGS = -Wall -Wextra -Werror
 

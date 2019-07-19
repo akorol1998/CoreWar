@@ -108,7 +108,6 @@ int			main(int argc, char **argv)
 		ft_printf("%s\n", strerror(EINVAL));
 		return (0);
 	}
-	ft_printf("%d", dsc);
 	data = fill_data();
 	data->dsc = dsc;
 	start_reading(data);

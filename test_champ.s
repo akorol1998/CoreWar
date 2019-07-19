@@ -9,17 +9,16 @@ loop:
 	sti r01, %:live, %434     #wef
 
 take:
-
 		#ewgew
         
 		#ewgwe
 
-live:
-        live %6
-        ld%4, r2 #Case 'ld: live, r2' should not work !!!
+live:ld%34 ,r16 #Case 'ld: live, r2' should not work !!!
+		live%6
         zjmp %:pask
 
 pask:
+
 
 pask:
 

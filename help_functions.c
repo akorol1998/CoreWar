@@ -34,7 +34,6 @@ int			compare_func(char *buf, t_pack *data)
 		if (!ft_strncmp(data->op[i], buf, j))
 			return (1); // changed 0
 	}
-	ft_printf("Watch attentively [%s] != [%s]", buf, data->op[i]);
 	return (0); // changed 1
 }
 
@@ -72,7 +71,7 @@ int         char_in_array(char c)
 
 int			check_after_token(t_pack *data, int line, int word, int i)
 {
-	int		res;
+	// int		res;
 	int		c;
 	char	*buf;
 
@@ -82,13 +81,13 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 		merge_chars(&buf, data->tokens[line][word][i]);
 	if (buf)
 	{
-		if (!(res = valid_invalid_comment(buf)))
-		{
-			free(buf);
-			return (0);
-		}
-		else if (res == -1)
-			delete_commented_part_of_the_line(data, line, word);
+		// if (!(res = valid_invalid_comment(buf)))
+		// {
+		// 	free(buf);
+		// 	return (0);
+		// }
+		// if (res == -1)
+		// 	delete_commented_part_of_the_line(data, line, word);
 		if (!data->buf)
 			data->buf = buf;
 		else
@@ -96,6 +95,7 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 			free(data->buf);
 			data->buf = buf;
 		}
+		new_line_func(data, data->buf);
 		ft_printf("data->buf [%s]\n", data->buf);
 	}
 	return (1);

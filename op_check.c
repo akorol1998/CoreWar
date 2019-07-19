@@ -26,7 +26,7 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	}
 	else if (!ft_strcmp(buf, "live"))
 	{
-		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w], data->buf);
+		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w + 1], data->buf);
 		res = check_live_op(buf, data);
 		
 	}
@@ -41,6 +41,11 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	return (res);
 }
 
+// Usign this function extract the data->buf, starting from 'i' till the end index after 
+// (*buf) = ft_strdup(norm); Follow the plan that is in your exrcise book, separate everything
+// into different elements and only then process the operation arguments, by handling data->buf first
+// and then the remaining arguments if they apear to be not in the buf. But that's just simple case of 
+// different operation standing together.
 int			possible_ops(t_pack *data, char **buf, char *word, int i)
 {
 	int		n;

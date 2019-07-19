@@ -32,8 +32,6 @@ int			comment_check(t_pack *data, int line)
 		while (data->labels[++i])
 			;
 		data->labels[i] = ft_strdup(buf);
-        ft_printf("Realoccing here for [%s]-i-[%d]-arr-[%s]\n", buf, i, data->labels[i]);
-		ft_printf("check rest of the element\n");
 		free(buf);
         return (1);
     }

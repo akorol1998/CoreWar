@@ -17,6 +17,7 @@
 # include "fcntl.h"
 # include "op.h"
 # define BUF_SIZE 1
+# define LN_SIZE 10
 # define HASH(C) (((C) == ('#')) ? 1 : 0)
 # define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 # define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
@@ -35,6 +36,8 @@ typedef struct      s_pack
 	int				arg1;
 	int				arg2;
 	int				arg3;
+	int				lbl;
+	int				file_lines;
     // int				min;
     // int				max;
 	int				bytes;
@@ -74,4 +77,6 @@ int					indirect_validation(t_pack *data, char **line, int w);
 int					third_argument(t_pack *data, char **line, int w);
 int					buf_manager(t_pack *data, char *fst);
 int					read_ld_args(t_pack *data, char **line);
+int					concatenate_buf(t_pack *data);
+int					new_line_func(t_pack *data, char *buf);
 #endif
