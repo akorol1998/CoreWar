@@ -51,7 +51,9 @@ void		replace_elements_in_line(t_pack *data, char **arr, char **arr2)
 	j = i;
 	i = -1;
 	while (++i + j < len + len2)
+	{
 		data->tokens[data->line][i + j] = arr2[i];
+	}
 	free(arr);
 	free(arr2);
 }	
@@ -139,8 +141,6 @@ int			read_ld_args(t_pack *data, char **line)
 	}
 	else
 		res = 0;
-	for(int k = 0; line[k];k++)
-		ft_printf("==%s==\n", line[k]);
 	return (data->arg1 || data->arg2);
 }
 
@@ -149,21 +149,32 @@ int			check_ld_op(t_pack *data, char *buf)
 	int		res;
 
 	//Function that counts ','
+	res = 0;
+	if (!coma_count(data->tokens[data->line], 1))
+	{
+		ft_printf("Coma problems\n");
+		system("leaks asm");
+		exit(1);
+	}
 	if (data->buf)
 	{
 		res = buf_manager(data, buf);
 		ft_printf("token [%s], word - [%d], res - [%d]\n", data->tokens[data->line][data->w], data->w, res);
+		pick_word(data, "ld", data->line);
 		concatenate_buf(data);
+		ft_printf("(((((\n");
 	}
-	ft_printf("Buffer - %s\n", data->buf);
-	system("leaks asm");
-	exit(1);
-	res = 0;
-	res = replace_elements(data, buf);
-	data->w++;
+	for(int k = 0; data->tokens[data->line][k];k++)
+		ft_printf("==%s==\n", data->tokens[data->line][k]);
+	// Now cases with simple spaces and tabs, they are much easier
+	// res = replace_elements(data, buf);
+	ft_printf("))))\n");
+	data->w = data->lbl ? 2 : 1;
 	if (res)
 		res = read_ld_args(data, data->tokens[data->line]);
 	
 	ft_printf("Hey = %d\n", res);	
+	// system("leaks asm");
+	// exit(1);
 	return (1);
 }

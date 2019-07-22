@@ -36,7 +36,7 @@ typedef struct      s_pack
 	int				arg1;
 	int				arg2;
 	int				arg3;
-	int				lbl;
+	char			*lbl;
 	int				file_lines;
     // int				min;
     // int				max;
@@ -78,5 +78,10 @@ int					third_argument(t_pack *data, char **line, int w);
 int					buf_manager(t_pack *data, char *fst);
 int					read_ld_args(t_pack *data, char **line);
 int					concatenate_buf(t_pack *data);
-int					new_line_func(t_pack *data, char *buf);
+int					new_line_func(t_pack *data, char *buf, int line);
+void				replace_elements_in_line(t_pack *data, char **arr, char **arr2);
+int					extract_op(t_pack *data, int idx);
+void				pick_word(t_pack *data, char *buf, int line);
+int					no_label(char *buf, t_pack *data);
+int					coma_count(char **arr, int a);
 #endif

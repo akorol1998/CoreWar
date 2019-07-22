@@ -95,8 +95,22 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 			free(data->buf);
 			data->buf = buf;
 		}
-		new_line_func(data, data->buf);
-		ft_printf("data->buf [%s]\n", data->buf);
+		new_line_func(data, data->buf, line);
+		if (!data->lbl)
+			return (1);
+		ft_printf("AFTER\n");
+		for(int u = 0;data->tokens[line][u];u++)
+			ft_printf("<%s>", data->tokens[line][u]);
+		ft_printf("BUF %s\n", data->buf);
+		c = extract_op(data, 0);
+		for(int u = 0;data->tokens[line][u];u++)
+			ft_printf("<%s>", data->tokens[line][u]);
 	}
-	return (1);
+	else if (data->tokens[line][word + 1])
+	{
+		c = extract_op(data, 1);
+		for(int u = 0;data->tokens[line][u];u++)
+			ft_printf("<%s>", data->tokens[line][u]);
+	}
+	return (c);
 }

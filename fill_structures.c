@@ -75,7 +75,7 @@ t_pack		*fill_data(void)
 	// data->min = 0;
 	// data->max = 0;
 	data->bytes = 0;
-	data->lbl = 0;
+	data->lbl = NULL;
 	data->file_lines = 0;
 	return (data);
 }

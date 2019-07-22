@@ -12,15 +12,6 @@
 
 #include "core_war.h"
 
-//2 & 5
-int			read_first_element(t_pack *data, int line)
-{
-	if (label_check(data, line))
-		return (1);
-	return (0);
-	ft_printf("start checking for label");
-}
-
 int			actual_instructions(t_pack *data)
 {
 	int		line;
@@ -34,16 +25,12 @@ int			actual_instructions(t_pack *data)
 	line = -1;
 	while (data->tokens[++line])
 	{
-		ft_printf("Seg fault here - %s\n", data->tokens[line][0]);
 		if (!check_if_label(data, line))
 		{
 			ft_printf("The first element ======= %s ======\n", data->tokens[line][0]);
 			if (!check_for_being_op(data, line))
 				ft_printf("Some shit, i don't know\n");
-			else
-				ft_printf("Works fine");
 		}
-		ft_printf("Seg fault here - %s\n", data->tokens[line][0]);
 	}
 	for(int i=0;data->labels[i];i++)
 	{
@@ -71,6 +58,7 @@ int			read_instructions(t_pack *data)
 		free(line);
 		data->file_lines++;
 	}
+	
 	delete_comments(data);
 	print_tokens(data);
 	actual_instructions(data);

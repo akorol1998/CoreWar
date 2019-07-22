@@ -58,3 +58,23 @@ void		clean_line(char **line)
 		free(line[i]);
 	free(line);
 }
+
+int			coma_count(char **arr, int a)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	while (arr[++i])
+	{
+		j = -1;
+		while (arr[i][++j])
+			if (arr[i][j] == ',')
+				a--;
+	}
+	if (!a)
+		return (1);
+	return (0);
+}
+

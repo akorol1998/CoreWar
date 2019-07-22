@@ -12,49 +12,71 @@
 
 #include "core_war.h"
 
-// void		label_line(t_pack *data, char **tab)
-// {
-	
-// }
-
-void		no_label_line(t_pack *data, char **tab)
+void		label_case(t_pack *data, char **tab)
 {
-	char	*fst;
-	int		i;
+	char	**temp;
+	char	**arr;
 	int		ln;
+	int		j;
+	int		i;
 
-	fst = ft_strsub(data->tokens[data->line][0], 0,
-	ft_strlen(data->tokens[data->line][0]) - ft_strlen(tab[0]));
+	temp = (char**)malloc(sizeof(char*) * 3);
+	temp[2] = NULL;
+	temp[0] = ft_strdup(data->tokens[data->line][0]);
+	temp[1] = ft_strdup(data->tokens[data->line][1]);
+	ln = len_arr(temp) + len_arr(tab);
+	arr = (char**)malloc(sizeof(char*) * ln + 1);
+	arr[ln] = NULL;
+	i = -1;
+	while (temp[++i])
+		arr[i] = temp[i];
+	j = -1;
+	while (tab[++j])
+		arr[i + j] = tab[j];
+	free(tab);
+	free(temp);
 	i = -1;
 	while (data->tokens[data->line][++i])
 		free(data->tokens[data->line][i]);
 	free(data->tokens[data->line]);
-	ln = len_arr(tab) + 1;
-	data->tokens[data->line] = (char**)malloc(sizeof(char*) * ln + 1);
-	data->tokens[data->line][ln] = NULL;
-	i = -1;
-	data->tokens[data->line][++i] = fst;
-	while (++i < ln)
-		data->tokens[data->line][i] = tab[i - 1];
-	free(tab);
+	data->tokens[data->line] = arr;
 }
 
-void		create_new_line(t_pack *data, char **tab)
+void		final_cut(t_pack *data, char **tab)
 {
-	if (data->lbl)
-	{
-		;
-		// label_line(data, tab); Basically if we got label, program should replace not 0 index but 1 index element
-	}
+	// char	*fst;
+	// int		i;
+	// int		ln;
+
+	if(data->lbl)
+		label_case(data, tab);
 	else
 	{
-		no_label_line(data, tab);
+		for (int k = 0;data->tokens[data->line][k];k++)
+			ft_printf("tokens -- %s\n", data->tokens[data->line][k]);
+		for (int k = 0;tab[k];k++)
+			ft_printf("Tab -- %s\n", tab[k]);
+		// fst = ft_strsub(data->tokens[data->line][0], 0,
+		// ft_strlen(data->tokens[data->line][0]) - ft_strlen(tab[0]));
+		// i = -1;
+		// while (data->tokens[data->line][++i])
+		// 	free(data->tokens[data->line][i]);
+		// free(data->tokens[data->line]);
+		// ln = len_arr(tab) + 1;
+		// data->tokens[data->line] = (char**)malloc(sizeof(char*) * ln + 1);
+		// data->tokens[data->line][ln] = NULL;
+		// i = -1;
+		// data->tokens[data->line][++i] = fst;
+		// while (++i < ln)
+		// 	data->tokens[data->line][i] = tab[i - 1];
+		free(tab);
 	}
 }
 
 int			validate_ld_args(t_pack *data, char **tab)
 {
 	int		res;
+
 	if (data->arg1 && data->arg2)
 		res = 1;
 	else if (!data->arg1)
@@ -64,7 +86,9 @@ int			validate_ld_args(t_pack *data, char **tab)
 	else
 		res = 1;
 	if (res)
-		create_new_line(data, tab);
+	{
+		final_cut(data, tab);
+	}
 	return (res);
 }
 
@@ -95,24 +119,33 @@ int			concatenate_buf(t_pack *data)
 	char	*del;
 	int		i;
 
-	i = data->w;
+	i = ++data->w;
 	arr1 = ft_strsplit(data->buf, ',');
+	buf = NULL;
 	if (data->tokens[data->line][data->w])
 	{
 		buf = ft_strdup(data->tokens[data->line][data->w]);
+		ft_printf("add. %p - %s\n", buf, buf);
 		while (data->tokens[data->line][++i])
 		{
 			del = buf;
-			buf = ft_strjoin(del, data->tokens[data->line][i]);
+			buf = ft_strjoin(buf, data->tokens[data->line][i]);
+			ft_printf("add. %p\n", buf);
 			free(del);
 		}
 		arr2 = ft_strsplit(buf, ',');
+		free(buf);
+		ft_printf("(((((\n");
 		i = merge_arrays(data, arr1, arr2);
 		free(arr2);
+		free(arr1);
 	}
 	else
+	{
+		for(int y = 0; data->tokens[data->line][y];y++)
+			ft_printf("{%s}\n", data->tokens[data->line][y]);
 		i = validate_ld_args(data, arr1);
-	free(arr1);
+	}
 	return (i);
 }
 

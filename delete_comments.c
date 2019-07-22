@@ -20,6 +20,7 @@ void		shift_arr(t_pack *data, int line, int idx)
 	if (!data->tokens[line][idx] && !idx && line < data->file_lines)
 	{
 		i = line + 1;
+		free(data->tokens[line]);
 		while (data->tokens[i])
 		{
 			data->tokens[line] = data->tokens[i];

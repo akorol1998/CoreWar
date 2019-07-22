@@ -12,12 +12,35 @@
 
 #include "core_war.h"
 
+void		pick_word(t_pack *data, char *buf, int line)
+{
+	int		i;
+
+	data->line = line;
+	i = -1;
+	while (data->tokens[line][++i] && ft_strcmp(buf, data->tokens[line][i]))
+		;
+	data->w = i + 1;
+	ft_printf("===== %d\n", data->w);
+}
+
+void		clean_unique_data(t_pack *data)
+{
+	free(data->buf);
+	data->buf = NULL;
+	data->w = 0;
+	data->arg1 = 0;
+	data->arg2 = 0;
+	data->arg3 = 0;
+	free(data->lbl);
+	data->lbl = NULL;
+}
+
 int			op_bridge(t_pack *data, char *buf, int line, int w)
 {
 	int		res;
 
-	data->line = line;
-	data->w = w + 1;
+	pick_word(data, buf, line);
 	res = 0;
 	if (!ft_strcmp(buf, "sti"))
 	{
@@ -35,8 +58,11 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w], data->buf);
 		res = check_ld_op(data, buf);
 	}
-	free(data->buf);
-	data->buf = NULL;
+	ft_printf("************ The instruction ************\n");
+	for(int k = 0;data->tokens[line][k];k++)
+		ft_printf("|%s|", data->tokens[line][k]);
+	ft_printf("\n");
+	clean_unique_data(data);
 	ft_printf("Result = [%d]\n", res);
 	return (res);
 }
@@ -71,6 +97,8 @@ int			possible_ops(t_pack *data, char **buf, char *word, int i)
 		free((*buf));
 		(*buf) = ft_strdup(norm);
 	}
+	ft_printf("buf %s\n", *buf);
+	ft_printf("data->buf %s\n", data->buf);
 	free(norm);
 	return (n != -1 ? n : 0);
 }
@@ -81,6 +109,11 @@ int         check_for_being_op(t_pack *data, int line)
     char    *buf;
 
     buf = NULL;
+	if (data->lbl)
+	{
+		free(data->lbl);
+		data->lbl = NULL;	
+	}
 	if(data->tokens[line])
 	{
 		i = -1;
@@ -89,7 +122,7 @@ int         check_for_being_op(t_pack *data, int line)
 			merge_chars(&buf, data->tokens[line][0][i]);
             if (i + 1 >= 2 && i + 1 <= 5)
 			{
-				
+				ft_printf("dratuti \n");
 				i = possible_ops(data, &buf, data->tokens[line][0], i);
 				if (i)
                 {
