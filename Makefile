@@ -28,6 +28,7 @@ store_index_3.c \
 live_op.c \
 delete_comments.c \
 load.c \
+load_2.c \
 buf_manager.c \
 line_manipulation.c \
 

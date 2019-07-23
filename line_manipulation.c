@@ -22,7 +22,6 @@ int		arrcnp(char	**arr1, char **arr2, int s)
 	while (arr1[++i] && arr2[s])
 	{
 		arr1[i] = ft_strdup(arr2[s]);
-		ft_printf("This address %p\n", arr1[i]); //track this leak
 		s++;
 	}
 	return (1);
@@ -115,6 +114,14 @@ int			extract_op(t_pack *data, int idx)
 		if ((leng = ft_strlen(buf)) >= 2 && leng <= 5)
 		{
 			i = possible_ops(data, &buf, data->tokens[data->line][data->w], i);
+			if (!ft_strcmp(buf, data->tokens[data->line][data->w]))
+			{
+				free(data->buf);
+				data->buf = data->tokens[data->line][data->w + 1] ?
+				ft_strdup(data->tokens[data->line][data->w + 1]) : NULL;
+				free(buf);
+				return (1);
+			}
 			if (i)
 			{
 				sub = ft_strsub(data->tokens[data->line][data->w], ft_strlen(buf),
@@ -126,11 +133,13 @@ int			extract_op(t_pack *data, int idx)
 				free(buf);
 				return (i);
 			}
+			system("leaks asm");
 			ft_printf("LABEL WRONG [%s]\n", buf);
 			free(buf);
 			exit(1);
 			return(0);
 		}
 	}
+	free(buf);
 	return (0);
 }

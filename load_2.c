@@ -10,99 +10,75 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "core_war.h"
+#include "core_war.h"
 
-// char			**new_tab(char **line, int s)
-// {
-// 	int			i;
-// 	int			j;
-// 	char		**str;
+void		label_yes(t_pack *data, char ***arr1, char ***arr2)
+{
+	char	*buf;
+	char	*del;
+	int		i;
 
-// 	i = -1;
-// 	while (++i < s)
-// 		;
-// 	str = (char**)malloc(sizeof(char*) * i + 1);
-// 	str[i] = NULL;
-// 	j = -1;
-// 	while (++j < i)
-// 		str[j] = ft_strdup(line[j]);
-// 	return (str);
-// }
+	(*arr1) = (char**)malloc(sizeof(char*) * 3);
+	(*arr1)[2] = NULL;
+	(*arr1)[0] = ft_strdup(data->tokens[data->line][0]);
+	(*arr1)[1] = ft_strdup(data->tokens[data->line][1]);
+	buf = NULL;
+	i = 2;
+	buf = ft_strdup(data->tokens[data->line][i]);
+	while (data->tokens[data->line][++i])
+	{
+		del = buf;
+		buf = ft_strjoin(buf, data->tokens[data->line][i]);
+		free(del);
+	}
+	(*arr2) = ft_strsplit(buf, ',');
+	free(buf);
+}
 
-// char			**new_tab2(char **line, int i)
-// {
-// 	char		*cley;
-// 	char		**tab;
-// 	char		*del;
+void		label_no(t_pack *data, char ***arr1, char ***arr2)
+{
+	char	*buf;
+	char	*del;
+	int		i;
 
-// 	cley = ft_strdup(line[i]);
-// 	while (line[++i])
-// 	{
-// 		del = cley;
-// 		cley = ft_strjoin(del, line[i]);
-// 		free(del);
-// 	}
-// 	tab = ft_strsplit(cley, ',');
-// 	free(cley);
-// 	return (tab);
-// }
-// void			clean_line_2(t_pack *data, char **tab, char **tab2)
-// {
-// 	int			i;
-// 	int			j;
-// 	int			ln2;
-// 	int			ln;
+	(*arr1) = (char**)malloc(sizeof(char*) * 2);
+	(*arr1)[1] = NULL;
+	(*arr1)[0] = ft_strdup(data->tokens[data->line][0]);
+	buf = NULL;
+	i = 1;
+	buf = ft_strdup(data->tokens[data->line][i]);
+	while (data->tokens[data->line][++i])
+	{
+		del = buf;
+		buf = ft_strjoin(buf, data->tokens[data->line][i]);
+		free(del);
+	}
+	(*arr2) = ft_strsplit(buf, ',');
+	ft_printf("address-%p\n", *arr2);
+	free(buf);
+}
 
-// 	i = -1;
-// 	while (data->tokens[data->line][++i])
-// 		free(data->tokens[data->line][i]);
-// 	free(data->tokens[data->line]);
-// 	ln = len_arr(tab);
-// 	ln2 = len_arr(tab2);
-// 	data->tokens[data->line] = (char**)malloc(sizeof(char*) * (ln + ln2) + 1);
-// 	data->tokens[data->line][ln + ln2] = NULL;
-// 	i = -1;
-// 	while (++i < ln + ln2)
-// 		data->tokens[data->line][i] = tab[i];
-// 	j = -1;
-// 	while (i + ++j < ln + ln2)
-// 		data->tokens[data->line][i + j] = tab2[j];
-// }
 
-// int				separate_arguments(t_pack *data)
-// {
-// 	int			i;
-// 	int			j;
-// 	char		**line;
-// 	char		**tab;
-// 	char		**tab2;
+void		structurize(t_pack *data)
+{
+	char	**arr1;
+	char	**arr2;
 
-// 	i = -1;
-// 	line = data->tokens[data->line];
-// 	while (line[++i])
-// 	{
-// 		ft_printf("words - %s \n", line[i]);
-// 		if (ft_strchr(line[i], ','))
-// 			break ;
-// 	}
-// 	if (!line[i])
-// 		return (0);
-// 	tab = new_tab(line, i);
-// 	tab2 = new_tab2(line, i);
-// 	clean_line_2(data, tab, tab2);
-// 	free(tab);
-// 	free(tab2);
-// 	j = 0;
-// 	ft_printf("arg - %s\n", data->tokens[data->line][data->w]);
-// 	system("leaks asm");
-// 	exit(1);
-// 	return (1);
-// }
-
-// // int				valid_data_buf(t_pack *data)
-// // {
-// // 	if (data->buf)
-// // 	{
-// // 		data
-// // 	}
-// // }
+	arr1 = NULL;
+	arr2 = NULL;
+	for(int k = 0; data->tokens[data->line][k];k++)
+		ft_printf("[%s]\n", data->tokens[data->line][k]);
+	if (data->lbl)
+	{
+		label_yes(data, &arr1, &arr2);
+	}
+	else
+	{
+		ft_printf("Or-address-%p\n", arr2);
+		label_no(data, &arr1, &arr2);
+	}
+	replace_elements_in_line(data, arr1, arr2);
+	for(int k = 0; data->tokens[data->line][k];k++)
+		ft_printf("%p==%s==\n", data->tokens[data->line][k],data->tokens[data->line][k]);
+	ft_printf("Well - %p\nWell - %p\n", arr1[1], arr2[1]);
+}

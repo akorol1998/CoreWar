@@ -102,12 +102,18 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 		for(int u = 0;data->tokens[line][u];u++)
 			ft_printf("<%s>", data->tokens[line][u]);
 		ft_printf("BUF %s\n", data->buf);
-		c = extract_op(data, 0);
+		c = extract_op(data, 1);
 		for(int u = 0;data->tokens[line][u];u++)
 			ft_printf("<%s>", data->tokens[line][u]);
 	}
 	else if (data->tokens[line][word + 1])
 	{
+		for(int i = 0;data->tokens[i];i++)
+		{
+			for(int j = 0;data->tokens[i][j];j++)
+				ft_printf(" %s [%p]", data->tokens[i][j], data->tokens[i][j]);
+			ft_printf("\n");
+		}
 		c = extract_op(data, 1);
 		for(int u = 0;data->tokens[line][u];u++)
 			ft_printf("<%s>", data->tokens[line][u]);

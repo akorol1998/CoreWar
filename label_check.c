@@ -107,7 +107,6 @@ int         check_if_label(t_pack *data, int line) //What to do when separate li
 		ft_printf(".....................[%s]....................\n", buf);
 		if (label_is_present(buf, data) && check_after_token(data, line, 0, i))
 		{
-			data->lbl = ft_strdup(buf);
 			free(buf);
 			for(int k = 0;data->tokens[line][k];k++)
 				ft_printf("|%s|", data->tokens[line][k]);

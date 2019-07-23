@@ -84,4 +84,5 @@ int					extract_op(t_pack *data, int idx);
 void				pick_word(t_pack *data, char *buf, int line);
 int					no_label(char *buf, t_pack *data);
 int					coma_count(char **arr, int a);
+void				structurize(t_pack *data);
 #endif

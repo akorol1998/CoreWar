@@ -35,7 +35,10 @@ int			label_is_present(char *lbl, t_pack *data)
 	while (data->labels[++i])
 	{
 		if (!ft_strcmp(data->labels[i], lbl))
+		{
+			data->lbl = ft_strdup(lbl);
 			return (1);
+		}
 	}
 	return (0);
 }

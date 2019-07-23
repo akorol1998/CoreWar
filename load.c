@@ -150,6 +150,7 @@ int			check_ld_op(t_pack *data, char *buf)
 
 	//Function that counts ','
 	res = 0;
+	//custom functions
 	if (!coma_count(data->tokens[data->line], 1))
 	{
 		ft_printf("Coma problems\n");
@@ -159,22 +160,25 @@ int			check_ld_op(t_pack *data, char *buf)
 	if (data->buf)
 	{
 		res = buf_manager(data, buf);
-		ft_printf("token [%s], word - [%d], res - [%d]\n", data->tokens[data->line][data->w], data->w, res);
+		ft_printf("BUFFER\n");
 		pick_word(data, "ld", data->line);
 		concatenate_buf(data);
 		ft_printf("(((((\n");
 	}
-	for(int k = 0; data->tokens[data->line][k];k++)
-		ft_printf("==%s==\n", data->tokens[data->line][k]);
-	// Now cases with simple spaces and tabs, they are much easier
-	// res = replace_elements(data, buf);
+	else
+	{
+		structurize(data);
+		res = 1;
+	}
+	// system("leaks asm");
+	// exit(1);
 	ft_printf("))))\n");
 	data->w = data->lbl ? 2 : 1;
 	if (res)
+	{
 		res = read_ld_args(data, data->tokens[data->line]);
-	
+	}
+	ft_printf("Data->w %s\n", data->tokens[data->line][data->w + 1]);
 	ft_printf("Hey = %d\n", res);	
-	// system("leaks asm");
-	// exit(1);
-	return (1);
+	return (res);
 }

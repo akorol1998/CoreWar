@@ -50,7 +50,8 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	else if (!ft_strcmp(buf, "live"))
 	{
 		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w + 1], data->buf);
-		res = check_live_op(buf, data);
+		ft_printf("^%p^\n", data->tokens[line][w + 1]);
+		res = check_live_op(buf, data); //replace with 'check_op_live' funtion
 		
 	}
 	else if (!ft_strcmp(buf, "ld"))
