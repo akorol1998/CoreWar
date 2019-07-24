@@ -97,7 +97,7 @@ void		insert_two_words(t_pack *data, char *buf, char* sub, int s)
 	// 	ft_printf("%s\n", data->tokens[data->line][y]);
 }
 
-int			extract_op(t_pack *data, int idx)
+int			extract_op(t_pack *data)
 {
 	int		i;
 	int		leng;
@@ -106,19 +106,22 @@ int			extract_op(t_pack *data, int idx)
 
 	i = -1;
 	buf = NULL;
-	data->w = idx ? 1 : 0;
+					//data->op_idx;
 	while (data->tokens[data->line][data->w][++i])
 	{
 		if (!(buf && (leng = ft_strlen(buf)) >= 2 && leng <= 5))
 			merge_chars(&buf, data->tokens[data->line][data->w][i]);
 		if ((leng = ft_strlen(buf)) >= 2 && leng <= 5)
 		{
+			ft_printf("op_idx is %d - [%s]\n", data->w, data->buf);
 			i = possible_ops(data, &buf, data->tokens[data->line][data->w], i);
 			if (!ft_strcmp(buf, data->tokens[data->line][data->w]))
 			{
+				ft_printf("clear - [%s]\n", data->tokens[data->line][data->w]);
 				free(data->buf);
 				data->buf = data->tokens[data->line][data->w + 1] ?
 				ft_strdup(data->tokens[data->line][data->w + 1]) : NULL;
+				ft_printf("joooofer - [%s]\n", data->buf);
 				free(buf);
 				return (1);
 			}

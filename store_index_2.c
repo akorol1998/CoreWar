@@ -16,10 +16,14 @@
 int			direct_label(t_pack *data, char **line, int i, int s)
 {
 	char	*buf;
+	char	*del;
 
 	while (line[data->w][++i] && line[data->w][i] != '#')
 		;
-	buf = ft_strsub(line[data->w], s, i - s);
+	del = ft_strsub(line[data->w], s, i - s);
+	buf = ft_strjoin(del, ":");
+	free(del);
+	ft_printf("[[%s]]\n", buf);
 	i = -1;
 	while (data->labels[++i])
 	{
@@ -68,9 +72,9 @@ int			direct_number(t_pack *data, char **line, int w)
 	while (line[w][++i])
 	{
 		if ((line[w][i] == '+' || (line[w][i] == '-' && i != 1)) ||
-		(!ft_isdigit(line[w][i])))
+		(!ft_isdigit(line[w][i]) && line[w][i] != '+' && line[w][i] != '-'))
 		{
-			ft_printf("Error [%c]\n", line[w][i]);
+			ft_printf("Error [%c]-idx-[%d]\n", line[w][i], i);
 			return (0);
 		}
 	}	

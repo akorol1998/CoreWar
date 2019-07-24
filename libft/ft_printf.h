@@ -133,5 +133,6 @@ int					ft_printf(const char *restrict fmt, ...);
 void				process_piece(char const *str, t_nigga **nig);
 int					pick_up_args(va_list args,
 		char const *fmt, t_nigga **nig);
+char				*ft_strndup(char *s1, int n);
 
 #endif

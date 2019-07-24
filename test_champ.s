@@ -5,9 +5,8 @@
 		   .comment 			 "This city needs me me" #eQFQFEWwg
 
 
-live:
+live:  live %-5
 	ld %34, r16 	#Case 'ld: live, r2' should not work !!!
-	live %6
     zjmp %:pask
 
 loop: 

@@ -12,7 +12,7 @@
 
 #include "core_war.h"
 
-int			no_label(char *buf, t_pack *data)
+int			label_exists(char *buf, t_pack *data)
 {
 	int		i;
 
@@ -20,10 +20,10 @@ int			no_label(char *buf, t_pack *data)
 	while(data->labels[++i])
 	{
 		if (!ft_strcmp(buf, data->labels[i]))
-			return (0);
+			return (1);
 	}
 	data->labels[i] = ft_strdup(buf);
-	return (1);
+	return (0);
 }
 
 int         label_check(t_pack *data, int line)

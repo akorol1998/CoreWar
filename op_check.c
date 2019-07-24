@@ -51,7 +51,7 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	{
 		ft_printf("Operation is {%s} - [%s]-data->buf[%s]\n", buf, data->tokens[line][w + 1], data->buf);
 		ft_printf("^%p^\n", data->tokens[line][w + 1]);
-		res = check_live_op(buf, data); //replace with 'check_op_live' funtion
+		res = check_op_live(data, buf); //replace with 'check_op_live' funtion
 		
 	}
 	else if (!ft_strcmp(buf, "ld"))
@@ -63,7 +63,6 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 	for(int k = 0;data->tokens[line][k];k++)
 		ft_printf("|%s|", data->tokens[line][k]);
 	ft_printf("\n");
-	clean_unique_data(data);
 	ft_printf("Result = [%d]\n", res);
 	return (res);
 }
@@ -123,11 +122,12 @@ int         check_for_being_op(t_pack *data, int line)
 			merge_chars(&buf, data->tokens[line][0][i]);
             if (i + 1 >= 2 && i + 1 <= 5)
 			{
-				ft_printf("dratuti \n");
+				ft_printf("dratuti [%s]\n", buf);
 				i = possible_ops(data, &buf, data->tokens[line][0], i);
 				if (i)
                 {
 					ft_printf("Enter [%i] - op [%s]\n", i, buf);
+					data->op_idx = 0;
 					check_after_token(data, line, 0, i);
 					op_bridge(data, buf, line, 0);
 					ft_printf("Checking what is after operation in the element\n");

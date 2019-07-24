@@ -37,38 +37,6 @@ int			compare_func(char *buf, t_pack *data)
 	return (0); // changed 1
 }
 
-void         merge_chars(char **buf, char c)
-{
-    char    *del;
-    char    *buf2;
-
-    if (!(*buf))
-    {
-        (*buf) = ft_strnew(1);
-        (*buf)[0] = c;
-    }
-    else
-    {
-        buf2 = ft_strnew(1);
-        buf2[0] = c;
-        del = (*buf);
-        (*buf) = ft_strjoin((*buf), buf2);
-        free(del);
-        free(buf2);
-    }
-}
-
-int         char_in_array(char c)
-{
-    int     i;
-
-    i = -1;
-    while (LABEL_CHARS[++i])
-        if (LABEL_CHARS[i] == c)
-            return (1);
-    return (0);
-}
-
 int			check_after_token(t_pack *data, int line, int word, int i)
 {
 	// int		res;
@@ -77,17 +45,11 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 
 	buf = NULL;
 	c = 0;
+	ft_printf("TTTTT - %s [%d][%d][%d]\n", data->tokens[line][word], line, word, i);
 	while (data->tokens[line][word][++i])
 		merge_chars(&buf, data->tokens[line][word][i]);
 	if (buf)
 	{
-		// if (!(res = valid_invalid_comment(buf)))
-		// {
-		// 	free(buf);
-		// 	return (0);
-		// }
-		// if (res == -1)
-		// 	delete_commented_part_of_the_line(data, line, word);
 		if (!data->buf)
 			data->buf = buf;
 		else
@@ -101,20 +63,17 @@ int			check_after_token(t_pack *data, int line, int word, int i)
 		ft_printf("AFTER\n");
 		for(int u = 0;data->tokens[line][u];u++)
 			ft_printf("<%s>", data->tokens[line][u]);
-		ft_printf("BUF %s\n", data->buf);
-		c = extract_op(data, 1);
+		data->op_idx = 1;
+		c = extract_op(data);
 		for(int u = 0;data->tokens[line][u];u++)
 			ft_printf("<%s>", data->tokens[line][u]);
 	}
 	else if (data->tokens[line][word + 1])
 	{
-		for(int i = 0;data->tokens[i];i++)
-		{
-			for(int j = 0;data->tokens[i][j];j++)
-				ft_printf(" %s [%p]", data->tokens[i][j], data->tokens[i][j]);
-			ft_printf("\n");
-		}
-		c = extract_op(data, 1);
+		for(int u = 0;data->tokens[line][u];u++)
+			ft_printf("<%s>", data->tokens[line][u]);
+		data->w = !data->buf && data->lbl ? 1 : 0;
+		c = extract_op(data);
 		for(int u = 0;data->tokens[line][u];u++)
 			ft_printf("<%s>", data->tokens[line][u]);
 	}

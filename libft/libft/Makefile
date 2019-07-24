@@ -22,7 +22,7 @@ SRC =   ft_bzero.c \
         ft_putchar.c \
         ft_strlen.c \
         ft_strdup.c \
-        ft_strndup.c \
+		ft_strndup.c\
         ft_strcpy.c \
         ft_strncpy.c \
         ft_strcat.c \
@@ -78,6 +78,8 @@ SRC =   ft_bzero.c \
 		ft_max.c \
 		space_tab_split.c \
 		coma_hash_split.c \
+		char_join.c \
+		copy_till_end.c \
 
 CFLAGS = -Wextra -Wall -Werror
 

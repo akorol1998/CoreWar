@@ -94,4 +94,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 char				*ft_strncpy(char *str1, const char *str2, size_t len);
 char				**ft_space_tab_split(char const *s);
 char				**ft_coma_hash_split(char const *s);
+int					ft_copyuntil(char **dst, char *src, char c);
+char				*ft_strjoinch(char const *s1, char c);
+char				*ft_strndup(char *s1, int n);
 #endif

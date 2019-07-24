@@ -89,7 +89,7 @@ int         read_comment(t_pack *data, char *line)
 		ft_printf("Syntax error at token [TOKEN] ENDLINE\n");
         return (0);
 	}
-    if (!(res = actual_comment(data, line + i + 1)))
+	if (!(res = actual_comment(data, line + i + 1)))
 	{
 		ft_printf("Serious error at token [COMMENT]: wrong size!\n");
 		return (0);

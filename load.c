@@ -176,7 +176,7 @@ int			check_ld_op(t_pack *data, char *buf)
 	data->w = data->lbl ? 2 : 1;
 	if (res)
 	{
-		res = read_ld_args(data, data->tokens[data->line]);
+		res = read_ld_args(data, data->tokens[data->line]); // May not need this check, cause already have check in Buf_manager and concatenate_buf
 	}
 	ft_printf("Data->w %s\n", data->tokens[data->line][data->w + 1]);
 	ft_printf("Hey = %d\n", res);	

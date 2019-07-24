@@ -57,33 +57,143 @@ int			replace_line(char *buf, char *arg, t_pack *data)
 	return (1);
 }
 
-// {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0}
-int			check_live_op(char *buf, t_pack *data)
+int			validate_live_args(t_pack *data, char **tab)
 {
-	char	*arg;
+	int		res;
+	int		back;
 
-	if (!data->tokens[data->line][data->w])
+	res = 0;
+	if (data->arg1)
+		res = 1;
+	back = data->w;
+	data->w = 0;
+	if (!data->arg1)
 	{
-		if (data->buf)
-		{
-			ft_printf("Not present \n");
-			arg = ft_strdup(data->buf);
-			replace_line(buf, arg, data); //Check after token (operation)
-			return (read_arg(data));
+		if (tab[data->w] && tab[data->w][0] == '%')
+		{	
+			if (tab[data->w][1] == ':'
+			&& direct_label(data, tab, 1, 2))
+			{
+				data->arg1 = 1;
+				ft_printf("Direct label res\n");
+			}
+			else if (direct_number(data, tab, data->w))
+			{
+				data->arg1 = 1;
+				ft_printf("Direct Number res\n");
+			}
+			else
+				res = 0;
 		}
-		else
+	}
+	else
+		res = 1;
+	if (res)
+	{
+		final_cut(data, tab);
+	}
+	data->w = back;
+	return (res);
+}
+
+int			merge_live_arrays(t_pack *data, char **arr1, char **arr2)
+{
+	int		ln;
+	int		j;
+	int		i;
+	char	**tab;
+
+	ln = len_arr(arr1) + len_arr(arr2);
+	tab = (char**)malloc(sizeof(char*) * ln + 1);
+	tab[ln] = NULL;
+	i = -1;
+	while (arr1[++i])
+		tab[i] = arr1[i];
+	j = -1;
+	while (arr2[++j])
+		tab[j + i] = arr2[j];
+	return (validate_live_args(data, tab));
+}
+
+void		clean_2d_arr(char **arr1)
+{
+	int		i;
+
+	i = -1;
+	while (arr1[++i])
+		free(arr1[i]);
+	free(arr1);
+}
+
+int			concatenate_live_buf(t_pack *data)
+{
+	char	**arr1;
+	char	**arr2;
+	char	*buf;
+	char	*del;
+	int		i;
+
+	i = ++data->w;
+	arr1 = ft_strsplit(data->buf, ',');
+	buf = NULL;
+	if (data->tokens[data->line][data->w])
+	{
+		buf = ft_strdup(data->tokens[data->line][data->w]);
+		while (data->tokens[data->line][++i])
 		{
-			ft_printf("No argument!\n");
-			return (0);
+			del = buf;
+			buf = ft_strjoin(buf, data->tokens[data->line][i]);
+			free(del);
 		}
-		
+		arr2 = ft_strsplit(buf, ',');
+		free(buf);
+		ft_printf("(((((\n");
+		i = merge_live_arrays(data, arr1, arr2);
+		free(arr2);
+		free(arr1);
 	}
 	else
 	{
-		ft_printf("Element present [%s]-%p\n", data->tokens[data->line][data->w], data->tokens[data->line][data->w]);
-		return (read_arg(data)); //Check after token (operation)
+		if (ft_strcmp(arr1[0], ":"))
+		{
+			i = validate_live_args(data, arr1);
+		}
+		else
+		{	
+			clean_2d_arr(arr1);
+			i = 0;
+		}
 	}
+	return (i);
 }
+
+
+// {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0}
+// int			check_live_op(char *buf, t_pack *data)
+// {
+// 	char	*arg;
+
+// 	if (!data->tokens[data->line][data->w])
+// 	{
+// 		if (data->buf)
+// 		{
+// 			ft_printf("Not present \n");
+// 			arg = ft_strdup(data->buf);
+// 			replace_line(buf, arg, data); //Check after token (operation)
+// 			return (read_arg(data));
+// 		}
+// 		else
+// 		{
+// 			ft_printf("No argument!\n");
+// 			return (0);
+// 		}		
+// 	}
+// 	else
+// 	{
+// 		ft_printf("Element present [%s]-%p\n", data->tokens[data->line][data->w], data->tokens[data->line][data->w]);
+// 		return (read_arg(data)); //Check after token (operation)
+// 	}
+// }
 
 int			read_live_args(t_pack *data, char **line)
 {
@@ -119,7 +229,10 @@ int			buf_manager_live(t_pack *data, char *fst)
 	arr = ft_strsplit(data->buf, ',');
 	data->w = 0;
 	//Custom function
+	ft_printf("Before\n");
+	ft_printf("arg1 - 1[%d] arg2 - 2[%d] arg3 - 3[%d]\n", data->arg1, data->arg2, data->arg3);
 	res = read_live_args(data, arr);
+	ft_printf("After\n");
 	ft_printf("arg1 - 1[%d] arg2 - 2[%d] arg3 - 3[%d]\n", data->arg1, data->arg2, data->arg3);
 	fst = NULL;
 	i = -1;
@@ -129,8 +242,12 @@ int			buf_manager_live(t_pack *data, char *fst)
 	return (res);
 }
 
+// Current "live" operation function
 int			check_op_live(t_pack *data, char *buf)
 {
+	int		res;
+
+	res = 0;
 	if (!coma_count(data->tokens[data->line], 0))
 	{
 		ft_printf("Coma problems\n");
@@ -143,7 +260,8 @@ int			check_op_live(t_pack *data, char *buf)
 		res = buf_manager_live(data, buf);
 		ft_printf("BUFFER\n");
 		pick_word(data, "live", data->line);
-		concatenate_buf(data);
+		ft_printf("The current buffer - %s\n", data->buf);
+		concatenate_live_buf(data);
 		ft_printf("(((((\n");
 	}
 	else
@@ -151,4 +269,5 @@ int			check_op_live(t_pack *data, char *buf)
 		structurize(data);
 		res = 1;
 	}
+	return (res);
 }

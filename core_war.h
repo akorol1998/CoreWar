@@ -24,7 +24,7 @@
 
 typedef struct      s_pack
 {
-    char			***tokens;
+    char			***cmnds;
     char			**labels;
     char			**op;
     char			*name;
@@ -37,9 +37,7 @@ typedef struct      s_pack
 	int				arg2;
 	int				arg3;
 	char			*lbl;
-	int				file_lines;
-    // int				min;
-    // int				max;
+	int				idx;
 	int				bytes;
 }					t_pack;
 
@@ -59,30 +57,38 @@ int 				char_in_array(char c);
 int					len_arr(char **arr);
 int					next_argument(t_pack *data, char **line, int w);
 int					valid_invalid_comment(char *buf);
-int					possible_ops(t_pack *data, char **buf, char *word, int i);
-int					label_is_present(char *lbl, t_pack *data);
-int					check_if_label(t_pack *data, int line);
-int					op_bridge(t_pack *data, char *buf, int line, int w);
-void				delete_commented_part_of_the_line(t_pack *data, int	line, int word);
-int					register_sti(char **line, int w, int i);
-void				clean_line(char **line);
-int					check_live_op(char *buf, t_pack *data);
-int					direct_label(t_pack *data, char **line, int i, int arg);
-int					direct_number(t_pack *data, char **line, int w);
-int					indirect_arg(t_pack *data, char **line, int w);
-void				delete_comments(t_pack *data);
-int					check_ld_op(t_pack *data, char *buf);
-int					register_check(char **line, int w);
-int					indirect_validation(t_pack *data, char **line, int w);
-int					third_argument(t_pack *data, char **line, int w);
-int					buf_manager(t_pack *data, char *fst);
-int					read_ld_args(t_pack *data, char **line);
-int					concatenate_buf(t_pack *data);
-int					new_line_func(t_pack *data, char *buf, int line);
-void				replace_elements_in_line(t_pack *data, char **arr, char **arr2);
-int					extract_op(t_pack *data, int idx);
-void				pick_word(t_pack *data, char *buf, int line);
-int					no_label(char *buf, t_pack *data);
-int					coma_count(char **arr, int a);
-void				structurize(t_pack *data);
+int					label_exists(char *buf, t_pack *data);
+int					char_in_array(char c);
+void				merge_chars(char **buf, char c);
+int					valid_invalid_chars(t_pack *data, char *line);
+int					read_labels(t_pack *data, char *line);
+
+// int					possible_ops(t_pack *data, char **buf, char *word, int i);
+// int					label_is_present(char *lbl, t_pack *data);
+// int					check_if_label(t_pack *data, int line);
+// int					op_bridge(t_pack *data, char *buf, int line, int w);
+// void				delete_commented_part_of_the_line(t_pack *data, int	line, int word);
+// int					register_sti(char **line, int w, int i);
+// void				clean_line(char **line);
+// int					check_live_op(char *buf, t_pack *data);
+// int					direct_label(t_pack *data, char **line, int i, int arg);
+// int					direct_number(t_pack *data, char **line, int w);
+// int					indirect_arg(t_pack *data, char **line, int w);
+// void				delete_comments(t_pack *data);
+// int					check_ld_op(t_pack *data, char *buf);
+// int					register_check(char **line, int w);
+// int					indirect_validation(t_pack *data, char **line, int w);
+// int					third_argument(t_pack *data, char **line, int w);
+// int					buf_manager(t_pack *data, char *fst);
+// int					read_ld_args(t_pack *data, char **line);
+// int					concatenate_buf(t_pack *data);
+// int					new_line_func(t_pack *data, char *buf, int line);
+// void				replace_elements_in_line(t_pack *data, char **arr, char **arr2);
+// int					extract_op(t_pack *data);
+// void				pick_word(t_pack *data, char *buf, int line);
+// int					coma_count(char **arr, int a);
+// void				structurize(t_pack *data);
+// int					check_op_live(t_pack *data, char *buf);
+// void				final_cut(t_pack *data, char **tab);
+// void				clean_unique_data(t_pack *data);
 #endif

@@ -54,7 +54,6 @@ void		label_no(t_pack *data, char ***arr1, char ***arr2)
 		free(del);
 	}
 	(*arr2) = ft_strsplit(buf, ',');
-	ft_printf("address-%p\n", *arr2);
 	free(buf);
 }
 
@@ -66,19 +65,13 @@ void		structurize(t_pack *data)
 
 	arr1 = NULL;
 	arr2 = NULL;
-	for(int k = 0; data->tokens[data->line][k];k++)
-		ft_printf("[%s]\n", data->tokens[data->line][k]);
 	if (data->lbl)
 	{
 		label_yes(data, &arr1, &arr2);
 	}
 	else
 	{
-		ft_printf("Or-address-%p\n", arr2);
 		label_no(data, &arr1, &arr2);
 	}
 	replace_elements_in_line(data, arr1, arr2);
-	for(int k = 0; data->tokens[data->line][k];k++)
-		ft_printf("%p==%s==\n", data->tokens[data->line][k],data->tokens[data->line][k]);
-	ft_printf("Well - %p\nWell - %p\n", arr1[1], arr2[1]);
 }

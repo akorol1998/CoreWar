@@ -114,12 +114,10 @@ int			concatenate_buf(t_pack *data)
 	if (data->tokens[data->line][data->w])
 	{
 		buf = ft_strdup(data->tokens[data->line][data->w]);
-		ft_printf("add. %p - %s\n", buf, buf);
 		while (data->tokens[data->line][++i])
 		{
 			del = buf;
 			buf = ft_strjoin(buf, data->tokens[data->line][i]);
-			ft_printf("add. %p\n", buf);
 			free(del);
 		}
 		arr2 = ft_strsplit(buf, ',');

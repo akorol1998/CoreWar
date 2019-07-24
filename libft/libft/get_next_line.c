@@ -10,123 +10,58 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "get_next_line.h"
 
-char	*ft_cley(char const *s1, char const *s2)
+int		ft_new_line(char **s, char **line, int fd, int ret)
 {
-	size_t		i;
-	char		*new;
-	size_t		j;
-	size_t		a;
-	size_t		b;
+	char	*tmp;
+	int		len;
 
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	a = ft_strlen(s1);
-	b = ft_strlen(s2);
-	if (!(new = ft_strnew(a + b)))
-		return (NULL);
-	i = -1;
-	j = -1;
-	while (++i < a)
-		new[i] = s1[i];
-	while (++j < b)
-		new[j + i] = s2[j];
-	return (new);
-}
-
-t_node	*ft_update_vol2(t_node *temp, t_node **head, char *buf, const int desc)
-{
-	t_node *p;
-
-	temp = (t_node*)malloc(sizeof(t_node));
-	temp->ds = desc;
-	temp->data = ft_strdup(buf);
-	temp->next = NULL;
-	if (*head == NULL)
-		*head = temp;
-	else
+	len = 0;
+	while (s[fd][len] != '\n' && s[fd][len] != '\0')
+		len++;
+	if (s[fd][len] == '\n')
 	{
-		p = *head;
-		while (p->next)
-			p = p->next;
-		p->next = temp;
+		*line = ft_strsub(s[fd], 0, len);
+		tmp = ft_strdup(s[fd] + len + 1);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (s[fd][0] == '\0')
+			ft_strdel(&s[fd]);
 	}
-	return (temp);
-}
-
-t_node	*ft_update_list(t_node **head, char *buf, const int desc)
-{
-	t_node	*temp;
-	char	*trash;
-
-	temp = *head;
-	while (temp != NULL)
+	else if (s[fd][len] == '\0')
 	{
-		if (temp->ds == desc)
-		{
-			trash = temp->data;
-			temp->data = ft_cley(trash, buf);
-			free(trash);
-			return (temp);
-		}
-		temp = temp->next;
+		if (ret == BUFF_SIZE)
+			return (get_next_line(fd, line));
+		*line = ft_strdup(s[fd]);
+		ft_strdel(&s[fd]);
 	}
-	return (ft_update_vol2(temp, head, buf, desc));
+	return (1);
 }
 
-int		ft_part_2(t_node *head, char **line, const int desc)
+int		get_next_line(const int fd, char **line)
 {
-	char	*pointer;
+	static char	*s[255];
+	char		buf[BUFF_SIZE + 1];
+	char		*tmp;
+	int			ret;
 
-	if (BUFF_SIZE <= 0 || line == NULL)
+	if (fd < 0 || line == NULL)
 		return (-1);
-	while (head && head->ds != desc)
-		head = head->next;
-	if (head && head->data && ft_strchr(head->data, '\n'))
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		*line = ft_strsub(head->data, 0, ft_strchr(head->data,
-				'\n') - head->data);
-		pointer = ft_strdup(ft_strchr(head->data, '\n') + 1);
-		free(head->data);
-		head->data = pointer;
-		return (1);
+		buf[ret] = '\0';
+		if (s[fd] == NULL)
+			s[fd] = ft_strnew(1);
+		tmp = ft_strjoin(s[fd], buf);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (ft_strchr(buf, '\n'))
+			break ;
 	}
-	if (head && head->data && ft_strlen(head->data))
-	{
-		*line = ft_strdup(head->data);
-		free(head->data);
-		head->data = NULL;
-		return (1);
-	}
-	else
+	if (ret < 0)
+		return (-1);
+	else if (ret == 0 && (s[fd] == NULL || s[fd][0] == '\0'))
 		return (0);
-}
-
-int		get_next_line(const int d, char **line)
-{
-	static	t_node	*head;
-	int				r;
-	char			buf[BUFF_SIZE + 1];
-	char			*pointer;
-	t_node			*arr;
-
-	while (line && (r = read(d, buf, BUFF_SIZE)) && BUFF_SIZE > 0)
-	{
-		if (r < 0 || d < 0)
-			return (-1);
-		buf[r] = '\0';
-		arr = ft_update_list(&head, buf, d);
-		if (ft_strchr(arr->data, '\n'))
-		{
-			*line = ft_strsub(arr->data, 0, ft_strchr(arr->data,
-					'\n') - arr->data);
-			pointer = ft_strdup(ft_strchr(arr->data, '\n') + 1);
-			free(arr->data);
-			arr->data = pointer != NULL ? pointer : NULL;
-			return (1);
-		}
-	}
-	return (ft_part_2(head, line, d));
+	return (ft_new_line(s, line, fd, ret));
 }

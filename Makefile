@@ -17,20 +17,23 @@ fill_structures.c \
 read_name.c \
 read_comment.c \
 read_instructions.c \
-help_functions.c \
-help_functions_2.c \
-op_check.c \
-label_check.c \
-comment_check.c \
-store_index.c \
-store_index_2.c \
-store_index_3.c \
-live_op.c \
-delete_comments.c \
-load.c \
-load_2.c \
-buf_manager.c \
-line_manipulation.c \
+lable_handle.c\
+valid_invalid_chars.c\
+
+# help_functions.c \
+# help_functions_2.c \
+# op_check.c \
+# label_check.c \
+# comment_check.c \
+# store_index.c \
+# store_index_2.c \
+# store_index_3.c \
+# live_op.c \
+# delete_comments.c \
+# load.c \
+# load_2.c \
+# buf_manager.c \
+# line_manipulation.c \
 
 FLAGS = -Wall -Wextra -Werror
 

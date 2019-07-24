@@ -20,11 +20,11 @@ void		print_tokens(t_pack *data)
 
 	i = -1;
 	j = -1;
-	while (data->tokens[++i])
+	while (data->cmnds[++i])
 	{
 		j = -1;
-		while (data->tokens[i][++j])
-			ft_printf("%s ", data->tokens[i][j]);
+		while (data->cmnds[i][++j])
+			ft_printf("%s ", data->cmnds[i][j]);
 		ft_printf("\n", i);
 	}	
 }
@@ -51,6 +51,16 @@ void		fill_ops(t_pack *data)
 	data->op[15] = ft_strdup("aff");
 }
 
+void		fill_cmnds(t_pack *data)
+{
+	int		i;
+
+	i = -1;
+	data->cmnds = (char***)malloc(sizeof(char**) * CHAMP_MAX_SIZE + 1);
+	while (++i <=CHAMP_MAX_SIZE)
+		data->cmnds[i] = NULL;
+}
+
 t_pack		*fill_data(void)
 {
 	t_pack	*data;
@@ -62,7 +72,7 @@ t_pack		*fill_data(void)
 	while (++i <= CHAMP_MAX_SIZE)
 		data->labels[i] = NULL;
 	fill_ops(data);
-	data->tokens = NULL;
+	fill_cmnds(data);
 	data->name = NULL;
 	data->comment = NULL;
 	data->buf = NULL;
@@ -72,10 +82,8 @@ t_pack		*fill_data(void)
 	data->arg1 = 0;
 	data->arg2 = 0;
 	data->arg3 = 0;
-	// data->min = 0;
-	// data->max = 0;
+	data->idx = 0;
 	data->bytes = 0;
 	data->lbl = NULL;
-	data->file_lines = 0;
 	return (data);
 }
