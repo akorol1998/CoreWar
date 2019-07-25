@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlen.c                                           :+:      :+:    :+:   */
+/*   operation_handle_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/15 12:50:52 by akorol            #+#    #+#             */
-/*   Updated: 2018/11/25 13:33:36 by akorol           ###   ########.fr       */
+/*   Created: 2019/07/25 13:48:32 by akorol            #+#    #+#             */
+/*   Updated: 2019/07/25 13:48:57 by akorol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "core_war.h"
 
-size_t	ft_strlen(const char *str)
+int			is_operation(t_pack *data, char *line)
 {
-	size_t	i;
+	int		i;
+	int		res;
+	char	*op;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-		i++;
-	return (i);
+	i = -1;
+	op = NULL;
+	while (ft_strlen(op) < 2 && line && line[++i])
+		merge_chars(&op, line[i]);
+	if (op)
+		i = possible_ops(data, &op, line, i);
+	if (i)
+		res = operation_valid(data, op, line);
+	else
+		res = 0;
+	ft_printf("First %d - %s\n", res, op);
+	free(op);
+	return (res);
 }

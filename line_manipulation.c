@@ -57,7 +57,7 @@ int			new_line_func(t_pack *data, char *buf, int line)
 		for(int k = 0; arr2[k];k++)
 			ft_printf("arr2 %s\n", arr2[k]);
 	}
-	data->line = line;
+	data->l = line;
 	data->w = 1;
 	replace_elements_in_line(data, arr1, arr2);
 	for(int k = 0; data->tokens[line][k];k++)
@@ -72,10 +72,10 @@ void		insert_two_words(t_pack *data, char *buf, char* sub, int s)
 	int		i;
 	int		j;
 
-	pan = data->tokens[data->line];
-	ln = len_arr(data->tokens[data->line]) + 1;
-	data->tokens[data->line] = (char**)malloc(sizeof(char*) * ln + 1);
-	data->tokens[data->line][ln] = NULL;
+	pan = data->tokens[data->l];
+	ln = len_arr(data->tokens[data->l]) + 1;
+	data->tokens[data->l] = (char**)malloc(sizeof(char*) * ln + 1);
+	data->tokens[data->l][ln] = NULL;
 	i = -1;
 	j = -1;
 	while (++i < ln)
@@ -83,18 +83,18 @@ void		insert_two_words(t_pack *data, char *buf, char* sub, int s)
 		++j;
 		if (i == s)
 		{
-			data->tokens[data->line][i] = ft_strdup(buf);	
-			data->tokens[data->line][++i] = ft_strdup(sub);
+			data->tokens[data->l][i] = ft_strdup(buf);	
+			data->tokens[data->l][++i] = ft_strdup(sub);
 		}
 		else
-			data->tokens[data->line][i] = ft_strdup(pan[j]);
+			data->tokens[data->l][i] = ft_strdup(pan[j]);
 	}
 	i = -1;
 	while (pan[++i])
 		free(pan[i]);
 	free(pan);
-	// for(int y = 0; data->tokens[data->line][y];y++)
-	// 	ft_printf("%s\n", data->tokens[data->line][y]);
+	// for(int y = 0; data->tokens[data->l][y];y++)
+	// 	ft_printf("%s\n", data->tokens[data->l][y]);
 }
 
 int			extract_op(t_pack *data)
@@ -107,28 +107,28 @@ int			extract_op(t_pack *data)
 	i = -1;
 	buf = NULL;
 					//data->op_idx;
-	while (data->tokens[data->line][data->w][++i])
+	while (data->tokens[data->l][data->w][++i])
 	{
 		if (!(buf && (leng = ft_strlen(buf)) >= 2 && leng <= 5))
-			merge_chars(&buf, data->tokens[data->line][data->w][i]);
+			merge_chars(&buf, data->tokens[data->l][data->w][i]);
 		if ((leng = ft_strlen(buf)) >= 2 && leng <= 5)
 		{
 			ft_printf("op_idx is %d - [%s]\n", data->w, data->buf);
-			i = possible_ops(data, &buf, data->tokens[data->line][data->w], i);
-			if (!ft_strcmp(buf, data->tokens[data->line][data->w]))
+			i = possible_ops(data, &buf, data->tokens[data->l][data->w], i);
+			if (!ft_strcmp(buf, data->tokens[data->l][data->w]))
 			{
-				ft_printf("clear - [%s]\n", data->tokens[data->line][data->w]);
+				ft_printf("clear - [%s]\n", data->tokens[data->l][data->w]);
 				free(data->buf);
-				data->buf = data->tokens[data->line][data->w + 1] ?
-				ft_strdup(data->tokens[data->line][data->w + 1]) : NULL;
+				data->buf = data->tokens[data->l][data->w + 1] ?
+				ft_strdup(data->tokens[data->l][data->w + 1]) : NULL;
 				ft_printf("joooofer - [%s]\n", data->buf);
 				free(buf);
 				return (1);
 			}
 			if (i)
 			{
-				sub = ft_strsub(data->tokens[data->line][data->w], ft_strlen(buf),
-				ft_strlen(data->tokens[data->line][data->w]) - ft_strlen(buf));
+				sub = ft_strsub(data->tokens[data->l][data->w], ft_strlen(buf),
+				ft_strlen(data->tokens[data->l][data->w]) - ft_strlen(buf));
 				insert_two_words(data, buf, sub, 1);
 				free(data->buf);
 				data->buf = ft_strdup(sub);

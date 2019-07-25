@@ -20,15 +20,15 @@ void		label_yes(t_pack *data, char ***arr1, char ***arr2)
 
 	(*arr1) = (char**)malloc(sizeof(char*) * 3);
 	(*arr1)[2] = NULL;
-	(*arr1)[0] = ft_strdup(data->tokens[data->line][0]);
-	(*arr1)[1] = ft_strdup(data->tokens[data->line][1]);
+	(*arr1)[0] = ft_strdup(data->tokens[data->l][0]);
+	(*arr1)[1] = ft_strdup(data->tokens[data->l][1]);
 	buf = NULL;
 	i = 2;
-	buf = ft_strdup(data->tokens[data->line][i]);
-	while (data->tokens[data->line][++i])
+	buf = ft_strdup(data->tokens[data->l][i]);
+	while (data->tokens[data->l][++i])
 	{
 		del = buf;
-		buf = ft_strjoin(buf, data->tokens[data->line][i]);
+		buf = ft_strjoin(buf, data->tokens[data->l][i]);
 		free(del);
 	}
 	(*arr2) = ft_strsplit(buf, ',');
@@ -43,14 +43,14 @@ void		label_no(t_pack *data, char ***arr1, char ***arr2)
 
 	(*arr1) = (char**)malloc(sizeof(char*) * 2);
 	(*arr1)[1] = NULL;
-	(*arr1)[0] = ft_strdup(data->tokens[data->line][0]);
+	(*arr1)[0] = ft_strdup(data->tokens[data->l][0]);
 	buf = NULL;
 	i = 1;
-	buf = ft_strdup(data->tokens[data->line][i]);
-	while (data->tokens[data->line][++i])
+	buf = ft_strdup(data->tokens[data->l][i]);
+	while (data->tokens[data->l][++i])
 	{
 		del = buf;
-		buf = ft_strjoin(buf, data->tokens[data->line][i]);
+		buf = ft_strjoin(buf, data->tokens[data->l][i]);
 		free(del);
 	}
 	(*arr2) = ft_strsplit(buf, ',');

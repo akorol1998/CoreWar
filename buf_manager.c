@@ -22,8 +22,8 @@ void		label_case(t_pack *data, char **tab)
 
 	temp = (char**)malloc(sizeof(char*) * 3);
 	temp[2] = NULL;
-	temp[0] = ft_strdup(data->tokens[data->line][0]);
-	temp[1] = ft_strdup(data->tokens[data->line][1]);
+	temp[0] = ft_strdup(data->cmnds[data->l][0]);
+	temp[1] = ft_strdup(data->cmnds[data->l][1]);
 	ln = len_arr(temp) + len_arr(tab);
 	arr = (char**)malloc(sizeof(char*) * ln + 1);
 	arr[ln] = NULL;
@@ -36,10 +36,10 @@ void		label_case(t_pack *data, char **tab)
 	free(tab);
 	free(temp);
 	i = -1;
-	while (data->tokens[data->line][++i])
-		free(data->tokens[data->line][i]);
-	free(data->tokens[data->line]);
-	data->tokens[data->line] = arr;
+	while (data->cmnds[data->l][++i])
+		free(data->cmnds[data->l][i]);
+	free(data->cmnds[data->l]);
+	data->cmnds[data->l] = arr;
 }
 
 void		final_cut(t_pack *data, char **tab)
@@ -50,8 +50,8 @@ void		final_cut(t_pack *data, char **tab)
 		label_case(data, tab);
 	else
 	{
-		for (int k = 0;data->tokens[data->line][k];k++)
-			ft_printf("tokens -- %s\n", data->tokens[data->line][k]);
+		for (int k = 0;data->cmnds[data->l][k];k++)
+			ft_printf("tokens -- %s\n", data->cmnds[data->l][k]);
 		for (int k = 0;tab[k];k++)
 			ft_printf("Tab -- %s\n", tab[k]);
 		structurize(data);
@@ -111,13 +111,13 @@ int			concatenate_buf(t_pack *data)
 	i = ++data->w;
 	arr1 = ft_strsplit(data->buf, ',');
 	buf = NULL;
-	if (data->tokens[data->line][data->w])
+	if (data->cmnds[data->l][data->w])
 	{
-		buf = ft_strdup(data->tokens[data->line][data->w]);
-		while (data->tokens[data->line][++i])
+		buf = ft_strdup(data->cmnds[data->l][data->w]);
+		while (data->cmnds[data->l][++i])
 		{
 			del = buf;
-			buf = ft_strjoin(buf, data->tokens[data->line][i]);
+			buf = ft_strjoin(buf, data->cmnds[data->l][i]);
 			free(del);
 		}
 		arr2 = ft_strsplit(buf, ',');

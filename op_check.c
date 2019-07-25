@@ -16,7 +16,7 @@ void		pick_word(t_pack *data, char *buf, int line)
 {
 	int		i;
 
-	data->line = line;
+	data->l = line;
 	i = -1;
 	while (data->tokens[line][++i] && ft_strcmp(buf, data->tokens[line][i]))
 		;
@@ -72,36 +72,36 @@ int			op_bridge(t_pack *data, char *buf, int line, int w)
 // into different elements and only then process the operation arguments, by handling data->buf first
 // and then the remaining arguments if they apear to be not in the buf. But that's just simple case of 
 // different operation standing together.
-int			possible_ops(t_pack *data, char **buf, char *word, int i)
-{
-	int		n;
-	char	*norm;
+// int			possible_ops(t_pack *data, char **buf, char *word, int i)
+// {
+// 	int		n;
+// 	char	*norm;
 
-	n = -1;
-	norm = NULL;
-	while (compare_func(*buf, data)) //changed !
-	{
-		n = i;
-		if (word[++i])
-		{
-			if (norm)
-				free(norm);
-			norm = ft_strdup(*buf);
-			merge_chars(buf, word[i]);
-		}
-		else
-			break ;
-	}
-	if (norm && !compare_func(*buf, data))
-	{
-		free((*buf));
-		(*buf) = ft_strdup(norm);
-	}
-	ft_printf("buf %s\n", *buf);
-	ft_printf("data->buf %s\n", data->buf);
-	free(norm);
-	return (n != -1 ? n : 0);
-}
+// 	n = -1;
+// 	norm = NULL;
+// 	while (compare_func(*buf, data)) //changed !
+// 	{
+// 		n = i;
+// 		if (word[++i])
+// 		{
+// 			if (norm)
+// 				free(norm);
+// 			norm = ft_strdup(*buf);
+// 			merge_chars(buf, word[i]);
+// 		}
+// 		else
+// 			break ;
+// 	}
+// 	if (norm && !compare_func(*buf, data))
+// 	{
+// 		free((*buf));
+// 		(*buf) = ft_strdup(norm);
+// 	}
+// 	ft_printf("buf %s\n", *buf);
+// 	ft_printf("data->buf %s\n", data->buf);
+// 	free(norm);
+// 	return (n != -1 ? n : 0);
+// }
 
 int         check_for_being_op(t_pack *data, int line)
 {

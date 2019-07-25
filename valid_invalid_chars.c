@@ -12,12 +12,27 @@
 
 #include "core_war.h"
 
+void		clean_the_line(t_pack *data)
+{
+	int		i;
+
+	i = -1;
+	if (data->cmnds[data->l])
+	{
+		while (data->cmnds[data->l][++i])
+		{
+			free(data->cmnds[data->l][i]);
+			data->cmnds[data->l][i] = NULL;
+		}
+	}
+}
+
 void		current_cmnds_position(t_pack *data)
 {
 	int		i;
 	int		j;
 
-	i = data->line;
+	i = data->l;
 	j = -1;
 	while(data->cmnds[i] && data->cmnds[i][++j])
 		;
@@ -33,23 +48,36 @@ void		current_cmnds_position(t_pack *data)
 		data->w = j;
 
 }
+// Check array!
+// for(int k=0;data->cmnds[k];k++)
+// 			for(int j=0;data->cmnds[k][j];j++)
+// 				ft_printf("[%s]\n", data->cmnds[k][j]);
 
 int			valid_invalid_chars(t_pack *data, char *line)
 {
 	int		idx;
 	char	*str;
+	int		res;
 
 	str = NULL;
+	res = 0;
 	idx = read_labels(data, line); // If fst element is Label
 	if (idx)
 	{
 		str = ft_strndup(line, idx);
 		current_cmnds_position(data);
-		data->cmnds[data->line][data->w] = str;
-		ft_printf("line - %d, w - %d\n", data->line, data->w);
-		system("leaks asm");
-		exit(1);
+		data->cmnds[data->l][data->w] = ft_strdup(str);
+		res = handle_operation(data, line + ft_strlen(str));
+		free(str);
 	}
-	// else if () // Check if operation
-	return (1);
+	else if (is_operation(data, line)) // 
+	{
+		res = 1;
+	}
+	else
+	{
+		return (res);
+	}
+	ft_printf("RES = %d\n", res);
+	return (res);
 }

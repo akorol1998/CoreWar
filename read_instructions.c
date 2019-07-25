@@ -41,26 +41,47 @@
 int			handle_line(t_pack *data, char *line)
 {
 	int		i;
+	int		flag;
 
 	i = -1;
+	flag = 0;
 	while (line[++i] == ' ' || line[i] == '\t')
 		;
-	valid_invalid_chars(data, line + i);
-	return (1);
+	flag = valid_invalid_chars(data, line + i);
+	if (flag == 1 || flag == -1) // increase data->lines only if line was with content, pay attention to the output
+		data->l++;
+	else if (!flag)
+	{
+		clean_the_line(data);
+	}
+	free(line);
+	data->arg_len = 0;
+	data->bytes += ft_strlen(line) + 1;
+	return (flag);
 }
 
 int			begin(t_pack *data)
 {
 	char	*line;
+	int		flag;
+	int		i;
 
 	data->bytes = 0;
+	data->l++;
+	i = -1;
 	while (get_next_line(data->dsc, &line))
 	{
-		if (handle_line(data, line)) // increase data->lines only if line was with content, pay attention to the output
-			data->line++;
-		free(line);
-		data->bytes += ft_strlen(line) + 1;
+		// ft_printf("LINE - %s\n", line);
+		flag = handle_line(data, line);
 	}
+	for (int i = 0;data->cmnds[i];i++)
+	{
+		for(int j=0;data->cmnds[i][j];j++)
+			ft_printf(" %s ", data->cmnds[i][j]);
+		ft_printf("\n");
+	}
+	system("leaks asm");
+	exit(1);
 	return (1);
 }
 
@@ -97,7 +118,6 @@ int			read_labels(t_pack *data, char *line)
 		res = label_exists(buf, data);
 		if (res)
 			res = i + 1;
-		ft_printf("[%s]\n", buf);
 	}
 	free(buf);
 	return (res);

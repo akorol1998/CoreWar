@@ -37,45 +37,45 @@ int			compare_func(char *buf, t_pack *data)
 	return (0); // changed 1
 }
 
-int			check_after_token(t_pack *data, int line, int word, int i)
-{
-	// int		res;
-	int		c;
-	char	*buf;
+// int			check_after_token(t_pack *data, int line, int word, int i)
+// {
+// 	// int		res;
+// 	int		c;
+// 	char	*buf;
 
-	buf = NULL;
-	c = 0;
-	ft_printf("TTTTT - %s [%d][%d][%d]\n", data->tokens[line][word], line, word, i);
-	while (data->tokens[line][word][++i])
-		merge_chars(&buf, data->tokens[line][word][i]);
-	if (buf)
-	{
-		if (!data->buf)
-			data->buf = buf;
-		else
-		{
-			free(data->buf);
-			data->buf = buf;
-		}
-		new_line_func(data, data->buf, line);
-		if (!data->lbl)
-			return (1);
-		ft_printf("AFTER\n");
-		for(int u = 0;data->tokens[line][u];u++)
-			ft_printf("<%s>", data->tokens[line][u]);
-		data->op_idx = 1;
-		c = extract_op(data);
-		for(int u = 0;data->tokens[line][u];u++)
-			ft_printf("<%s>", data->tokens[line][u]);
-	}
-	else if (data->tokens[line][word + 1])
-	{
-		for(int u = 0;data->tokens[line][u];u++)
-			ft_printf("<%s>", data->tokens[line][u]);
-		data->w = !data->buf && data->lbl ? 1 : 0;
-		c = extract_op(data);
-		for(int u = 0;data->tokens[line][u];u++)
-			ft_printf("<%s>", data->tokens[line][u]);
-	}
-	return (c);
-}
+// 	buf = NULL;
+// 	c = 0;
+// 	ft_printf("TTTTT - %s [%d][%d][%d]\n", data->tokens[line][word], line, word, i);
+// 	while (data->tokens[line][word][++i])
+// 		merge_chars(&buf, data->tokens[line][word][i]);
+// 	if (buf)
+// 	{
+// 		if (!data->buf)
+// 			data->buf = buf;
+// 		else
+// 		{
+// 			free(data->buf);
+// 			data->buf = buf;
+// 		}
+// 		new_line_func(data, data->buf, line);
+// 		if (!data->lbl)
+// 			return (1);
+// 		ft_printf("AFTER\n");
+// 		for(int u = 0;data->tokens[line][u];u++)
+// 			ft_printf("<%s>", data->tokens[line][u]);
+// 		data->op_idx = 1;
+// 		c = extract_op(data);
+// 		for(int u = 0;data->tokens[line][u];u++)
+// 			ft_printf("<%s>", data->tokens[line][u]);
+// 	}
+// 	else if (data->tokens[line][word + 1])
+// 	{
+// 		for(int u = 0;data->tokens[line][u];u++)
+// 			ft_printf("<%s>", data->tokens[line][u]);
+// 		data->w = !data->buf && data->lbl ? 1 : 0;
+// 		c = extract_op(data);
+// 		for(int u = 0;data->tokens[line][u];u++)
+// 			ft_printf("<%s>", data->tokens[line][u]);
+// 	}
+// 	return (c);
+// }

@@ -77,11 +77,9 @@ t_pack		*fill_data(void)
 	data->comment = NULL;
 	data->buf = NULL;
 	data->dsc = 0;
-	data->line = 0;
+	data->l = -1;
 	data->w = 0;
-	data->arg1 = 0;
-	data->arg2 = 0;
-	data->arg3 = 0;
+	data->arg_len = 0;
 	data->idx = 0;
 	data->bytes = 0;
 	data->lbl = NULL;

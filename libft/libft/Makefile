@@ -80,6 +80,7 @@ SRC =   ft_bzero.c \
 		coma_hash_split.c \
 		char_join.c \
 		copy_till_end.c \
+		coma_space_tab_split.c \
 
 CFLAGS = -Wextra -Wall -Werror
 
