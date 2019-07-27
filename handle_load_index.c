@@ -1,0 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_load_index.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/27 10:12:56 by akorol            #+#    #+#             */
+/*   Updated: 2019/07/27 10:13:04 by akorol           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "core_war.h"
+
+static int	thrd_stage(char **arr)
+{
+	int			res;
+
+	res = 0;
+	if (arr[2] && arr[2][0] == 'r' && register_check(arr[2]))
+		res = 1;
+	else
+		res = 0;
+	return (res);
+}
+
+static int	scnd_stage(t_pack *data, char **arr)
+{
+	int		res;
+
+	res = 0;
+	if (arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
+		res = thrd_stage(arr);
+	else if (arr[1][0] == '%')
+	{
+		if (arr[1][1] == ':' && direct_label(data, arr[1] + 2))
+			res = thrd_stage(arr);
+		else if (direct_number(data, arr, 1))
+			res = thrd_stage(arr);
+		else
+			res = 0;
+	}
+	else
+		res = 0;
+	return (res);
+}
+
+int			handle_load_index(t_pack *data, char **arr)
+{
+	int		res;
+
+	res = 0;
+	if (arr && arr[0])
+	{
+		if (arr[0][0] == 'r' && register_check(arr[0]))
+			res = scnd_stage(data, arr);
+		else if (arr[0][0] == '%')
+		{
+			if (arr[0][1] == ':' && direct_label(data, arr[0] + 2))
+				res = scnd_stage(data, arr);
+			else if (direct_number(data, arr, 0))
+				res = scnd_stage(data, arr);
+			else
+				res = 0;
+		}
+		else if (indirect_validation(data, arr[0]))
+			res = scnd_stage(data, arr);
+		else
+			res = 0;
+	}
+	if (res)
+		args_to_cmnds(data, arr);
+	return (res);
+}

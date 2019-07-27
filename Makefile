@@ -25,13 +25,17 @@ help_functions.c \
 arguments_handle.c \
 live_op.c \
 load.c \
+handle_load_index.c \
 store_index.c \
 handle_add.c \
+handle_and.c \
+handle_aff.c \
+handle_store.c \
+comment_check.c \
 
 # help_functions_2.c \
 # op_check.c \
 # label_check.c \
-# comment_check.c \
 # store_index_2.c \
 # store_index_3.c \
 # delete_comments.c \

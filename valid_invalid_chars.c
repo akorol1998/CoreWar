@@ -48,10 +48,6 @@ void		current_cmnds_position(t_pack *data)
 		data->w = j;
 
 }
-// Check array!
-// for(int k=0;data->cmnds[k];k++)
-// 			for(int j=0;data->cmnds[k][j];j++)
-// 				ft_printf("[%s]\n", data->cmnds[k][j]);
 
 int			valid_invalid_chars(t_pack *data, char *line)
 {
@@ -78,6 +74,5 @@ int			valid_invalid_chars(t_pack *data, char *line)
 	{
 		return (res);
 	}
-	ft_printf("RES = %d\n", res);
 	return (res);
 }

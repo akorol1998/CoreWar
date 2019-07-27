@@ -94,6 +94,7 @@ void		start_reading(t_pack *data)
 	nc = name_comment_block(data);
 	if (nc)
 		read_instructions(data);
+	close(data->dsc);
 }
 
 int			main(int argc, char **argv)
@@ -102,6 +103,8 @@ int			main(int argc, char **argv)
 	t_pack	*data;
 	
 	if (argc != 2)
+		return (0);
+	if (!check_file_name(argv[1]))
 		return (0);
 	if ((dsc = open(argv[1], O_RDONLY)) == -1)
 	{

@@ -34,25 +34,24 @@ int			handle_live(t_pack *data, char **arr)
 	int		res;
 
 	res = 0;
-	if (arr[0] && arr[0][0] == '%')
-	{	
-		if (arr[0][1] == ':'
-		&& direct_label(data, arr[0] + 2))
-		{
-			res = 1;
+	if (arr && arr[0])
+	{
+		if (arr[0] && arr[0][0] == '%')
+		{	
+			if (arr[0][1] == ':'
+			&& direct_label(data, arr[0] + 2))
+			{
+				res = 1;
+			}
+			else if (direct_number(data, arr, 0))
+			{
+				res = 1;
+			}
+			else
+				res = 0;
 		}
-		else if (direct_number(data, arr, 0))
-		{
-			res = 1;
-		}
-		else
-			res = 0;
 	}
 	if (res)
-	{
 		args_to_cmnds(data, arr);
-		return (1);
-	}
-	else
-		return (0);
+	return (res);
 }

@@ -78,7 +78,13 @@ int					handle_load(t_pack *data, char **arr);
 int					check_line_tail(t_pack *data, char **arr);
 int					handle_sti(t_pack *data, char **arr);
 int					handle_add(t_pack *data, char **arr);
+int					handle_and(t_pack *data, char **arr);
+int					handle_load_index(t_pack *data, char **arr);
+int					handle_aff(t_pack *data, char **arr);
+int					handle_store(t_pack *data, char **arr);
 void				args_to_cmnds(t_pack *data, char **arr);
+char				*delete_comments(char *line);
+int					check_file_name(char *name);
 
 // int					possible_ops(t_pack *data, char **buf, char *word, int i);
 // int					label_is_present(char *lbl, t_pack *data);

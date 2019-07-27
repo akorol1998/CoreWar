@@ -28,7 +28,6 @@ int			is_operation(t_pack *data, char *line)
 		res = operation_valid(data, op, line);
 	else
 		res = 0;
-	ft_printf("First %d - %s\n", res, op);
 	free(op);
 	return (res);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comment_check.c                                    :+:      :+:    :+:   */
+/*   handle_store.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/14 10:33:54 by akorol            #+#    #+#             */
-/*   Updated: 2019/07/14 10:33:56 by akorol           ###   ########.fr       */
+/*   Created: 2019/07/27 11:30:42 by akorol            #+#    #+#             */
+/*   Updated: 2019/07/27 11:30:49 by akorol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core_war.h"
 
-char		*delete_comments(char *line)
+int				handle_store(t_pack *data, char **arr)
 {
-	char	*ptr;
-	size_t	n;
+	int		res;
 
-	ptr = ft_strchr(line, '#');
-	if (ptr)
+	res = 0;
+	if (arr && arr[0] && arr[0][0] == 'r' && register_check(arr[0]))
 	{
-		n = ptr - line;
-		ptr = ft_strndup(line, n);
+		if (arr && arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
+			res = 1;
+		else if (indirect_validation(data, arr[1]))
+			res = 1;
+		else
+			res = 0;
 	}
-	else
-		ptr = ft_strdup(line);
-	return (ptr);
+	if (res)
+		args_to_cmnds(data, arr);
+	return (res);
 }
