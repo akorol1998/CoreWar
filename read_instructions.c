@@ -80,8 +80,6 @@ int			begin(t_pack *data)
 			ft_printf(" %s ", data->cmnds[i][j]);
 		ft_printf("\n");
 	}
-	system("leaks asm");
-	exit(1);
 	return (1);
 }
 

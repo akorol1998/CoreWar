@@ -99,20 +99,19 @@ void		start_reading(t_pack *data)
 
 int			main(int argc, char **argv)
 {
-	int		dsc;
 	t_pack	*data;
-	
+
+	data = fill_data();
 	if (argc != 2)
 		return (0);
-	if (!check_file_name(argv[1]))
+	if (!check_file_name(data, argv[1]))
 		return (0);
-	if ((dsc = open(argv[1], O_RDONLY)) == -1)
+	if ((data->dsc = open(argv[1], O_RDONLY)) == -1)
 	{
 		ft_printf("%s\n", strerror(EINVAL));
 		return (0);
 	}
-	data = fill_data();
-	data->dsc = dsc;
 	start_reading(data);
+	writing_to_file(data);
 	return (0);
 }

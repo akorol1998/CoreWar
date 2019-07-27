@@ -82,15 +82,18 @@ int         read_name(t_pack *data, char *line)
     return (1);
 }
 
-int			check_file_name(char *name)
+int			check_file_name(t_pack *data, char *name)
 {
 	char	*pos;
 	int		i;
 
-	i = -1;
+	i = 0;
 	pos = ft_strchr(name, '.');
-	if (pos[++i] == 's' && !pos[++i])
+	if (pos && pos[++i] == 's' && !pos[++i])
+	{
+		data->file_name = ft_strndup(name, pos - name);
 		return (1);
+	}
 	else
 	{
 		ft_printf("Invalid file name [%s]\n", name);

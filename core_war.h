@@ -30,7 +30,9 @@ typedef struct      s_pack
     char			*name;
     char			*comment;
 	char			*buf;
+	char			*file_name;
     int				dsc;
+    int				pos;
 	int				l;
 	int				w;
 	int				arg_len;
@@ -84,7 +86,8 @@ int					handle_aff(t_pack *data, char **arr);
 int					handle_store(t_pack *data, char **arr);
 void				args_to_cmnds(t_pack *data, char **arr);
 char				*delete_comments(char *line);
-int					check_file_name(char *name);
+int					check_file_name(t_pack *data, char *name);
+int					writing_to_file(t_pack *data);
 
 // int					possible_ops(t_pack *data, char **buf, char *word, int i);
 // int					label_is_present(char *lbl, t_pack *data);

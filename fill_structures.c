@@ -73,12 +73,14 @@ t_pack		*fill_data(void)
 		data->labels[i] = NULL;
 	fill_ops(data);
 	fill_cmnds(data);
+	data->file_name = NULL;
 	data->name = NULL;
 	data->comment = NULL;
 	data->buf = NULL;
 	data->dsc = 0;
 	data->l = -1;
 	data->w = 0;
+	data->pos = 0;
 	data->arg_len = 0;
 	data->idx = 0;
 	data->bytes = 0;

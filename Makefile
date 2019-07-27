@@ -32,6 +32,8 @@ handle_and.c \
 handle_aff.c \
 handle_store.c \
 comment_check.c \
+writing_to_file.c \
+execution_code.c \
 
 # help_functions_2.c \
 # op_check.c \
