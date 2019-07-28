@@ -82,6 +82,7 @@ int			writing_to_file(t_pack *data)
 		return (0);
 	magic_header_name(data);
 	null_point_comment(data);
+	execution_code(data);
 	close(data->dsc);
 	return (res);
 }

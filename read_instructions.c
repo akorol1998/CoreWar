@@ -70,10 +70,7 @@ int			begin(t_pack *data)
 	data->l++;
 	i = -1;
 	while (get_next_line(data->dsc, &line))
-	{
-		// ft_printf("LINE - %s\n", line);
 		flag = handle_line(data, line);
-	}
 	for (int i = 0;data->cmnds[i];i++)
 	{
 		for(int j=0;data->cmnds[i][j];j++)

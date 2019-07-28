@@ -23,3 +23,15 @@ int			handle_aff(t_pack *data, char **arr)
 		args_to_cmnds(data, arr);
 	return (res);
 }
+
+void		aff_op_size(t_pack *da, int w)
+{
+	t_cmnd	*cmnd;
+
+	cmnd = allocating_for_comm(da);
+	cmnd->arg1 = 1;
+	cmnd->op = 1;
+	cmnd->type = 1;
+	cmnd->size = cmnd->arg1 + cmnd->op + cmnd->type;
+	w = 0;
+}

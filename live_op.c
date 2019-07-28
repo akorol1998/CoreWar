@@ -55,3 +55,19 @@ int			handle_live(t_pack *data, char **arr)
 		args_to_cmnds(data, arr);
 	return (res);
 }
+
+void			live_op_size(t_pack *da, int w)
+{
+	t_cmnd		*cmnd;
+	char		**arr;
+
+	cmnd = allocating_for_comm(da);
+	arr = da->cmnds[da->l];
+	cmnd->op = 1;
+	if (!ft_strcmp(da->cmnds[da->l][w], "live"))
+		cmnd->arg1 = 4;
+	else
+		cmnd->arg1 = 2;
+	cmnd->size = cmnd->op + cmnd->arg1;
+	w++;
+}

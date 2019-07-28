@@ -73,6 +73,7 @@ t_pack		*fill_data(void)
 		data->labels[i] = NULL;
 	fill_ops(data);
 	fill_cmnds(data);
+	allocate_comm(data);
 	data->file_name = NULL;
 	data->name = NULL;
 	data->comment = NULL;
@@ -86,4 +87,21 @@ t_pack		*fill_data(void)
 	data->bytes = 0;
 	data->lbl = NULL;
 	return (data);
+}
+
+t_cmnd		*allocating_for_comm(t_pack *da)
+{
+	int		i;
+
+	i = -1;
+	while (da->comm[++i])
+		;
+	da->comm[i] = (t_cmnd*)malloc(sizeof(t_cmnd));
+	da->comm[i]->op = 0;
+	da->comm[i]->type = 0;
+	da->comm[i]->arg1 = 0;
+	da->comm[i]->arg2 = 0;
+	da->comm[i]->arg3 = 0;
+	da->comm[i]->size = 0;
+	return (da->comm[i]);
 }

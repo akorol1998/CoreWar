@@ -52,163 +52,22 @@ int				handle_load(t_pack *data, char **arr)
 	return (res);
 }
 
-// char 		**squeeze_elements(t_pack *data)
-// {
-// 	int		i;
-// 	char	**tab;
+void			ld_op_size(t_pack *da, int w)
+{
+	t_cmnd		*cmnd;
+	char		**arr;
 
-// 	i = -1;
-// 	while (data->tokens[data->l][++i] && i <= data->w)
-// 		;
-// 	tab = (char **)malloc(sizeof(char *) * i + 1);
-// 	tab[i] = NULL;
-// 	i = -1;
-// 	while (data->tokens[data->l][++i] && i <= data->w)
-// 		tab[i] = ft_strdup(data->tokens[data->l][i]);
-// 	return (tab);
-// }
-
-// void		replace_elements_in_line(t_pack *data, char **arr, char **arr2)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		len;
-// 	int		len2;
-
-// 	i = -1;
-// 	while (data->tokens[data->l][++i])
-// 		free(data->tokens[data->l][i]);
-// 	free(data->tokens[data->l]);
-// 	data->tokens[data->l] = NULL;
-// 	len = len_arr(arr);
-// 	len2 = len_arr(arr2);
-// 	data->tokens[data->l] = (char**)malloc(sizeof(char*) * (len + len2) + 1);
-// 	data->tokens[data->l][len + len2] = NULL;
-// 	i = -1;
-// 	while (++i < len)
-// 		data->tokens[data->l][i] = arr[i];
-// 	j = i;
-// 	i = -1;
-// 	while (++i + j < len + len2)
-// 	{
-// 		data->tokens[data->l][i + j] = arr2[i];
-// 	}
-// 	free(arr);
-// 	free(arr2);
-// }	
-
-// int			replace_elements(t_pack *data, char *arg)
-// {
-// 	char	*buf;
-// 	char	**arr2;
-// 	char	**arr;
-// 	int		i;
-
-// 	data->w--;
-// 	buf = ft_strsub(data->tokens[data->l][data->w], 0, ft_strlen(arg));
-// 	free(data->tokens[data->l][data->w]);
-// 	data->tokens[data->l][data->w] = buf;
-// 	i = data->w;
-// 	while (data->tokens[data->l][++i])
-// 	{
-// 		if (data->buf)
-// 		{
-// 			buf = data->buf;
-// 			data->buf = ft_strjoin(buf, data->tokens[data->l][i]);
-// 			free(buf);
-// 		}
-// 		else
-// 		{
-// 			data->buf = ft_strdup(data->tokens[data->l][i]);
-// 		}
-// 	}
-// 	arr2 = ft_strsplit(data->buf, ',');
-// 	arr = squeeze_elements(data);
-// 	replace_elements_in_line(data, arr, arr2);
-// 	return (1);
-// }
-
-// int			check_indirect_arg(t_pack *data)
-// {
-// 	ft_printf("Indirect argument [%s]\n", data->tokens[data->l][data->w]);
-// 	data = NULL;
-// 	return (1);
-// }
-
-
-
-// int			read_ld_args(t_pack *data, char **line)
-// {
-// 	int		res;
-
-// 	res = 0;
-// 	ft_printf("------%s\n", line[data->w]);
-// 	if (line[data->w][0] == '%')
-// 	{
-// 		if (line[data->w][1] == ':'
-// 		&& direct_label(data, line, 1, 2))
-// 		{
-// 			data->arg1 = 1;
-// 			res = check_2nd_arg(data, line);
-// 			data->arg2 = res ? 1 : 0;
-// 			ft_printf("Direct label res [%d]\n", res);
-// 		}
-// 		else if (direct_number(data, line, data->w))
-// 		{
-// 			data->arg1 = 1;
-// 			res = check_2nd_arg(data, line);
-// 			ft_printf("Direct Number res [%d]\n", res);
-// 			data->arg2 = res ? 1 : 0;
-// 		}
-// 		else
-// 			res = 0;
-// 	}
-// 	else if (indirect_validation(data, line, data->w))
-// 	{
-// 		data->arg1 = 1;
-// 		res = check_2nd_arg(data, line);
-// 		data->arg2 = res ? 1 : 0;
-// 	}
-// 	else
-// 		res = 0;
-// 	return (data->arg1 || data->arg2);
-// }
-
-// int			check_ld_op(t_pack *data, char *buf)
-// {
-// 	int		res;
-
-// 	//Function that counts ','
-// 	res = 0;
-// 	//custom functions
-// 	if (!coma_count(data->tokens[data->l], 1))
-// 	{
-// 		ft_printf("Coma problems\n");
-// 		system("leaks asm");
-// 		exit(1);
-// 	}
-// 	if (data->buf)
-// 	{
-// 		res = buf_manager(data, buf);
-// 		ft_printf("BUFFER\n");
-// 		pick_word(data, "ld", data->l);
-// 		concatenate_buf(data);
-// 		ft_printf("(((((\n");
-// 	}
-// 	else
-// 	{
-// 		structurize(data);
-// 		res = 1;
-// 	}
-// 	// system("leaks asm");
-// 	// exit(1);
-// 	ft_printf("))))\n");
-// 	data->w = data->lbl ? 2 : 1;
-// 	if (res)
-// 	{
-// 		res = read_ld_args(data, data->tokens[data->l]); // May not need this check, cause already have check in Buf_manager and concatenate_buf
-// 	}
-// 	ft_printf("Data->w %s\n", data->tokens[data->l][data->w + 1]);
-// 	ft_printf("Hey = %d\n", res);	
-// 	return (res);
-// }
+	cmnd = allocating_for_comm(da);
+	cmnd->op = 1;
+	arr = da->cmnds[da->l];
+	cmnd->arg2 = 1;
+	if (arr[++w])
+	{
+		if (arr[w][0] == '%')
+			cmnd->arg1 = 4;	
+		else
+			cmnd->arg1 = 2;	
+	}
+	cmnd->type++;
+	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->type + cmnd->op;
+}

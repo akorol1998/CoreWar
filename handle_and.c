@@ -51,10 +51,9 @@ static int	scnd_stage(t_pack *data, char **arr)
 
 int			handle_and(t_pack *data, char **arr)
 {
-	int			res;
+	int		res;
 
 	res = 0;
-	ft_printf("ARGUMENT <#3");
 	if (arr[0] && arr[0][0] == 'r' && register_check(arr[0]))
 		res = scnd_stage(data, arr);
 	else if (arr[0][0] == '%')
@@ -73,4 +72,48 @@ int			handle_and(t_pack *data, char **arr)
 	if (res)
 		args_to_cmnds(data, arr);
 	return (res);
+}
+
+void			scnd_arg(t_cmnd *cmnd, char **arr, int w)
+{
+	if (arr[w])
+	{
+		if (arr[w][0] == 'r' && register_check(arr[w]))
+			cmnd->arg2 = 1;
+		else if (arr[w][0] == '%')
+			cmnd->arg2 = 4;
+		else
+			cmnd->arg2 = 2;
+	}
+	cmnd->arg3 = 1;
+	cmnd->type = 1;
+	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->arg3 + cmnd->op + cmnd->type;
+}
+
+void			and_op_size(t_pack *da, int w)
+{
+	t_cmnd		*cmnd;
+	char		**arr;
+
+	cmnd = allocating_for_comm(da);
+	cmnd->op = 1;
+	arr = da->cmnds[da->l];
+	if (arr[++w])
+	{
+		if (arr[w][0] == 'r' && register_check(arr[w]))
+		{
+			cmnd->arg1 = 1;
+			scnd_arg(cmnd, arr, w + 1);
+		}
+		else if (arr[w][0] == '%')
+		{
+			cmnd->arg1 = 4;
+			scnd_arg(cmnd, arr, w + 1);
+		}
+		else
+		{
+			cmnd->arg1 = 2;
+			scnd_arg(cmnd, arr, w + 1);
+		}
+	}
 }

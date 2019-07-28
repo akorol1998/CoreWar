@@ -58,7 +58,6 @@ void		invali_argumnet_exit(t_pack *data, char **arr, char *op)
 		}
 		free(arr);
 	}
-
 	ft_printf("%s in '%s' operation.\n", strerror(EINVAL), op);
 	system("leaks asm");
 	exit(1);
@@ -259,6 +258,11 @@ int			operation_valid(t_pack *data, char *op, char *line)
 	current_cmnds_position(data);
 	data->cmnds[data->l][data->w] = ft_strdup(op);
 	str = delete_comments(line + ft_strlen(op));
+	if (!check_commas(op, str))
+	{
+		free(str);
+		exit(1);
+	}
 	arr = coma_space_tab_split(str);
 	free(str);
 	res = choose_operation(data, op, arr);

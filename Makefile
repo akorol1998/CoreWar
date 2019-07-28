@@ -34,11 +34,11 @@ handle_store.c \
 comment_check.c \
 writing_to_file.c \
 execution_code.c \
+store_index_2.c \
 
 # help_functions_2.c \
 # op_check.c \
 # label_check.c \
-# store_index_2.c \
 # store_index_3.c \
 # delete_comments.c \
 # load_2.c \

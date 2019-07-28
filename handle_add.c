@@ -37,3 +37,17 @@ int			handle_add(t_pack *data, char **arr)
 		args_to_cmnds(data, arr);
 	return (res);
 }
+
+void		add_sub_op_size(t_pack *da, int w)
+{
+	t_cmnd	*cmnd;
+	
+	cmnd = allocating_for_comm(da);
+	cmnd->op = 1;
+	cmnd->type = 1;
+	cmnd->arg1 = 1;
+	cmnd->arg2 = 1;
+	cmnd->arg3 = 1;
+	cmnd->size = cmnd->op + cmnd->type + cmnd->arg1 + cmnd->arg2 + cmnd->arg3;
+	w = 1;
+}
