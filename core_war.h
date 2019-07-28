@@ -25,6 +25,8 @@
 typedef struct		s_cmnd
 {
 	int				op;
+	int				op_code;
+	int				*type_code;
 	int				type;
 	int				arg1;
 	int				arg2;
@@ -112,4 +114,6 @@ void				st_op_size(t_pack *da, int w);
 void				add_sub_op_size(t_pack *da, int w);
 void				load_index_op_size(t_pack *da, int w);
 void				aff_op_size(t_pack *da, int w);
+void				go_through_ops(t_pack *data);
+void				and_op_type_code(t_cmnd *cmnd);
 #endif

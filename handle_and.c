@@ -79,12 +79,23 @@ void			scnd_arg(t_cmnd *cmnd, char **arr, int w)
 	if (arr[w])
 	{
 		if (arr[w][0] == 'r' && register_check(arr[w]))
+		{
+			cmnd->type_code[3] = 1;
 			cmnd->arg2 = 1;
+		}
 		else if (arr[w][0] == '%')
+		{
+			cmnd->type_code[2] = 1;
 			cmnd->arg2 = 4;
+		}
 		else
+		{
+			cmnd->type_code[3] = 1;
+			cmnd->type_code[2] = 1;
 			cmnd->arg2 = 2;
+		}
 	}
+	cmnd->type_code[5] = 1;
 	cmnd->arg3 = 1;
 	cmnd->type = 1;
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->arg3 + cmnd->op + cmnd->type;
@@ -98,22 +109,33 @@ void			and_op_size(t_pack *da, int w)
 	cmnd = allocating_for_comm(da);
 	cmnd->op = 1;
 	arr = da->cmnds[da->l];
+	if (!ft_strcmp(da->cmnds[da->l][da->w], "and"))
+		cmnd->op_code = 0x06;
+	else if (!ft_strcmp(da->cmnds[da->l][da->w], "or"))
+		cmnd->op_code = 0x07;
+	else if (!ft_strcmp(da->cmnds[da->l][da->w], "xor"))
+		cmnd->op_code = 0x08;
 	if (arr[++w])
 	{
 		if (arr[w][0] == 'r' && register_check(arr[w]))
 		{
 			cmnd->arg1 = 1;
+			cmnd->type_code[1] = 1;
 			scnd_arg(cmnd, arr, w + 1);
 		}
 		else if (arr[w][0] == '%')
 		{
+			cmnd->type_code[0] = 1;
 			cmnd->arg1 = 4;
 			scnd_arg(cmnd, arr, w + 1);
 		}
 		else
 		{
+			cmnd->type_code[0] = 1;
+			cmnd->type_code[1] = 1;
 			cmnd->arg1 = 2;
 			scnd_arg(cmnd, arr, w + 1);
 		}
+		and_op_type_code(cmnd);
 	}
 }

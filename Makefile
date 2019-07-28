@@ -29,11 +29,13 @@ handle_load_index.c \
 store_index.c \
 handle_add.c \
 handle_and.c \
+handle_and_2.c \
 handle_aff.c \
 handle_store.c \
 comment_check.c \
 writing_to_file.c \
 execution_code.c \
+execution_code_2.c \
 store_index_2.c \
 
 # help_functions_2.c \

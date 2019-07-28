@@ -12,6 +12,26 @@
 
 #include "core_war.h"
 
+void			count_execution_line_size_2(t_pack *da, int w)
+{
+	if (!ft_strcmp(da->cmnds[da->l][w], "or"))
+		and_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "xor"))
+		and_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "ldi"))
+		load_index_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "fork"))
+		live_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "lld"))
+		ld_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "lldi"))
+		load_index_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "lfork"))
+		live_op_size(da, w);
+	else if (!ft_strcmp(da->cmnds[da->l][w], "aff"))
+		live_op_size(da, w);
+}
+
 void			count_execution_line_size(t_pack *da, int w)
 {
 	if (!ft_strcmp(da->cmnds[da->l][w], "and"))
@@ -30,22 +50,7 @@ void			count_execution_line_size(t_pack *da, int w)
 		add_sub_op_size(da, w);
 	else if (!ft_strcmp(da->cmnds[da->l][w], "sub"))
 		add_sub_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "or"))
-		and_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "xor"))
-		and_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "ldi"))
-		load_index_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "fork"))
-		live_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "lld"))
-		ld_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "lldi"))
-		load_index_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "lfork"))
-		live_op_size(da, w);
-	else if (!ft_strcmp(da->cmnds[da->l][w], "aff"))
-		live_op_size(da, w);
+	count_execution_line_size_2(da, w);
 }
 
 void			count_lines_size(t_pack *da)
@@ -69,17 +74,20 @@ void			count_lines_size(t_pack *da)
 void			execution_code(t_pack *data)
 {
 	// t_cmnd		*cmnd;
-	char		c = 52;
+	// char		c = 52;
 	int			a;
 	
+	a = 0;
 	count_lines_size(data);
-	write(data->dsc, &c, 1);
-	a = c >> 16;
-	write(data->dsc, &a, 1);
-	a = c >> 8;
-	write(data->dsc, &a, 1);
-	a = c;
-	write(data->dsc, &a, 1);
+	// go_through_ops(data);
+
+	// write(data->dsc, &c, 1);
+	// a = c >> 16;
+	// write(data->dsc, &a, 1);
+	// a = c >> 8;
+	// write(data->dsc, &a, 1);
+	// a = c;
+	// write(data->dsc, &a, 1);
 	// cmnd = data->comm[15];
 	// ft_printf("cmnd->op %d\n", cmnd->op);
 	// ft_printf("cmnd->type %d\n", cmnd->type);

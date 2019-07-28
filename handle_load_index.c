@@ -76,11 +76,19 @@ int			handle_load_index(t_pack *data, char **arr)
 void		stage_nmbr_2(t_cmnd *cmnd, char **arr, int w)
 {
 	if (arr[w][0] == 'r' && register_check(arr[w]))
+	{
+		cmnd->type_code[3] = 1;
 		cmnd->arg2 = 1;
+	}
 	else
+	{
+		cmnd->type_code[2] = 1;
 		cmnd->arg2 = 2;
+	}
+	cmnd->type_code[5] = 1;
 	cmnd->arg3 = 1;
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->arg3 + cmnd->op + cmnd->type;
+	and_op_type_code(cmnd);
 }
 
 void		load_index_op_size(t_pack *da, int w)
@@ -89,6 +97,8 @@ void		load_index_op_size(t_pack *da, int w)
 	char	**arr;
 
 	cmnd = allocating_for_comm(da);
+	if (!ft_strcmp(da->cmnds[da->l][da->w], "ldi"))
+		cmnd->op_code = 0x0a;
 	arr = da->cmnds[da->l];
 	cmnd->op = 1;
 	cmnd->type = 1;
@@ -97,10 +107,19 @@ void		load_index_op_size(t_pack *da, int w)
 		if (arr[w][0] == 'r' && register_check(arr[w]))
 		{
 			cmnd->arg1 = 1;
+			cmnd->type_code[1] = 1;
+			stage_nmbr_2(cmnd, arr, w + 1);
+		}
+		else if (arr[w][0] == '%')
+		{
+			cmnd->type_code[0] = 1;
+			cmnd->arg1 = 2;
 			stage_nmbr_2(cmnd, arr, w + 1);
 		}
 		else
 		{
+			cmnd->type_code[1] = 1;
+			cmnd->type_code[0] = 1;
 			cmnd->arg1 = 2;
 			stage_nmbr_2(cmnd, arr, w + 1);
 		}

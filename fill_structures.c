@@ -92,6 +92,7 @@ t_pack		*fill_data(void)
 t_cmnd		*allocating_for_comm(t_pack *da)
 {
 	int		i;
+	int		j;
 
 	i = -1;
 	while (da->comm[++i])
@@ -103,5 +104,10 @@ t_cmnd		*allocating_for_comm(t_pack *da)
 	da->comm[i]->arg2 = 0;
 	da->comm[i]->arg3 = 0;
 	da->comm[i]->size = 0;
+	da->comm[i]->op_code = 0;
+	da->comm[i]->type_code = (int*)malloc(sizeof(int) * 8);
+	j = -1;
+	while (++j < 8)
+		da->comm[i]->type_code[j] = 0;
 	return (da->comm[i]);
 }
