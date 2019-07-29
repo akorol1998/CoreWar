@@ -79,10 +79,17 @@ int				handle_sti(t_pack *data, char **arr)
 void			arg2_stage(t_cmnd *cmnd, char **arr, int w)
 {
 	if (arr[w] && arr[w][0] == 'r' && register_check(arr[w]))
+	{
 		cmnd->arg3 = 1;
+		cmnd->type_code[5] = 1;
+	}
 	else
+	{
+		cmnd->type_code[4] = 1;
 		cmnd->arg3 = 2;
+	}
 	cmnd->type = 1;
+	and_op_type_code(cmnd);
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->arg3 + cmnd->type + cmnd->op;
 }
 
@@ -95,16 +102,27 @@ void			sti_op_size(t_pack *da, int w)
 	cmnd->op = 1;
 	arr = da->cmnds[da->l];
 	cmnd->arg1 = 1;
+	cmnd->op_code = 0x0b;
+	cmnd->type_code[1] = 1;
 	w++;
 	if (arr[++w])
 	{
 		if (arr[w][0] == 'r' && register_check(arr[w]))
 		{
+			cmnd->type_code[3] = 1;
 			cmnd->arg2 = 1;
+			arg2_stage(cmnd, arr, w + 1);
+		}
+		else if (arr[w][0] == '%')
+		{
+			cmnd->type_code[2] = 1;
+			cmnd->arg2 = 2;
 			arg2_stage(cmnd, arr, w + 1);
 		}
 		else
 		{
+			cmnd->type_code[2] = 1;
+			cmnd->type_code[3] = 1;
 			cmnd->arg2 = 2;
 			arg2_stage(cmnd, arr, w + 1);
 		}

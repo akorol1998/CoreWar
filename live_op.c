@@ -65,9 +65,32 @@ void			live_op_size(t_pack *da, int w)
 	arr = da->cmnds[da->l];
 	cmnd->op = 1;
 	if (!ft_strcmp(da->cmnds[da->l][w], "live"))
+	{
 		cmnd->arg1 = 4;
-	else
+		cmnd->op_code = 0x01;
+	}
+	else if (!ft_strcmp(da->cmnds[da->l][w], "fork"))
+	{
 		cmnd->arg1 = 2;
+		cmnd->op_code = 0x0c;
+	}
+	else if (!ft_strcmp(da->cmnds[da->l][w], "lfork"))
+	{
+		cmnd->arg1 = 2;
+		cmnd->op_code = 0x0f;
+	}
+	else if (!ft_strcmp(da->cmnds[da->l][w], "zjmp"))
+	{
+		cmnd->arg1 = 2;
+		cmnd->op_code = 0x09;
+	}
+	else if (!ft_strcmp(da->cmnds[da->l][w], "aff"))
+	{
+		cmnd->arg1 = 1;
+		cmnd->op_code = 0x10;
+		cmnd->type_code[1] = 1;
+		and_op_type_code(cmnd);
+	}
 	cmnd->size = cmnd->op + cmnd->arg1;
 	w++;
 }

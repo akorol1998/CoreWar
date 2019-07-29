@@ -24,14 +24,24 @@ void			st_op_size(t_pack *da, int w)
 	cmnd->op = 1;
 	cmnd->type = 1;
 	cmnd->arg1 = 1;
+	cmnd->type_code[1] = 1;
+	cmnd->op_code = 0x03;
 	++w;
 	if (arr[++w])
 	{
 		if (arr[w][0] == 'r' && register_check(arr[w]))
+		{
+			cmnd->type_code[3] = 1;
 			cmnd->arg2 = 1;
+		}
 		else
+		{
+			cmnd->type_code[3] = 1;
+			cmnd->type_code[2] = 1;
 			cmnd->arg2 = 2;
+		}
 	}
+	and_op_type_code(cmnd);
 	cmnd->size = cmnd->op + cmnd->type + cmnd->arg1 + cmnd->arg2; 
 }
 

@@ -43,11 +43,19 @@ void		add_sub_op_size(t_pack *da, int w)
 	t_cmnd	*cmnd;
 	
 	cmnd = allocating_for_comm(da);
+	if (!ft_strcmp(da->cmnds[da->l][da->w], "add"))
+		cmnd->op_code = 0x04;
+	else if (!ft_strcmp(da->cmnds[da->l][da->w], "sub"))
+		cmnd->op_code = 0x05;
 	cmnd->op = 1;
 	cmnd->type = 1;
 	cmnd->arg1 = 1;
 	cmnd->arg2 = 1;
 	cmnd->arg3 = 1;
+	cmnd->type_code[1] = 1;
+	cmnd->type_code[3] = 1;
+	cmnd->type_code[5] = 1;
+	and_op_type_code(cmnd);
 	cmnd->size = cmnd->op + cmnd->type + cmnd->arg1 + cmnd->arg2 + cmnd->arg3;
 	w = 1;
 }

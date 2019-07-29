@@ -79,7 +79,7 @@ void			execution_code(t_pack *data)
 	
 	a = 0;
 	count_lines_size(data);
-	// go_through_ops(data);
+	go_through_ops(data);
 
 	// write(data->dsc, &c, 1);
 	// a = c >> 16;

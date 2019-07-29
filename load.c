@@ -61,13 +61,26 @@ void			ld_op_size(t_pack *da, int w)
 	cmnd->op = 1;
 	arr = da->cmnds[da->l];
 	cmnd->arg2 = 1;
+	cmnd->type = 1;
+	if (!ft_strcmp(da->cmnds[da->l][w], "ld"))
+		cmnd->op_code = 0x02;
+	else if (!ft_strcmp(da->cmnds[da->l][w], "lld"))
+		cmnd->op_code = 0x0d;
 	if (arr[++w])
 	{
 		if (arr[w][0] == '%')
+		{
+			cmnd->type_code[0] = 1;
 			cmnd->arg1 = 4;	
+		}
 		else
+		{
+			cmnd->type_code[0] = 1;
+			cmnd->type_code[1] = 1;
 			cmnd->arg1 = 2;	
+		}
 	}
-	cmnd->type++;
+	cmnd->type_code[3] = 1;
+	and_op_type_code(cmnd);
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->type + cmnd->op;
 }

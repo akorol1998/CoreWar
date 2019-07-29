@@ -12,33 +12,96 @@
 
 #include "core_war.h"
 
-// void			pick_op_for_processing(t_pack *da, int w, int *idx)
-// {
-// 	(*idx)++;
-// 	if (!ft_strcmp(da->cmnds[da->l][w], "sti"))
-// 		sti_op_size(da, w);
-// 	if (!ft_strcmp(da->cmnds[da->l][w], "and"))
-// 		and_op_size(da, w);
-// }
+int			register_nbr(char *line, int i)
+{
+	char	*nbr;
+	int		j;
 
-// void			go_through_ops(t_pack *da)
-// {
-// 	int			i;
-// 	int			j;
-// 	int			k;
+	j = -1;
+	nbr = ft_strsub(line, 1, i - 1);
+	while(nbr[++j])
+	{
+		if (nbr[j] == '+' || nbr[j] == '-')
+			return (0);
+	}
+	j = ft_atoi(nbr);
+	free(nbr);
+	return (j);
+}
 
-// 	da->l = -1;
-// 	k = -1;
-// 	while (da->cmnds[++da->l])
-// 	{
-// 		da->w = -1;
-// 		while (da->cmnds[da->l][++da->w])
-// 		{
-// 			if (!da->w && compare_func(da->cmnds[da->l][da->w], da))
-// 				pick_op_for_processing(da, da->w, &k);
-// 			else if (!da->w && da->cmnds[da->l][da->w + 1] &&
-// 			compare_func(da->cmnds[da->l][da->w + 1], da))
-// 				pick_op_for_processing(da, da->w + 1, &k);
-// 		}
-// 	}
-// }
+int			get_register(char *line)
+{
+	int		i;
+	int		res;
+	int		flag;
+
+	i = -1;
+	if (line[++i] != 'r')
+		return (0);
+	flag = 0;
+	while (line[++i])
+	{
+		if (!ft_isdigit(line[i]))
+			return (0);
+		flag = 1;
+	}
+	res = register_nbr(line, i);
+	return (res);
+}
+
+void			register_write(t_pack *da, int w)
+{
+	int			nbr;
+
+	nbr = get_register(da->cmnds[da->l][w]);
+	if (nbr < 0)
+		ft_printf("Shitty complicated function\n");
+	else
+	{
+		ft_printf("Writing to a file %p\n", nbr);
+		write(da->dsc, &nbr, 1);
+	}
+}
+
+void			pick_op_for_processing(t_pack *da, int w, int *idx)
+{
+	char		**arr;
+
+	(*idx)++;
+	arr = da->cmnds[da->l];
+	while (arr[++w])
+	{
+		if (arr[w][0] == 'r' && register_check(arr[w]))
+		{
+			register_write(da, w);
+		}
+		else if (arr[w][0] == '%')
+		{
+			;
+		}
+		else
+		{
+			;
+		}
+	}
+}
+
+void			go_through_ops(t_pack *da)
+{
+	int			k;
+
+	da->l = -1;
+	k = -1;
+	while (da->cmnds[++da->l])
+	{
+		da->w = -1;
+		while (da->cmnds[da->l][++da->w])
+		{
+			if (!da->w && compare_func(da->cmnds[da->l][da->w], da))
+				pick_op_for_processing(da, da->w, &k);
+			else if (!da->w && da->cmnds[da->l][da->w + 1] &&
+			compare_func(da->cmnds[da->l][da->w + 1], da))
+				pick_op_for_processing(da, da->w + 1, &k);
+		}
+	}
+}
