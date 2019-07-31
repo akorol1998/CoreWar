@@ -75,11 +75,23 @@ void			execution_code(t_pack *data)
 {
 	// t_cmnd		*cmnd;
 	// char		c = 52;
-	int			a;
-	
-	a = 0;
+	int			i;
+	int			size;
+	int			n;
+
 	count_lines_size(data);
 	go_through_ops(data);
+	lseek(data->dsc, data->pos, 0);
+	i = -1;
+	size = 0;
+	while (data->comm[++i])
+		size += data->comm[i]->size;
+	i = 4;
+	while (i--)
+	{
+		n = size >> 8 * i;
+		write(data->dsc, &n, 1);
+	}
 
 	// write(data->dsc, &c, 1);
 	// a = c >> 16;

@@ -54,34 +54,32 @@ void			register_write(t_pack *da, int w)
 	int			nbr;
 
 	nbr = get_register(da->cmnds[da->l][w]);
-	if (nbr < 0)
-		ft_printf("Shitty complicated function\n");
-	else
-	{
-		ft_printf("Writing to a file %p\n", nbr);
-		write(da->dsc, &nbr, 1);
-	}
+	write(da->dsc, &nbr, 1);
 }
 
 void			pick_op_for_processing(t_pack *da, int w, int *idx)
 {
 	char		**arr;
+	int			i;
 
 	(*idx)++;
+	i = -1;
 	arr = da->cmnds[da->l];
+	comm_info_to_file(da, idx);
 	while (arr[++w])
 	{
+		i++;
 		if (arr[w][0] == 'r' && register_check(arr[w]))
 		{
 			register_write(da, w);
 		}
 		else if (arr[w][0] == '%')
 		{
-			;
+			direct_write(da, w, i, idx);
 		}
 		else
 		{
-			;
+			indirect_case(da, w, i, idx);
 		}
 	}
 }

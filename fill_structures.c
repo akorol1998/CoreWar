@@ -100,6 +100,7 @@ t_cmnd		*allocating_for_comm(t_pack *da)
 	da->comm[i] = (t_cmnd*)malloc(sizeof(t_cmnd));
 	da->comm[i]->op = 0;
 	da->comm[i]->type = 0;
+	da->comm[i]->type_c = 0;
 	da->comm[i]->arg1 = 0;
 	da->comm[i]->arg2 = 0;
 	da->comm[i]->arg3 = 0;

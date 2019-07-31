@@ -37,6 +37,8 @@ writing_to_file.c \
 execution_code.c \
 execution_code_2.c \
 store_index_2.c \
+write_direct.c \
+comm_to_file.c \
 
 # help_functions_2.c \
 # op_check.c \

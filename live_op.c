@@ -87,10 +87,11 @@ void			live_op_size(t_pack *da, int w)
 	else if (!ft_strcmp(da->cmnds[da->l][w], "aff"))
 	{
 		cmnd->arg1 = 1;
+		cmnd->type = 1;
 		cmnd->op_code = 0x10;
 		cmnd->type_code[1] = 1;
 		and_op_type_code(cmnd);
 	}
-	cmnd->size = cmnd->op + cmnd->arg1;
+	cmnd->size = cmnd->op + cmnd->arg1 + cmnd->type;
 	w++;
 }

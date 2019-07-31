@@ -83,4 +83,5 @@ void			ld_op_size(t_pack *da, int w)
 	cmnd->type_code[3] = 1;
 	and_op_type_code(cmnd);
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->type + cmnd->op;
+	
 }

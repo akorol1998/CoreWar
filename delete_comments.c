@@ -61,36 +61,36 @@ void		line_without_comments(t_pack *data, int line, int w)
 	shift_arr(data, line, i);
 }
 
-void		delete_comments(t_pack *data)
-{
-	int		i;
-	int		j;
-	int		k;
-	int		x;
+// void		delete_comments(t_pack *data)
+// {
+// 	int		i;
+// 	int		j;
+// 	int		k;
+// 	int		x;
 
-	i = -1;
-	while (data->tokens[++i])
-	{
+// 	i = -1;
+// 	while (data->tokens[++i])
+// 	{
 		
-		j = -1;
-		x = 0;
-		ft_printf("Line %d\n", i);
-		while (data->tokens[i][++j])
-		{
-			k = -1;
-			ft_printf("str %s\n", data->tokens[i][j]);
-			while (data->tokens[i][j][++k])
-			{
-				ft_printf("char %c\n", data->tokens[i][j][k]);
-				if (data->tokens[i][j][k] == '#')
-				{
-					line_without_comments(data, i, j);
-					x = 1;
-					break ;
-				}
-			}
-			if (x)
-				break ;
-		}
-	}
-}
+// 		j = -1;
+// 		x = 0;
+// 		ft_printf("Line %d\n", i);
+// 		while (data->tokens[i][++j])
+// 		{
+// 			k = -1;
+// 			ft_printf("str %s\n", data->tokens[i][j]);
+// 			while (data->tokens[i][j][++k])
+// 			{
+// 				ft_printf("char %c\n", data->tokens[i][j][k]);
+// 				if (data->tokens[i][j][k] == '#')
+// 				{
+// 					line_without_comments(data, i, j);
+// 					x = 1;
+// 					break ;
+// 				}
+// 			}
+// 			if (x)
+// 				break ;
+// 		}
+// 	}
+// }

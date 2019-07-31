@@ -35,6 +35,6 @@ void			and_op_type_code(t_cmnd *cmnd)
 	{
 		nmbr += cmnd->type_code[i] * (two_to_power(7 - i));
 	}
-	cmnd->type = nmbr;
+	cmnd->type_c = nmbr;
 	ft_printf("My nbr - %p\n", nmbr);
 }

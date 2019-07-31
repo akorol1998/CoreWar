@@ -43,6 +43,9 @@ void		null_point_comment(t_pack *data)
 	while (++i < 4)
 		write(data->dsc, &magic, 1);
 	write_comment(data);
+	i = -1;
+	while (++i < 4)
+		write(data->dsc, &magic, 1);
 }
 
 void		magic_header_name(t_pack *data)

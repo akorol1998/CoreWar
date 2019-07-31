@@ -28,6 +28,7 @@ typedef struct		s_cmnd
 	int				op_code;
 	int				*type_code;
 	int				type;
+	int				type_c;
 	int				arg1;
 	int				arg2;
 	int				arg3;
@@ -116,4 +117,12 @@ void				load_index_op_size(t_pack *da, int w);
 void				aff_op_size(t_pack *da, int w);
 void				go_through_ops(t_pack *data);
 void				and_op_type_code(t_cmnd *cmnd);
+void				direct_write(t_pack *da, int w, int	i, int *idx);
+int					two_to_power(int a);
+void				comm_info_to_file(t_pack *da, int *idx);
+int					get_direct_number(t_pack *data, char **line, int w);
+char				*get_direct_label(t_pack *data, char *line);
+int					search_for_label(t_pack *da, int *idx, char *lbl);
+void				write_to_file(t_pack *da, int size, int nbr);
+void				indirect_case(t_pack *da, int w, int i, int *idx);
 #endif
