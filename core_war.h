@@ -52,6 +52,7 @@ typedef struct      s_pack
 	char			*lbl;
 	int				idx;
 	int				bytes;
+	int				n;
 	t_cmnd			**comm;
 
 }					t_pack;
@@ -126,4 +127,5 @@ int					search_for_label(t_pack *da, int *idx, char *lbl);
 void				write_to_file(t_pack *da, int size, int nbr);
 void				indirect_case(t_pack *da, int w, int i, int *idx);
 void				just_empty_line(t_pack *data, char *line);
+int					get_next_line_core_war(const int fd, char **line, t_pack *data);
 #endif

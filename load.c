@@ -27,7 +27,7 @@ int				handle_load(t_pack *data, char **arr)
 
 	res = 0;
 
-	if (arr[0][0] == '%')
+	if (arr[0] && arr[0][0] == '%')
 	{
 		if (arr[0][1] == ':'
 		&& direct_label(data, arr[0] + 2))
@@ -41,10 +41,8 @@ int				handle_load(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
-	else if (indirect_validation(data, arr[0]))
-	{
+	else if (arr[0] && indirect_validation(data, arr[0]))
 		res = check_2nd_arg(arr);
-	}
 	else
 		res = 0;
 	if (res)

@@ -34,8 +34,6 @@ int			handle_live(t_pack *data, char **arr)
 	int		res;
 
 	res = 0;
-	for (int k=0;arr[k];k++)
-		ft_printf("el - %s\n", arr[k]);
 	if (arr && arr[0])
 	{
 		if (arr[0] && arr[0][0] == '%')
@@ -51,6 +49,8 @@ int			handle_live(t_pack *data, char **arr)
 				res = 0;
 		}
 	}
+	else
+		res = 0;
 	if (res)
 		args_to_cmnds(data, arr);
 	return (res);

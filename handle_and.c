@@ -33,7 +33,7 @@ static int	scnd_stage(t_pack *data, char **arr)
 	res = 0;
 	if (arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
 		res = thrd_stage(arr);
-	else if (arr[1][0] == '%')
+	else if (arr[1] && arr[1][0] == '%')
 	{
 		if (arr[1][1] == ':' && direct_label(data, arr[1] + 2))
 			res = thrd_stage(arr);
@@ -42,7 +42,7 @@ static int	scnd_stage(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
-	else if (indirect_validation(data, arr[1]) )
+	else if (arr[1] && indirect_validation(data, arr[1]) )
 		res = thrd_stage(arr);
 	else
 		res = 0;
@@ -56,7 +56,7 @@ int			handle_and(t_pack *data, char **arr)
 	res = 0;
 	if (arr[0] && arr[0][0] == 'r' && register_check(arr[0]))
 		res = scnd_stage(data, arr);
-	else if (arr[0][0] == '%')
+	else if (arr[0] && arr[0][0] == '%')
 	{
 		if (arr[0][1] == ':' && direct_label(data, arr[0] + 2))
 			res = scnd_stage(data, arr);
@@ -65,7 +65,7 @@ int			handle_and(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
-	else if (indirect_validation(data, arr[0]))
+	else if (arr[0] && indirect_validation(data, arr[0]))
 		res = scnd_stage(data, arr);
 	else
 		res = 0;

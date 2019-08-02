@@ -84,6 +84,7 @@ t_pack		*fill_data(void)
 	data->pos = 0;
 	data->arg_len = 0;
 	data->idx = 0;
+	data->n = 0;
 	data->bytes = 0;
 	data->lbl = NULL;
 	return (data);

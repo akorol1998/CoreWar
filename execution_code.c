@@ -92,6 +92,8 @@ void			execution_code(t_pack *data)
 		n = size >> 8 * i;
 		write(data->dsc, &n, 1);
 	}
+	close(data->dsc);
+	ft_printf("SUCCESS!\n");
 	system("leaks asm");
 	exit(1);
 	// write(data->dsc, &c, 1);

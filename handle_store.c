@@ -21,7 +21,7 @@ int				handle_store(t_pack *data, char **arr)
 	{
 		if (arr && arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
 			res = 1;
-		else if (indirect_validation(data, arr[1]))
+		else if (arr && arr[1] && indirect_validation(data, arr[1]))
 			res = 1;
 		else
 			res = 0;

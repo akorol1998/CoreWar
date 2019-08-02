@@ -23,7 +23,7 @@ int				thrd_stage(t_pack *data, char **arr)
 	{
 		res = 1;
 	}
-	else if (arr[2][0] == '%')
+	else if (arr[2] && arr[2][0] == '%')
 	{
 		if (arr[2][1] == ':' && direct_label(data, arr[2] + 2))
 		{
@@ -46,7 +46,7 @@ int				scnd_stage(t_pack *data, char **arr)
 	res = 0;
 	if (arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
 		res = thrd_stage(data, arr);
-	else if (arr[1][0] == '%')
+	else if (arr[1] && arr[1][0] == '%')
 	{
 		if (arr[1][1] == ':' && direct_label(data, arr[1] + 2))
 			res = thrd_stage(data, arr);

@@ -31,7 +31,7 @@ static int	scnd_stage(t_pack *data, char **arr)
 	res = 0;
 	if (arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
 		res = thrd_stage(arr);
-	else if (arr[1][0] == '%')
+	else if (arr[1] && arr[1][0] == '%')
 	{
 		if (arr[1][1] == ':' && direct_label(data, arr[1] + 2))
 			res = thrd_stage(arr);
@@ -68,6 +68,8 @@ int			handle_load_index(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
+	else
+		res = 0;
 	if (res)
 		args_to_cmnds(data, arr);
 	return (res);
