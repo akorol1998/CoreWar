@@ -125,4 +125,5 @@ char				*get_direct_label(t_pack *data, char *line);
 int					search_for_label(t_pack *da, int *idx, char *lbl);
 void				write_to_file(t_pack *da, int size, int nbr);
 void				indirect_case(t_pack *da, int w, int i, int *idx);
+void				just_empty_line(t_pack *data, char *line);
 #endif

@@ -1,9 +1,10 @@
 .name       "Batman"
 .comment    "This city needs me"
 
-loop:
-    sti r1, %:live, %1
+loop: #ewg
+	and -986421234567, %1265, r1 #ewghjfk
+    stir1, :loop, %:live
 live:
-        live %-62
+        live
         ld %:live, r2
         zjmp %:loop

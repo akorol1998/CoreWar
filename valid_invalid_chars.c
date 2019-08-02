@@ -12,6 +12,24 @@
 
 #include "core_war.h"
 
+//invalid size
+
+void		just_empty_line(t_pack *data, char *line)
+{
+	int		i;
+	t_pack	*da;
+
+	i = -1;
+	da = data;
+	while (line[++i] && (line[i] == '\t' || line[i] == ' '))
+		;
+	if (line[i] && line[i] != '#')
+	{
+		ft_printf("Unknown command [%s]\n", line);
+		exit(1);
+	}
+}
+
 void		clean_the_line(t_pack *data)
 {
 	int		i;
@@ -58,11 +76,10 @@ int			valid_invalid_chars(t_pack *data, char *line)
 	str = NULL;
 	res = 0;
 	idx = read_labels(data, line); // If fst element is Label
+	ft_printf("Line - %s\n", line);
 	if (idx)
 	{
 		str = ft_strndup(line, idx);
-		if (!ft_strcmp(str, "live:"))
-			ft_printf("Here is a bug [%s]\n", str);
 		current_cmnds_position(data);
 		data->cmnds[data->l][data->w] = ft_strdup(str);
 		res = handle_operation(data, line + ft_strlen(str));
@@ -70,9 +87,7 @@ int			valid_invalid_chars(t_pack *data, char *line)
 		free(str);
 	}
 	else if (is_operation(data, line)) // 
-	{
 		res = 1;
-	}
 	else
 	{
 		return (res);

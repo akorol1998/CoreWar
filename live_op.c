@@ -34,15 +34,15 @@ int			handle_live(t_pack *data, char **arr)
 	int		res;
 
 	res = 0;
+	for (int k=0;arr[k];k++)
+		ft_printf("el - %s\n", arr[k]);
 	if (arr && arr[0])
 	{
 		if (arr[0] && arr[0][0] == '%')
-		{	
+		{
 			if (arr[0][1] == ':'
 			&& direct_label(data, arr[0] + 2))
-			{
 				res = 1;
-			}
 			else if (direct_number(data, arr, 0))
 			{
 				res = 1;

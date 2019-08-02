@@ -39,7 +39,7 @@ int			indirect_validation(t_pack *data, char *line)
 
 	i = -1;
 	res = 0;
-	if (line && line[0] == ':' && direct_label(data, line + 2))
+	if (line && line[0] == ':' && direct_label(data, line + 1))
 		return (1);
 	else
 	{

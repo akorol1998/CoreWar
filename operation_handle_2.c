@@ -23,9 +23,13 @@ int			is_operation(t_pack *data, char *line)
 	while (ft_strlen(op) < 2 && line && line[++i])
 		merge_chars(&op, line[i]);
 	if (op)
+	{
 		i = possible_ops(data, &op, line, i);
+	}
 	if (i)
+	{
 		res = operation_valid(data, op, line);
+	}
 	else
 		res = 0;
 	free(op);

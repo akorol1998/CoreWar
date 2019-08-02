@@ -62,14 +62,16 @@ int				search_for_label(t_pack *da, int *idx, char *lbl)
 	int			l;
 	int			k;
 	int			size;
+	int			buf;
 
 	l = da->l;
 	k = *idx;
-	size = 0;
+	buf = 0;
+	size = -1;
 	if (!ft_strcmp(da->cmnds[l][0], lbl))
-		return (size);
-	if (!ft_strcmp(lbl, "live:"))
-		ft_printf("Live - Line %d, index - %d\n", l, k);
+		return (buf);
+	if (!ft_strcmp(lbl, "paks:"))
+		ft_printf("Paks - Line %d, index - %d\n", l, k);
 	while (--l >= 0 && k >= 0)
 	{
 		if (!ft_strcmp(da->cmnds[l][0], lbl))
@@ -77,17 +79,19 @@ int				search_for_label(t_pack *da, int *idx, char *lbl)
 			if (da->cmnds[l][1] && compare_func(da->cmnds[l][1], da))
 			{
 				k--;
-				size += da->comm[k]->size;
+				buf += da->comm[k]->size;
 			}
-			return (-size);
+			size = buf;
 		}
 		else if ((da->cmnds[l][0] && compare_func(da->cmnds[l][0], da))
 		|| (da->cmnds[l][1] && compare_func(da->cmnds[l][1], da)))
 		{
 			k--;
-			size += da->comm[k]->size;
+			buf += da->comm[k]->size;
 		}
 	}
+	if (size != -1)
+		return (-size);
 	size = search_for_label_down(da, idx, lbl);
 	return (size);
 }

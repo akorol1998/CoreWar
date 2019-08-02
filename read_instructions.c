@@ -52,6 +52,7 @@ int			handle_line(t_pack *data, char *line)
 		data->l++;
 	else if (!flag)
 	{
+		just_empty_line(data, line);
 		clean_the_line(data);
 	}
 	free(line);

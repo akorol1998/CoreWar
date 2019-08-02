@@ -43,7 +43,7 @@ int			possible_ops(t_pack *data, char **buf, char *word, int i)
 	return (n != -1 ? n : 0);
 }
 
-void		invali_argumnet_exit(t_pack *data, char **arr, char *op)
+void		invalid_argumnet_exit(t_pack *data, char **arr, char *op)
 {
 	int		i;
 	t_pack *lol;
@@ -58,7 +58,7 @@ void		invali_argumnet_exit(t_pack *data, char **arr, char *op)
 		}
 		free(arr);
 	}
-	ft_printf("%s in '%s' operation.\n", strerror(EINVAL), op);
+	ft_printf("TOKEN ERROR in '%s' operation.\n%s\n", op, strerror(EINVAL));
 	system("leaks asm");
 	exit(1);
 }
@@ -73,9 +73,11 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 	{
 		data->arg_len = 1;
 		if ((res = handle_live(data, arr)))
+		{
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
+		}
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 	}
 	if (!ft_strcmp(op, "ld"))
 	{
@@ -83,7 +85,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_load(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("Load\n");
 	}
 	if (!ft_strcmp(op, "zjmp"))
@@ -92,7 +94,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_live(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("ZJMP %d\n", res);
 	}
 	if (!ft_strcmp(op, "sti"))
@@ -101,7 +103,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_sti(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("STI %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -112,7 +114,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_add(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("ADD %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -123,7 +125,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_add(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("SUB %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -134,7 +136,10 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_and(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+		{
+			ft_printf("boom!\n");
+			invalid_argumnet_exit(data, arr, op);
+		}
 		// ft_printf("AND %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -145,7 +150,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_and(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("OR %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -156,7 +161,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_and(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("XOR %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -167,7 +172,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_load_index(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("LDI %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -178,7 +183,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_live(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("FORK %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -189,7 +194,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_load(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("LLD %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -200,7 +205,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_load_index(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("LLDI %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -211,7 +216,7 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_live(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 		// ft_printf("LFORK %d\n", res);
 		// for(int k=0; data->cmnds[data->l][k];k++)
 		// 	ft_printf(" %s", data->cmnds[data->l][k]);
@@ -222,15 +227,20 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 		if ((res = handle_aff(data, arr)))
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 	}
 	if (!ft_strcmp(op, "st"))
 	{
 		data->arg_len = 2;
 		if ((res = handle_store(data, arr)))
+		{
+			// ft_printf("No seg fault\n");
+			// for (int k=0;arr[k];k++)
+			// 	ft_printf("el - %s\n", arr[k]);
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
+		}
 		if (!res)
-			invali_argumnet_exit(data, arr, op);
+			invalid_argumnet_exit(data, arr, op);
 	}
 	return (res);
 }
@@ -260,12 +270,15 @@ int			operation_valid(t_pack *data, char *op, char *line)
 	str = delete_comments(line + ft_strlen(op));
 	if (!check_commas(op, str))
 	{
+		ft_printf("end - %s\n", str);
+		ft_printf("TOKEN ERROR operation - '%s'\nLINE - %s", op, line);
 		free(str);
 		exit(1);
 	}
 	arr = coma_space_tab_split(str);
 	free(str);
 	res = choose_operation(data, op, arr);
+	
 	i = -1;
 	if (arr)
 	{
@@ -287,6 +300,7 @@ int			handle_operation(t_pack *data, char *str)
 
 	i = -1;
 	op = NULL;
+	res = 0;
 	while (str && (str[++i] == ' ' || str[i] == '\t'))
 		;
 	line = ft_strdup(str + i);
@@ -300,11 +314,19 @@ int			handle_operation(t_pack *data, char *str)
 		merge_chars(&op, line[i]);
 	i = possible_ops(data, &op, line, i);
 	if (i)
+	{
 		res = operation_valid(data, op, line);
+	}
 	else if (op && op[0] == '#')
+	{
 		res = 1;
+	}
 	else
-		res = 0;
+	{
+		ft_printf("Unknown command [%s]\n", op);
+		system("leaks asm");
+		exit(1);
+	}
 	free(line);
 	free(op);
 	return (res);
