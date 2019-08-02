@@ -61,36 +61,6 @@ int			handle_line(t_pack *data, char *line)
 	return (flag);
 }
 
-
-int			read_assm(t_pack *da)
-{
-	int		b;
-	char	*line;
-	char	*del;
-	char	buf[BUF_SIZE + 1];
-
-	b = 0;
-	line = NULL;
-	while ((b = read(da->dsc, buf, BUF_SIZE)))
-	{
-		buf[BUF_SIZE] = '\0';
-		if (line)
-		{
-			del = line;
-			(line) = ft_strjoin(del, buf);
-			free(del);
-		}
-		else
-			line = ft_strdup(buf);
-		// da->bytes += b;
-	}
-	if (line && line[ft_strlen(line) - 1] == '\n')
-		ft_printf("[%c] - %d", line[ft_strlen(line) - 1], da->bytes);
-	free(line);
-	return (1);
-}
-
-
 int			begin(t_pack *data)
 {
 	char	*line;
@@ -157,20 +127,17 @@ int			read_instructions(t_pack *data)
 
 	i = -1;
 	data->pos = lseek(data->dsc, 0, 1);
-	read_assm(data);
+	if (!read_assm(data))
+	{
+		ft_printf("No SLASH N at the end of the line\n");
+		exit(EXIT_FAILURE);
+	}
 	lseek(data->dsc, data->pos, 0);
 	while ((b = get_next_line(data->dsc, &line)))
 	{
-		ft_printf("---%s\n", line);
-		// if (data->n)
-		// {
-		// 	ft_printf("No slash N, your prog suck\n");
-		// 	exit(EXIT_FAILURE)
-		// }
 		read_labels(data, line);
 		free(line);
 		data->bytes += ft_strlen(line) + 1;
-		ft_printf("bytes read %d\n", ft_strlen(line));
 	}
 	lseek(data->dsc, -data->bytes, 1);
 	begin(data);

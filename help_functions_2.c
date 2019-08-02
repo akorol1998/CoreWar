@@ -12,72 +12,41 @@
 
 #include "core_war.h"
 
-int			valid_invalid_comment(char *buf)
+int			backwards(char *line)
 {
+	int		b;
 	int		i;
 
-	i = -1;
-	while (buf[++i] && buf[i] != '#')
+	b = 1;
+	i = ft_strlen(line);
+	while (i >= 0 && line[--i] && (line[i] == ' ' || line[i] == '\t'))
 		;
-	if (!buf[i])
-		return (1);
-	else if (buf[i] == '#' && !i)
-		return (-1);
-	else
-		return (0);
-}
-
-int			label_is_present(char *lbl, t_pack *data)
-{
-	int		i;
-
-	i = -1;
-	while (data->labels[++i])
-	{
-		if (!ft_strcmp(data->labels[i], lbl))
-		{
-			data->lbl = ft_strdup(lbl);
-			return (1);
-		}
-	}
-	return (0);
-}
-
-void		delete_commented_part_of_the_line(t_pack *data, int	line, int word)
-{
-	while (data->tokens[line][++word])
-	{
-		free(data->tokens[line][word]);
-		data->tokens[line][word] = NULL;
-	}
-}
-
-void		clean_line(char **line)
-{
-	int		i;
-
-	i = -1;
-	while (line[++i])
-		free(line[i]);
+	if (i >= 0 && line[i] != '\n')
+		b = 0;
 	free(line);
+	return (b);
 }
 
-int			coma_count(char **arr, int a)
+int			read_assm(t_pack *da)
 {
-	int		i;
-	int		j;
+	int		b;
+	char	*line;
+	char	*del;
+	char	buf[BUF_SIZE + 1];
 
-	i = -1;
-	j = -1;
-	while (arr[++i])
+	b = 0;
+	line = NULL;
+	while ((b = read(da->dsc, buf, BUF_SIZE)))
 	{
-		j = -1;
-		while (arr[i][++j])
-			if (arr[i][j] == ',')
-				a--;
+		buf[BUF_SIZE] = '\0';
+		if (line)
+		{
+			del = line;
+			line = ft_strjoin(del, buf);
+			free(del);
+		}
+		else
+			line = ft_strdup(buf);
 	}
-	if (!a)
-		return (1);
-	return (0);
+	return (backwards(line));
 }
-

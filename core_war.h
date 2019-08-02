@@ -128,4 +128,6 @@ void				write_to_file(t_pack *da, int size, int nbr);
 void				indirect_case(t_pack *da, int w, int i, int *idx);
 void				just_empty_line(t_pack *data, char *line);
 int					get_next_line_core_war(const int fd, char **line, t_pack *data);
+int					backwards(char *line);
+int					read_assm(t_pack *da);
 #endif

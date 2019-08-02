@@ -39,8 +39,8 @@ execution_code_2.c \
 store_index_2.c \
 write_direct.c \
 comm_to_file.c \
+help_functions_2.c \
 
-# help_functions_2.c \
 # op_check.c \
 # label_check.c \
 # store_index_3.c \
