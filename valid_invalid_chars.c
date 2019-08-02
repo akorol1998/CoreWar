@@ -61,9 +61,12 @@ int			valid_invalid_chars(t_pack *data, char *line)
 	if (idx)
 	{
 		str = ft_strndup(line, idx);
+		if (!ft_strcmp(str, "live:"))
+			ft_printf("Here is a bug [%s]\n", str);
 		current_cmnds_position(data);
 		data->cmnds[data->l][data->w] = ft_strdup(str);
 		res = handle_operation(data, line + ft_strlen(str));
+		ft_printf(" line %s, l-%d, w-%d\n", data->cmnds[data->l][data->w], data->l, data->w);
 		free(str);
 	}
 	else if (is_operation(data, line)) // 

@@ -68,6 +68,8 @@ int				search_for_label(t_pack *da, int *idx, char *lbl)
 	size = 0;
 	if (!ft_strcmp(da->cmnds[l][0], lbl))
 		return (size);
+	if (!ft_strcmp(lbl, "live:"))
+		ft_printf("Live - Line %d, index - %d\n", l, k);
 	while (--l >= 0 && k >= 0)
 	{
 		if (!ft_strcmp(da->cmnds[l][0], lbl))
@@ -96,12 +98,15 @@ void			write_to_file(t_pack *da, int size, int nbr)
 	int			a;
 	
 	t = size - 1;
+	// ft_printf(" NUmber %d [", nbr);
 	while (t >= 0)
 	{
 		a = nbr >> 8 * t;
+		// ft_printf(" %d-%x ", a);
 		write(da->dsc, &a, 1);
 		t--;
 	}
+	// ft_printf("]\n");
 }
 
 void			direct_write(t_pack *da, int w, int	i, int *idx)
@@ -126,7 +131,6 @@ void			direct_write(t_pack *da, int w, int	i, int *idx)
 	else
 	{
 		nbr = get_direct_number(da, da->cmnds[da->l], w);
-		ft_printf("direct %d\n", nbr);
 		write_to_file(da, size, nbr);
 	}
 	free(lbl);

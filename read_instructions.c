@@ -133,8 +133,7 @@ int			read_instructions(t_pack *data)
 	}		
 	lseek(data->dsc, -data->bytes, 1);
 	begin(data);
-	// delete_comments(data);
-	// print_tokens(data);
-	// actual_instructions(data);
+	for (int i = 0;data->cmnds[i];i++)
+		ft_printf(" %s \n", data->cmnds[i][0]);
 	return (1);
 }

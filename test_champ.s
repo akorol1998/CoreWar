@@ -5,8 +5,8 @@
 		   .comment 			 "This city needs me me" #eQFQFEWwg
 
 
-live: #ewghjfk
-	live %:paks  #Case 'ld: live, r2' should not work !!!
+live: #1111ewghjfk
+	live%:paks  #Case 'ld: live, r2' should not work !!!
 	ld%34,r1 #ewghjfk 	
     zjmp %1 #ewghjfk
 	

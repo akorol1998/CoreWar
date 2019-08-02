@@ -301,6 +301,8 @@ int			handle_operation(t_pack *data, char *str)
 	i = possible_ops(data, &op, line, i);
 	if (i)
 		res = operation_valid(data, op, line);
+	else if (op && op[0] == '#')
+		res = 1;
 	else
 		res = 0;
 	free(line);
