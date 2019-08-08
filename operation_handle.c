@@ -77,7 +77,9 @@ int			choose_operation(t_pack *data, char *op, char **arr)
 			res = check_line_tail(data, (arr)); //Custom index of where to start from
 		}
 		if (!res)
+		{
 			invalid_argumnet_exit(data, arr, op);
+		}
 	}
 	if (!ft_strcmp(op, "ld"))
 	{
@@ -272,13 +274,20 @@ int			operation_valid(t_pack *data, char *op, char *line)
 	{
 		ft_printf("end - %s\n", str);
 		ft_printf("TOKEN ERROR operation - '%s'\nLINE - %s", op, line);
+		system("leaks asm");
 		free(str);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
+	ft_printf("What is left --%s\n", str);
+	if (str && str[0] != ' ' && str[0] != '\t' && str[0] != '%' && str[0] != '-')
+	{
+		ft_printf("Invalid symbols after '%s' - %c\n", op, str[0]);
+		exit(EXIT_FAILURE);	
+	}
+	// first_argument_space_check(str);
 	arr = coma_space_tab_split(str);
 	free(str);
 	res = choose_operation(data, op, arr);
-	
 	i = -1;
 	if (arr)
 	{
@@ -323,7 +332,7 @@ int			handle_operation(t_pack *data, char *str)
 	}
 	else
 	{
-		ft_printf("Unknown command [%s]\n", op);
+		ft_printf("Unknown command ahhhh [%s]\n", op);
 		system("leaks asm");
 		exit(1);
 	}

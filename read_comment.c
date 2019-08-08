@@ -21,6 +21,7 @@ int			finish_comment(t_pack *data, int count)	//check this name to be not bigger
 	del = data->comment;
 	data->comment = ft_strjoin(data->comment, "\n");
 	free(del);
+	ft_printf("LENGTH - %d\n", ft_strlen(data->comment));
 	if (data->comment && (ft_strlen(data->comment) + count - 1 > COMMENT_LENGTH))
 		return (0);
 	lseek(data->dsc, -count, 1);
@@ -34,7 +35,7 @@ int			finish_comment(t_pack *data, int count)	//check this name to be not bigger
 	return (1);
 }
 
-int			check_after(char *line)
+int			check_after(t_pack *da, char *line)
 {
 	int		i;
 
@@ -44,7 +45,17 @@ int			check_after(char *line)
 		if (line[i] == '#')
 			return (1);
 		if (!(line[i] == ' ') && !(line[i] == '\t'))
-			return (0);
+		{
+			ft_printf("Unknown symbols [%c]\n", line[i]);
+			system("leaks asm");
+			exit(EXIT_FAILURE);
+		}
+	}
+	if (ft_strlen(da->comment) > COMMENT_LENGTH || ft_strlen(da->name) > PROG_NAME_LENGTH)
+	{
+		ft_printf("INAPROPRIATE COMMENT or NAME size\n");
+		system("leaks asm");
+		exit(EXIT_FAILURE);
 	}
 	return (1);
 }
@@ -63,13 +74,17 @@ int         actual_comment(t_pack *data, char *line)
 	if (!data->comment)
 		data->comment = ft_strsub(line, 0, i);
 	if (line[i] == '"')
-		return (check_after(line + i + 1));
+	{
+		return (check_after(data, line + i + 1));
+	}
     while ((bytes = read(data->dsc, buf, BUF_SIZE)))
     {
 		count++;
 		buf[bytes] = '\0';
 		if (buf[0] == '"')
+		{
 			return (finish_comment(data, count));
+		}
     }
 	return (0);
 }

@@ -71,7 +71,27 @@ void		magic_header_name(t_pack *data)
 	while (++i < size)
 		write(data->dsc, &magic, 1);
 }
+void		no_ops_check(t_pack *da)
+{
+	int		i;
+	int		j;
+	int		f;
 
+	i = -1;
+	f = 0;
+	while (da->cmnds && da->cmnds[++i])
+	{
+		j = -1;
+		while (da->cmnds[i][++j])
+			f = 1;
+	}
+	if (!f)
+	{
+		ft_printf("NO OPERATIONS FOR THE CHAMPION!\n");
+		system("leaks asm");
+		exit(EXIT_FAILURE);
+	}
+}
 int			writing_to_file(t_pack *data)
 {
 	int		res;
@@ -80,6 +100,7 @@ int			writing_to_file(t_pack *data)
 	del = data->file_name;
 	data->file_name = ft_strjoin(del, ".cor");
 	free(del);
+	no_ops_check(data);
 	res = 0;
 	if (!(data->dsc = open(data->file_name, O_WRONLY | O_CREAT | O_TRUNC)))
 		return (0);
@@ -87,5 +108,6 @@ int			writing_to_file(t_pack *data)
 	null_point_comment(data);
 	execution_code(data);
 	close(data->dsc);
+	ft_printf("SUCCESS!\n");
 	return (res);
 }

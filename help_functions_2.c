@@ -18,12 +18,16 @@ int			backwards(char *line)
 	int		i;
 
 	b = 1;
-	i = ft_strlen(line);
-	while (i >= 0 && line[--i] && (line[i] == ' ' || line[i] == '\t'))
-		;
-	if (i >= 0 && line[i] != '\n')
-		b = 0;
-	free(line);
+	if (line && (i = ft_strlen(line)))
+	{
+		while (i >= 0 && line[--i] && (line[i] == ' ' || line[i] == '\t'))
+			;
+		if (i >= 0 && line[i] != '\n')
+			b = 0;
+		free(line);
+	}
+	else
+		b = 0;	
 	return (b);
 }
 

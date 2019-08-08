@@ -43,10 +43,14 @@ int			handle_live(t_pack *data, char **arr)
 				res = 1;
 			else if (direct_number(data, arr, 0))
 			{
+				ft_printf("Zhest! - %s\n", arr[0]);
 				res = 1;
 			}
 			else
+			{
+				ft_printf("Errrrrr! - %s\n", arr[0]);
 				res = 0;
+			}
 		}
 	}
 	else

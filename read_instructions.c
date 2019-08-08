@@ -12,32 +12,6 @@
 
 #include "core_war.h"
 
-// int			actual_instructions(t_pack *data)
-// {
-// 	data->line = -1;
-// 	while (data->tokens[++data->line])
-// 	{
-// 		if (!label_check(data, data->line))
-// 			ft_printf("WEll it is really weird error\n");
-// 	}
-// 	data->line = -1;
-// 	while (data->tokens[++data->line])
-// 	{
-// 		if (!check_if_label(data, data->line))
-// 		{
-// 			ft_printf("The first element ======= %s ======\n", data->tokens[data->line][0]);
-// 			if (!check_for_being_op(data, data->line))
-// 				ft_printf("Some shit, i don't know\n");
-// 		}
-// 		clean_unique_data(data);
-// 	}
-// 	for(int i=0;data->labels[i];i++)
-// 	{
-// 		ft_printf("LBL [%s]\n", data->labels[i]);
-// 	}
-	
-// 	return (1);
-// }
 int			handle_line(t_pack *data, char *line)
 {
 	int		i;

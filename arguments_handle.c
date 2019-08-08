@@ -104,6 +104,8 @@ int			direct_number(t_pack *data, char **line, int w)
 	char	*nbr;
 
 	i = 0;
+	if (!line[w][i + 1])
+		return (0);
 	while (line[w][++i])
 	{
 		if ((line[w][i] == '+' || (line[w][i] == '-' && i != 1)) ||

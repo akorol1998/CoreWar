@@ -48,7 +48,7 @@ int         actual_name(t_pack *data, char *line)
 	if (!data->name)
 			data->name = ft_strsub(line, 0, i);
 	if (line[i] == '"')
-		return (check_after(line + i + 1));
+		return (check_after(data, line + i + 1));
     while ((bytes = read(data->dsc, buf, BUF_SIZE)))
     {
 		count++;

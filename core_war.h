@@ -62,7 +62,7 @@ t_cmnd				*allocating_for_comm(t_pack *da);
 t_pack				*fill_data(void);
 int					read_name(t_pack *data, char *line);
 int					read_comment(t_pack *data, char *line);
-int					check_after(char *line);
+int					check_after(t_pack *da, char *line);
 int					read_instructions(t_pack *data);
 void				print_tokens(t_pack *data);
 void				merge_chars(char **buf, char c);

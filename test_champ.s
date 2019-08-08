@@ -5,7 +5,7 @@
 		   .comment 			 "This city needs me me" #eQFQFEWwg
 
 
-live: #1111ewghjfk
+live:#1111ewghjfk
 	live %:pask  #Case 'ld: live, r2' should not work !!!
 	ld %34,r1 #ewghjfk 	
     zjmp %12 #ewghjfk
@@ -16,7 +16,7 @@ loop: #ewghjfk
 take:
 	add r02, r12, r3 #ewghjfk
 	sub r03, r7, r5 #ewghjfk
-	and :pask, %65, r12 #ewghjfk
+	and :take, %65, r12 #ewghjfk
 	or  %65, %:live,r9 #ewghjfk
 		#ewgew
 		

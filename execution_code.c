@@ -93,21 +93,4 @@ void			execution_code(t_pack *data)
 		write(data->dsc, &n, 1);
 	}
 	close(data->dsc);
-	ft_printf("SUCCESS!\n");
-	system("leaks asm");
-	exit(1);
-	// write(data->dsc, &c, 1);
-	// a = c >> 16;
-	// write(data->dsc, &a, 1);
-	// a = c >> 8;
-	// write(data->dsc, &a, 1);
-	// a = c;
-	// write(data->dsc, &a, 1);
-	// cmnd = data->comm[15];
-	// ft_printf("cmnd->op %d\n", cmnd->op);
-	// ft_printf("cmnd->type %d\n", cmnd->type);
-	// ft_printf("cmnd->arg1 %d\n", cmnd->arg1);
-	// ft_printf("cmnd->arg2 %d\n", cmnd->arg2);
-	// ft_printf("cmnd->arg3 %d\n", cmnd->arg3);	
-	// ft_printf("cmnd->size %d\n", cmnd->size);
 }

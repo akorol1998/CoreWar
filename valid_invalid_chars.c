@@ -76,14 +76,14 @@ int			valid_invalid_chars(t_pack *data, char *line)
 	str = NULL;
 	res = 0;
 	idx = read_labels(data, line); // If fst element is Label
-	ft_printf("Line - %s\n", line);
-	if (idx)
+	// ft_printf("Line - %s\n", line);
+	if (idx) // this CASE too !!!
 	{
 		str = ft_strndup(line, idx);
 		current_cmnds_position(data);
 		data->cmnds[data->l][data->w] = ft_strdup(str);
 		res = handle_operation(data, line + ft_strlen(str));
-		ft_printf(" line %s, l-%d, w-%d\n", data->cmnds[data->l][data->w], data->l, data->w);
+		// ft_printf(" line %s, l-%d, w-%d\n", data->cmnds[data->l][data->w], data->l, data->w);
 		free(str);
 	}
 	else if (is_operation(data, line)) // 
