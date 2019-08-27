@@ -74,17 +74,13 @@ int         actual_comment(t_pack *data, char *line)
 	if (!data->comment)
 		data->comment = ft_strsub(line, 0, i);
 	if (line[i] == '"')
-	{
 		return (check_after(data, line + i + 1));
-	}
     while ((bytes = read(data->dsc, buf, BUF_SIZE)))
     {
 		count++;
 		buf[bytes] = '\0';
 		if (buf[0] == '"')
-		{
 			return (finish_comment(data, count));
-		}
     }
 	return (0);
 }

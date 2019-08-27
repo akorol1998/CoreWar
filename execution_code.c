@@ -68,13 +68,10 @@ void			count_lines_size(t_pack *da)
 				count_execution_line_size(da, da->w + 1);
 		}
 	}
-	
 }
 
 void			execution_code(t_pack *data)
 {
-	// t_cmnd		*cmnd;
-	// char		c = 52;
 	int			i;
 	int			size;
 	int			n;

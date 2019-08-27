@@ -57,6 +57,9 @@ typedef struct      s_pack
 
 }					t_pack;
 
+int					read_name_comment(t_pack *data, char *line);
+int					name_comment_block(t_pack *data);
+int					search_dot(char *line);
 void				allocate_comm(t_pack *data);
 t_cmnd				*allocating_for_comm(t_pack *da);
 t_pack				*fill_data(void);
@@ -130,4 +133,22 @@ void				just_empty_line(t_pack *data, char *line);
 int					get_next_line_core_war(const int fd, char **line, t_pack *data);
 int					backwards(char *line);
 int					read_assm(t_pack *da);
+int					choose_operation(t_pack *data, char *op, char **arr);
+void				choose_operation_1(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_2(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_3(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_4(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_5(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_6(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_7(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_8(t_pack *data, char *op, char **arr, int *res);
+void				invalid_argumnet_exit(t_pack *data, char **arr, char *op);
+void				sti_op_size_2(t_cmnd *cmnd, char **arr, int w);
+void				sti_op_size(t_pack *da, int w);
+char				*get_direct_label(t_pack *data, char *line);
+void				scnd_arg(t_cmnd *cmnd, char **arr, int w);
+void				and_op_size_2(t_cmnd *cmnd, char **arr, int w);
+int					count_comas_in_array(char *str, int n);
+void				load_index_op_size_2(t_cmnd *cmnd, char **arr, int w);
+void				stage_nmbr_2(t_cmnd *cmnd, char **arr, int w);
 #endif

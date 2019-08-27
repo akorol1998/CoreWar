@@ -12,8 +12,6 @@
 
 #include "core_war.h"
 
-// {"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25, "store index", 1, 1}
-
 int				thrd_stage(t_pack *data, char **arr)
 {
 	int			res;
@@ -93,18 +91,8 @@ void			arg2_stage(t_cmnd *cmnd, char **arr, int w)
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->arg3 + cmnd->type + cmnd->op;
 }
 
-void			sti_op_size(t_pack *da, int w)
+void			sti_op_size_2(t_cmnd *cmnd, char **arr, int w)
 {
-	t_cmnd		*cmnd;
-	char		**arr;
-
-	cmnd = allocating_for_comm(da);
-	cmnd->op = 1;
-	arr = da->cmnds[da->l];
-	cmnd->arg1 = 1;
-	cmnd->op_code = 0x0b;
-	cmnd->type_code[1] = 1;
-	w++;
 	if (arr[++w])
 	{
 		if (arr[w][0] == 'r' && register_check(arr[w]))

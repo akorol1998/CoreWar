@@ -59,3 +59,19 @@ void		add_sub_op_size(t_pack *da, int w)
 	cmnd->size = cmnd->op + cmnd->type + cmnd->arg1 + cmnd->arg2 + cmnd->arg3;
 	w = 1;
 }
+
+char		*get_direct_label(t_pack *data, char *line)
+{
+	int		i;
+	char	*del;
+
+	del = ft_strjoin(line, ":");
+	i = -1;
+	while (data->labels[++i])
+	{
+		if (!ft_strcmp(data->labels[i], del))
+			return (del);
+	}
+	free(del);
+	return (NULL);
+}

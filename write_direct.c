@@ -12,24 +12,6 @@
 
 #include "core_war.h"
 
-char		*get_direct_label(t_pack *data, char *line)
-{
-	int		i;
-	char	*del;
-
-	del = ft_strjoin(line, ":");
-	i = -1;
-	while (data->labels[++i])
-	{
-		if (!ft_strcmp(data->labels[i], del))
-		{
-			return (del);
-		}
-	}
-	free(del);
-	return (NULL);
-}
-
 int				search_for_label_down(t_pack *da, int *idx, char *lbl)
 {
 	int			l;
@@ -57,21 +39,13 @@ int				search_for_label_down(t_pack *da, int *idx, char *lbl)
 	return (-1);
 }
 
-int				search_for_label(t_pack *da, int *idx, char *lbl)
+int				search_for_label_2(t_pack *da, char *lbl, int l, int k)
 {
-	int			l;
-	int			k;
 	int			size;
 	int			buf;
 
-	l = da->l;
-	k = *idx;
-	buf = 0;
 	size = -1;
-	if (!ft_strcmp(da->cmnds[l][0], lbl))
-		return (buf);
-	if (!ft_strcmp(lbl, "paks:"))
-		ft_printf("Paks - Line %d, index - %d\n", l, k);
+	buf = 0;
 	while (--l >= 0 && k >= 0)
 	{
 		if (!ft_strcmp(da->cmnds[l][0], lbl))
@@ -90,6 +64,21 @@ int				search_for_label(t_pack *da, int *idx, char *lbl)
 			buf += da->comm[k]->size;
 		}
 	}
+	return (size);
+}
+
+int				search_for_label(t_pack *da, int *idx, char *lbl)
+{
+	int			l;
+	int			k;
+	int			size;
+
+	l = da->l;
+	k = *idx;
+	size = -1;
+	if (!ft_strcmp(da->cmnds[l][0], lbl))
+		return (0);
+	size = search_for_label_2(da, lbl, l, k);
 	if (size != -1)
 		return (-size);
 	size = search_for_label_down(da, idx, lbl);
@@ -102,15 +91,12 @@ void			write_to_file(t_pack *da, int size, int nbr)
 	int			a;
 	
 	t = size - 1;
-	// ft_printf(" NUmber %d [", nbr);
 	while (t >= 0)
 	{
 		a = nbr >> 8 * t;
-		// ft_printf(" %d-%x ", a);
 		write(da->dsc, &a, 1);
 		t--;
 	}
-	// ft_printf("]\n");
 }
 
 void			direct_write(t_pack *da, int w, int	i, int *idx)

@@ -12,12 +12,6 @@
 
 #include "core_war.h"
 
-// void		first_argument_space_check(char *str)
-// {
-// 	if (str && str[0] != ' ' && str[0] != '\t' && str[0] != '%' && str[0] != '-')
-// 		return (0);
-// }
-
 int			is_operation(t_pack *data, char *line)
 {
 	int		i;

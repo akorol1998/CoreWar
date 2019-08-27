@@ -10,3 +10,4 @@ live:
         ld%:live, r2
 
         zjmp%:loop
+		aff r7

@@ -20,6 +20,9 @@ read_instructions.c \
 lable_handle.c\
 valid_invalid_chars.c\
 operation_handle.c\
+choose_operation_1.c \
+choose_operation_2.c \
+operation_handling_function.c \
 operation_handle_2.c\
 help_functions.c \
 arguments_handle.c \

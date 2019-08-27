@@ -22,7 +22,7 @@ int			handle_line(t_pack *data, char *line)
 	while (line[++i] == ' ' || line[i] == '\t')
 		;
 	flag = valid_invalid_chars(data, line + i);
-	if (flag == 1 || flag == -1) // increase data->lines only if line was with content, pay attention to the output
+	if (flag == 1 || flag == -1)
 		data->l++;
 	else if (!flag)
 	{

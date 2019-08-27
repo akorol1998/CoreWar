@@ -75,8 +75,6 @@ int			indirect_arg(t_pack *data, char **line, int w)
 
 int			register_check(char *line)
 {
-	// char	*reg;
-	// char	*nbr;
 	int		i;
 	int		res;
 	int		flag;
@@ -118,27 +116,5 @@ int			direct_number(t_pack *data, char **line, int w)
 	nbr = ft_strsub(line[w], 0, i);
 	free(nbr);
 	data = NULL;
-	return (1);
-}
-
-int			register_sti(char *line, int i)
-{
-	char	*nbr;
-	int		j;
-
-	j = -1;
-	nbr = ft_strsub(line, 1, i - 1);
-	while(nbr[++j])
-	{
-		if (nbr[j] == '+' || nbr[j] == '-')
-			return (0);
-	}
-	if (j > 2 || ft_atoi(nbr) > 99 || ft_atoi(nbr) < 0 ||
-	ft_atoi(nbr) > REG_NUMBER)
-	{
-		free(nbr);
-		return (0);
-	}
-	free(nbr);
 	return (1);
 }

@@ -12,8 +12,6 @@
 
 #include "core_war.h"
 
-// {"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
-// "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0}
 static int	thrd_stage(char **arr)
 {
 	int			res;
@@ -116,27 +114,5 @@ void			and_op_size(t_pack *da, int w)
 		cmnd->op_code = 0x07;
 	else if (!ft_strcmp(da->cmnds[da->l][w], "xor"))
 		cmnd->op_code = 0x08;
-	if (arr[++w])
-	{
-		if (arr[w][0] == 'r' && register_check(arr[w]))
-		{
-			cmnd->arg1 = 1;
-			cmnd->type_code[1] = 1;
-			scnd_arg(cmnd, arr, w + 1);
-		}
-		else if (arr[w][0] == '%')
-		{
-			cmnd->type_code[0] = 1;
-			cmnd->arg1 = 4;
-			scnd_arg(cmnd, arr, w + 1);
-		}
-		else
-		{
-			cmnd->type_code[0] = 1;
-			cmnd->type_code[1] = 1;
-			cmnd->arg1 = 2;
-			scnd_arg(cmnd, arr, w + 1);
-		}
-		and_op_type_code(cmnd);
-	}
+	and_op_size_2(cmnd, arr, w);
 }

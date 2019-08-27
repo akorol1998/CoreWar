@@ -12,8 +12,6 @@
 
 #include "core_war.h"
 
-// {"live", 1, {T_DIR}, 1, 10, "alive", 0, 0}
-
 void		args_to_cmnds(t_pack *data, char **arr)
 {
 	int			i;
@@ -22,7 +20,7 @@ void		args_to_cmnds(t_pack *data, char **arr)
 	current_cmnds_position(data);
 	i = data->w;
 	j = -1;
-	while (++j < data->arg_len) //Custom number of arguments
+	while (++j < data->arg_len)
 	{
 		data->cmnds[data->l][i] = ft_strdup(arr[j]);
 		i++;
@@ -42,15 +40,9 @@ int			handle_live(t_pack *data, char **arr)
 			&& direct_label(data, arr[0] + 2))
 				res = 1;
 			else if (direct_number(data, arr, 0))
-			{
-				ft_printf("Zhest! - %s\n", arr[0]);
 				res = 1;
-			}
 			else
-			{
-				ft_printf("Errrrrr! - %s\n", arr[0]);
 				res = 0;
-			}
 		}
 	}
 	else
@@ -58,6 +50,23 @@ int			handle_live(t_pack *data, char **arr)
 	if (res)
 		args_to_cmnds(data, arr);
 	return (res);
+}
+
+void			zjmp_or_aff(t_pack *da, t_cmnd *cmnd, int w)
+{
+	if (!ft_strcmp(da->cmnds[da->l][w], "zjmp"))
+	{
+		cmnd->arg1 = 2;
+		cmnd->op_code = 0x09;
+	}
+	else if (!ft_strcmp(da->cmnds[da->l][w], "aff"))
+	{
+		cmnd->arg1 = 1;
+		cmnd->type = 1;
+		cmnd->op_code = 0x10;
+		cmnd->type_code[1] = 1;
+		and_op_type_code(cmnd);
+	}
 }
 
 void			live_op_size(t_pack *da, int w)
@@ -83,19 +92,7 @@ void			live_op_size(t_pack *da, int w)
 		cmnd->arg1 = 2;
 		cmnd->op_code = 0x0f;
 	}
-	else if (!ft_strcmp(da->cmnds[da->l][w], "zjmp"))
-	{
-		cmnd->arg1 = 2;
-		cmnd->op_code = 0x09;
-	}
-	else if (!ft_strcmp(da->cmnds[da->l][w], "aff"))
-	{
-		cmnd->arg1 = 1;
-		cmnd->type = 1;
-		cmnd->op_code = 0x10;
-		cmnd->type_code[1] = 1;
-		and_op_type_code(cmnd);
-	}
+	zjmp_or_aff(da, cmnd, w);
 	cmnd->size = cmnd->op + cmnd->arg1 + cmnd->type;
 	w++;
 }

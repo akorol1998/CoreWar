@@ -68,8 +68,6 @@ int			handle_load_index(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
-	else
-		res = 0;
 	if (res)
 		args_to_cmnds(data, arr);
 	return (res);
@@ -106,26 +104,5 @@ void		load_index_op_size(t_pack *da, int w)
 	arr = da->cmnds[da->l];
 	cmnd->op = 1;
 	cmnd->type = 1;
-	if (arr[++w])
-	{
-		if (arr[w][0] == 'r' && register_check(arr[w]))
-		{
-			cmnd->arg1 = 1;
-			cmnd->type_code[1] = 1;
-			stage_nmbr_2(cmnd, arr, w + 1);
-		}
-		else if (arr[w][0] == '%')
-		{
-			cmnd->type_code[0] = 1;
-			cmnd->arg1 = 2;
-			stage_nmbr_2(cmnd, arr, w + 1);
-		}
-		else
-		{
-			cmnd->type_code[1] = 1;
-			cmnd->type_code[0] = 1;
-			cmnd->arg1 = 2;
-			stage_nmbr_2(cmnd, arr, w + 1);
-		}
-	}
+	load_index_op_size_2(cmnd, arr, w);
 }

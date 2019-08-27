@@ -30,3 +30,30 @@ int				handle_store(t_pack *data, char **arr)
 		args_to_cmnds(data, arr);
 	return (res);
 }
+
+void			and_op_size_2(t_cmnd *cmnd, char **arr, int w)
+{
+	if (arr[++w])
+	{
+		if (arr[w][0] == 'r' && register_check(arr[w]))
+		{
+			cmnd->arg1 = 1;
+			cmnd->type_code[1] = 1;
+			scnd_arg(cmnd, arr, w + 1);
+		}
+		else if (arr[w][0] == '%')
+		{
+			cmnd->type_code[0] = 1;
+			cmnd->arg1 = 4;
+			scnd_arg(cmnd, arr, w + 1);
+		}
+		else
+		{
+			cmnd->type_code[0] = 1;
+			cmnd->type_code[1] = 1;
+			cmnd->arg1 = 2;
+			scnd_arg(cmnd, arr, w + 1);
+		}
+		and_op_type_code(cmnd);
+	}
+}

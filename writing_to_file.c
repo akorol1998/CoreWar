@@ -38,7 +38,7 @@ void		null_point_comment(t_pack *data)
 	magic = 0;
 	while (++i < 4)
 		write(data->dsc, &magic, 1);
-	data->pos = lseek(data->dsc, 0, 1); // Position for size of execution code
+	data->pos = lseek(data->dsc, 0, 1);
 	i = -1;
 	while (++i < 4)
 		write(data->dsc, &magic, 1);
@@ -102,7 +102,7 @@ int			writing_to_file(t_pack *data)
 	free(del);
 	no_ops_check(data);
 	res = 0;
-	if (!(data->dsc = open(data->file_name, O_WRONLY | O_CREAT | O_TRUNC)))
+	if (!(data->dsc = open(data->file_name, O_WRONLY | O_CREAT | O_TRUNC, 777)))
 		return (0);
 	magic_header_name(data);
 	null_point_comment(data);

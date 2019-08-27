@@ -12,7 +12,7 @@
 
 #include "core_war.h"
 
-int			finish_name(t_pack *data, int count)	//check this name to be not bigger than PROG_NAME_LENGTH
+int			finish_name(t_pack *data, int count)
 {
 	char	buf[count + 1];
 	char	*del;
@@ -63,7 +63,7 @@ int         read_name(t_pack *data, char *line)
 {
     int     i;
 	int		res;
-    
+
 	if (data->name)
 		return (0);
     i = -1;

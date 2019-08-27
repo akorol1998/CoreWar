@@ -54,3 +54,70 @@ int			read_assm(t_pack *da)
 	}
 	return (backwards(line));
 }
+
+int			register_sti(char *line, int i)
+{
+	char	*nbr;
+	int		j;
+
+	j = -1;
+	nbr = ft_strsub(line, 1, i - 1);
+	while(nbr[++j])
+	{
+		if (nbr[j] == '+' || nbr[j] == '-')
+			return (0);
+	}
+	if (j > 2 || ft_atoi(nbr) > 99 || ft_atoi(nbr) < 0 ||
+	ft_atoi(nbr) > REG_NUMBER)
+	{
+		free(nbr);
+		return (0);
+	}
+	free(nbr);
+	return (1);
+}
+
+void		check_commas_2(char *op, int *n)
+{
+	if (!ft_strcmp(op, "ldi"))
+		(*n) = 2;
+	else if (!ft_strcmp(op, "fork"))
+		;
+	else if (!ft_strcmp(op, "lld"))
+		(*n) = 1;
+	else if (!ft_strcmp(op, "lldi"))
+		(*n) = 2;
+	else if (!ft_strcmp(op, "lfork"))
+		;
+	else if (!ft_strcmp(op, "aff"))
+		;
+	else if (!ft_strcmp(op, "st"))
+		(*n) = 1;
+}
+
+int			check_commas(char *op, char *str)
+{
+	int		n;
+
+	n = 0;
+	if (!ft_strcmp(op, "live"))
+		;
+	else if (!ft_strcmp(op, "ld"))
+		n = 1;
+	else if (!ft_strcmp(op, "zjmp"))
+		;
+	else if (!ft_strcmp(op, "sti"))
+		n = 2;
+	else if (!ft_strcmp(op, "sub"))
+		n = 2;
+	else if (!ft_strcmp(op, "add"))
+		n = 2;
+	else if (!ft_strcmp(op, "and"))
+		n = 2;
+	else if (!ft_strcmp(op, "or"))
+		n = 2;
+	else if (!ft_strcmp(op, "xor"))
+		n = 2;
+	check_commas_2(op, &n);
+	return (count_comas_in_array(str, n));
+}

@@ -12,7 +12,31 @@
 
 #include "core_war.h"
 
-//{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0}
+void		load_index_op_size_2(t_cmnd *cmnd, char **arr, int w)
+{
+	if (arr[++w])
+	{
+		if (arr[w][0] == 'r' && register_check(arr[w]))
+		{
+			cmnd->arg1 = 1;
+			cmnd->type_code[1] = 1;
+			stage_nmbr_2(cmnd, arr, w + 1);
+		}
+		else if (arr[w][0] == '%')
+		{
+			cmnd->type_code[0] = 1;
+			cmnd->arg1 = 2;
+			stage_nmbr_2(cmnd, arr, w + 1);
+		}
+		else
+		{
+			cmnd->type_code[1] = 1;
+			cmnd->type_code[0] = 1;
+			cmnd->arg1 = 2;
+			stage_nmbr_2(cmnd, arr, w + 1);
+		}
+	}
+}
 
 int			check_2nd_arg(char **arr)
 {
@@ -50,20 +74,8 @@ int				handle_load(t_pack *data, char **arr)
 	return (res);
 }
 
-void			ld_op_size(t_pack *da, int w)
+void			ld_op_size_2(t_cmnd *cmnd, char **arr, int w)
 {
-	t_cmnd		*cmnd;
-	char		**arr;
-
-	cmnd = allocating_for_comm(da);
-	cmnd->op = 1;
-	arr = da->cmnds[da->l];
-	cmnd->arg2 = 1;
-	cmnd->type = 1;
-	if (!ft_strcmp(da->cmnds[da->l][w], "ld"))
-		cmnd->op_code = 0x02;
-	else if (!ft_strcmp(da->cmnds[da->l][w], "lld"))
-		cmnd->op_code = 0x0d;
 	if (arr[++w])
 	{
 		if (arr[w][0] == '%')
@@ -78,8 +90,24 @@ void			ld_op_size(t_pack *da, int w)
 			cmnd->arg1 = 2;	
 		}
 	}
+}
+
+void			ld_op_size(t_pack *da, int w)
+{
+	t_cmnd		*cmnd;
+	char		**arr;
+
+	cmnd = allocating_for_comm(da);
+	cmnd->op = 1;
+	arr = da->cmnds[da->l];
+	cmnd->arg2 = 1;
+	cmnd->type = 1;
+	if (!ft_strcmp(da->cmnds[da->l][w], "ld"))
+		cmnd->op_code = 0x02;
+	else if (!ft_strcmp(da->cmnds[da->l][w], "lld"))
+		cmnd->op_code = 0x0d;
+	ld_op_size_2(cmnd, arr, w);
 	cmnd->type_code[3] = 1;
 	and_op_type_code(cmnd);
 	cmnd->size = cmnd->arg1 + cmnd->arg2 + cmnd->type + cmnd->op;
-	
 }
