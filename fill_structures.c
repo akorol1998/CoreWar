@@ -14,7 +14,6 @@
 
 void		print_tokens(t_pack *data)
 {
-
 	int		i;
 	int		j;
 
@@ -26,7 +25,7 @@ void		print_tokens(t_pack *data)
 		while (data->cmnds[i][++j])
 			ft_printf("%s ", data->cmnds[i][j]);
 		ft_printf("\n", i);
-	}	
+	}
 }
 
 void		fill_ops(t_pack *data)
@@ -57,7 +56,7 @@ void		fill_cmnds(t_pack *data)
 
 	i = -1;
 	data->cmnds = (char***)malloc(sizeof(char**) * CHAMP_MAX_SIZE + 1);
-	while (++i <=CHAMP_MAX_SIZE)
+	while (++i <= CHAMP_MAX_SIZE)
 		data->cmnds[i] = NULL;
 }
 

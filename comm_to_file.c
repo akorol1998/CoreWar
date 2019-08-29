@@ -12,9 +12,9 @@
 
 #include "core_war.h"
 
-void			comm_info_to_file(t_pack *da, int *idx)
+void		comm_info_to_file(t_pack *da, int *idx)
 {
-	t_cmnd		*com;
+	t_cmnd	*com;
 
 	com = da->comm[*idx];
 	write(da->dsc, &com->op_code, 1);
@@ -35,7 +35,7 @@ int			get_direct_number(t_pack *data, char **line, int w)
 		{
 			return (0);
 		}
-	}	
+	}
 	nbr = ft_strsub(line[w], 1, i);
 	i = ft_atoi(nbr);
 	free(nbr);
@@ -48,9 +48,8 @@ int			get_indirect_number(char *line)
 	int		i;
 	char	*nbr;
 
-
 	i = -1;
-	while(line[++i])
+	while (line[++i])
 		;
 	nbr = ft_strndup(line, i);
 	i = ft_atoi(nbr);

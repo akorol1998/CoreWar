@@ -12,7 +12,7 @@
 
 #include "core_war.h"
 
-void		load_index_op_size_2(t_cmnd *cmnd, char **arr, int w)
+void			load_index_op_size_2(t_cmnd *cmnd, char **arr, int w)
 {
 	if (arr[++w])
 	{
@@ -38,7 +38,7 @@ void		load_index_op_size_2(t_cmnd *cmnd, char **arr, int w)
 	}
 }
 
-int			check_2nd_arg(char **arr)
+int				check_2nd_arg(char **arr)
 {
 	if (arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
 		return (1);
@@ -47,10 +47,9 @@ int			check_2nd_arg(char **arr)
 
 int				handle_load(t_pack *data, char **arr)
 {
-	int		res;
+	int			res;
 
 	res = 0;
-
 	if (arr[0] && arr[0][0] == '%')
 	{
 		if (arr[0][1] == ':'
@@ -81,13 +80,13 @@ void			ld_op_size_2(t_cmnd *cmnd, char **arr, int w)
 		if (arr[w][0] == '%')
 		{
 			cmnd->type_code[0] = 1;
-			cmnd->arg1 = 4;	
+			cmnd->arg1 = 4;
 		}
 		else
 		{
 			cmnd->type_code[0] = 1;
 			cmnd->type_code[1] = 1;
-			cmnd->arg1 = 2;	
+			cmnd->arg1 = 2;
 		}
 	}
 }

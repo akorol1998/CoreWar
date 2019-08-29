@@ -71,6 +71,7 @@ void		magic_header_name(t_pack *data)
 	while (++i < size)
 		write(data->dsc, &magic, 1);
 }
+
 void		no_ops_check(t_pack *da)
 {
 	int		i;
@@ -92,6 +93,7 @@ void		no_ops_check(t_pack *da)
 		exit(EXIT_FAILURE);
 	}
 }
+
 int			writing_to_file(t_pack *data)
 {
 	int		res;
@@ -102,7 +104,7 @@ int			writing_to_file(t_pack *data)
 	free(del);
 	no_ops_check(data);
 	res = 0;
-	if (!(data->dsc = open(data->file_name, O_WRONLY | O_CREAT | O_TRUNC, 777)))
+	if (!(data->dsc = open(data->file_name, O_RDWR | O_CREAT | O_TRUNC, 777)))
 		return (0);
 	magic_header_name(data);
 	null_point_comment(data);

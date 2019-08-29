@@ -46,12 +46,6 @@ int			begin(t_pack *data)
 	i = -1;
 	while (get_next_line(data->dsc, &line))
 		flag = handle_line(data, line);
-	for (int i = 0;data->cmnds[i];i++)
-	{
-		for(int j=0;data->cmnds[i][j];j++)
-			ft_printf(" %s ", data->cmnds[i][j]);
-		ft_printf("\n");
-	}
 	return (1);
 }
 
@@ -60,7 +54,7 @@ int			label_exists(char *buf, t_pack *data)
 	int		i;
 
 	i = -1;
-	while(data->labels[++i])
+	while (data->labels[++i])
 	{
 		if (!ft_strcmp(buf, data->labels[i]))
 			return (1);
@@ -78,10 +72,9 @@ int			read_labels(t_pack *data, char *line)
 	i = -1;
 	buf = NULL;
 	res = 0;
-	while (line[++i] && 
-        char_in_array(line[i]) &&
-        line[i] != LABEL_CHAR)
-			merge_chars(&buf, line[i]);
+	while (line[++i] &&
+	char_in_array(line[i]) && line[i] != LABEL_CHAR)
+		merge_chars(&buf, line[i]);
 	if (i != -1 && line[i] == LABEL_CHAR)
 	{
 		merge_chars(&buf, line[i]);

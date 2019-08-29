@@ -12,7 +12,7 @@
 
 #include "core_war.h"
 
-static int	thrd_stage(char **arr)
+static int		thrd_stage(char **arr)
 {
 	int			res;
 
@@ -24,9 +24,9 @@ static int	thrd_stage(char **arr)
 	return (res);
 }
 
-static int	scnd_stage(t_pack *data, char **arr)
+static int		scnd_stage(t_pack *data, char **arr)
 {
-	int		res;
+	int			res;
 
 	res = 0;
 	if (arr[1] && arr[1][0] == 'r' && register_check(arr[1]))
@@ -40,16 +40,16 @@ static int	scnd_stage(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
-	else if (arr[1] && indirect_validation(data, arr[1]) )
+	else if (arr[1] && indirect_validation(data, arr[1]))
 		res = thrd_stage(arr);
 	else
 		res = 0;
 	return (res);
 }
 
-int			handle_and(t_pack *data, char **arr)
+int				handle_and(t_pack *data, char **arr)
 {
-	int		res;
+	int			res;
 
 	res = 0;
 	if (arr[0] && arr[0][0] == 'r' && register_check(arr[0]))
@@ -107,7 +107,8 @@ void			and_op_size(t_pack *da, int w)
 	cmnd = allocating_for_comm(da);
 	cmnd->op = 1;
 	arr = da->cmnds[da->l];
-	ft_printf("ATTENTION ! |%s| -l %d -w %d\n", da->cmnds[da->l][w], da->l, da->w);
+	ft_printf("ATTENTION ! |%s| -l %d -w %d\n",
+	da->cmnds[da->l][w], da->l, da->w);
 	if (!ft_strcmp(da->cmnds[da->l][w], "and"))
 		cmnd->op_code = 0x06;
 	else if (!ft_strcmp(da->cmnds[da->l][w], "or"))

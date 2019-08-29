@@ -12,7 +12,7 @@
 
 #include "core_war.h"
 
-void		args_to_cmnds(t_pack *data, char **arr)
+void			args_to_cmnds(t_pack *data, char **arr)
 {
 	int			i;
 	int			j;
@@ -27,9 +27,9 @@ void		args_to_cmnds(t_pack *data, char **arr)
 	}
 }
 
-int			handle_live(t_pack *data, char **arr)
+int				handle_live(t_pack *data, char **arr)
 {
-	int		res;
+	int			res;
 
 	res = 0;
 	if (arr && arr[0])

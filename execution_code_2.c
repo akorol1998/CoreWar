@@ -19,7 +19,7 @@ int			register_nbr(char *line, int i)
 
 	j = -1;
 	nbr = ft_strsub(line, 1, i - 1);
-	while(nbr[++j])
+	while (nbr[++j])
 	{
 		if (nbr[j] == '+' || nbr[j] == '-')
 			return (0);
@@ -49,18 +49,18 @@ int			get_register(char *line)
 	return (res);
 }
 
-void			register_write(t_pack *da, int w)
+void		register_write(t_pack *da, int w)
 {
-	int			nbr;
+	int		nbr;
 
 	nbr = get_register(da->cmnds[da->l][w]);
 	write(da->dsc, &nbr, 1);
 }
 
-void			pick_op_for_processing(t_pack *da, int w, int *idx)
+void		pick_op_for_processing(t_pack *da, int w, int *idx)
 {
-	char		**arr;
-	int			i;
+	char	**arr;
+	int		i;
 
 	(*idx)++;
 	i = -1;
@@ -84,9 +84,9 @@ void			pick_op_for_processing(t_pack *da, int w, int *idx)
 	}
 }
 
-void			go_through_ops(t_pack *da)
+void		go_through_ops(t_pack *da)
 {
-	int			k;
+	int		k;
 
 	da->l = -1;
 	k = -1;

@@ -50,13 +50,13 @@ void		current_cmnds_position(t_pack *data)
 
 	i = data->l;
 	j = -1;
-	while(data->cmnds[i] && data->cmnds[i][++j])
+	while (data->cmnds[i] && data->cmnds[i][++j])
 		;
 	if (!data->cmnds[i])
 	{
 		data->cmnds[i] = (char**)malloc(sizeof(char*) * CHAMP_MAX_SIZE + 1);
 		j = -1;
-		while (++j <= CHAMP_MAX_SIZE )
+		while (++j <= CHAMP_MAX_SIZE)
 			data->cmnds[i][j] = NULL;
 		data->w = 0;
 	}

@@ -44,7 +44,7 @@ int			possible_ops(t_pack *data, char **buf, char *word, int i)
 void		invalid_argumnet_exit(t_pack *data, char **arr, char *op)
 {
 	int		i;
-	t_pack *lol;
+	t_pack	*lol;
 
 	i = -1;
 	lol = data;

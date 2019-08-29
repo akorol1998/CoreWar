@@ -43,9 +43,10 @@ int			indirect_validation(t_pack *data, char *line)
 		return (1);
 	else
 	{
-		while(line[++i])
+		while (line[++i])
 		{
-			if ((!ft_isdigit(line[i]) && line[i] != '-') || (line[i] == '-' && i))
+			if ((!ft_isdigit(line[i]) && line[i] != '-')
+			|| (line[i] == '-' && i))
 				return (0);
 		}
 		nbr = ft_strdup(line);
@@ -57,7 +58,7 @@ int			indirect_validation(t_pack *data, char *line)
 
 int			indirect_arg(t_pack *data, char **line, int w)
 {
-	char 	*nbr;
+	char	*nbr;
 	int		i;
 
 	i = -1;
@@ -91,7 +92,6 @@ int			register_check(char *line)
 	}
 	if (!flag)
 		return (0);
-	
 	res = register_sti(line, i);
 	return (res);
 }
@@ -112,7 +112,7 @@ int			direct_number(t_pack *data, char **line, int w)
 			ft_printf("Error [%c]-idx-[%d]\n", line[w][i], i);
 			return (0);
 		}
-	}	
+	}
 	nbr = ft_strsub(line[w], 0, i);
 	free(nbr);
 	data = NULL;

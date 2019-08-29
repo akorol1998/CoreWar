@@ -68,6 +68,5 @@ int			name_comment_block(t_pack *data)
 			c = 0;
 		free(line);
 	}
-	// system("leaks asm");
 	return (name_comment_block_2(res, data));
 }

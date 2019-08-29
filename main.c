@@ -26,7 +26,8 @@ int			read_name_comment(t_pack *data, char *line)
 		if (!read_name(data, line + i + ft_strlen(NAME_CMD_STRING)))
 			return (0);
 	}
-	else if (!ft_strncmp(line + i, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+	else if (!ft_strncmp(line + i, COMMENT_CMD_STRING,
+	ft_strlen(COMMENT_CMD_STRING)))
 	{
 		if (!read_comment(data, line + i + ft_strlen(COMMENT_CMD_STRING)))
 			return (0);
@@ -57,7 +58,7 @@ int			search_dot(char *line)
 void		start_reading(t_pack *data)
 {
 	int		nc;
-	
+
 	nc = name_comment_block(data);
 	ft_printf("111111111");
 	if (nc)

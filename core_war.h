@@ -35,17 +35,17 @@ typedef struct		s_cmnd
 	int				size;
 }					t_cmnd;
 
-typedef struct      s_pack
+typedef struct		s_pack
 {
-    char			***cmnds;
-    char			**labels;
-    char			**op;
-    char			*name;
-    char			*comment;
+	char			***cmnds;
+	char			**labels;
+	char			**op;
+	char			*name;
+	char			*comment;
 	char			*buf;
 	char			*file_name;
-    int				dsc;
-    int				pos;
+	int				dsc;
+	int				pos;
 	int				l;
 	int				w;
 	int				arg_len;
@@ -70,11 +70,11 @@ int					read_instructions(t_pack *data);
 void				print_tokens(t_pack *data);
 void				merge_chars(char **buf, char c);
 int					label_check(t_pack *data, int line);
-int                 check_for_being_op(t_pack *data, int line);
+int					check_for_being_op(t_pack *data, int line);
 int					compare_func(char *buf, t_pack *data);
 int					check_after_token(t_pack *data, int line, int word, int i);
 int					check_sti_op(t_pack *data, int line, int w);
-int 				char_in_array(char c);
+int					char_in_array(char c);
 int					len_arr(char **arr);
 int					next_argument(t_pack *data, char **line, int w);
 int					valid_invalid_comment(char *buf);
@@ -130,18 +130,27 @@ int					search_for_label(t_pack *da, int *idx, char *lbl);
 void				write_to_file(t_pack *da, int size, int nbr);
 void				indirect_case(t_pack *da, int w, int i, int *idx);
 void				just_empty_line(t_pack *data, char *line);
-int					get_next_line_core_war(const int fd, char **line, t_pack *data);
+int					get_next_line_core_war(const int fd,
+char **line, t_pack *data);
 int					backwards(char *line);
 int					read_assm(t_pack *da);
 int					choose_operation(t_pack *data, char *op, char **arr);
-void				choose_operation_1(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_2(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_3(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_4(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_5(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_6(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_7(t_pack *data, char *op, char **arr, int *res);
-void				choose_operation_8(t_pack *data, char *op, char **arr, int *res);
+void				choose_operation_1(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_2(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_3(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_4(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_5(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_6(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_7(t_pack *data, char *op,
+char **arr, int *res);
+void				choose_operation_8(t_pack *data, char *op,
+char **arr, int *res);
 void				invalid_argumnet_exit(t_pack *data, char **arr, char *op);
 void				sti_op_size_2(t_cmnd *cmnd, char **arr, int w);
 void				sti_op_size(t_pack *da, int w);

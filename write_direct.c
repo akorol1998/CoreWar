@@ -89,7 +89,7 @@ void			write_to_file(t_pack *da, int size, int nbr)
 {
 	int			t;
 	int			a;
-	
+
 	t = size - 1;
 	while (t >= 0)
 	{
@@ -99,7 +99,7 @@ void			write_to_file(t_pack *da, int size, int nbr)
 	}
 }
 
-void			direct_write(t_pack *da, int w, int	i, int *idx)
+void			direct_write(t_pack *da, int w, int i, int *idx)
 {
 	int			size;
 	int			nbr;

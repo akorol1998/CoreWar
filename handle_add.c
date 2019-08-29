@@ -41,7 +41,7 @@ int			handle_add(t_pack *data, char **arr)
 void		add_sub_op_size(t_pack *da, int w)
 {
 	t_cmnd	*cmnd;
-	
+
 	cmnd = allocating_for_comm(da);
 	if (!ft_strcmp(da->cmnds[da->l][da->w], "add"))
 		cmnd->op_code = 0x04;

@@ -44,14 +44,6 @@ write_direct.c \
 comm_to_file.c \
 help_functions_2.c \
 
-# op_check.c \
-# label_check.c \
-# store_index_3.c \
-# delete_comments.c \
-# load_2.c \
-# buf_manager.c \
-# line_manipulation.c \
-
 FLAGS = -Wall -Wextra -Werror
 
 LIB = libft/libftprintf.a

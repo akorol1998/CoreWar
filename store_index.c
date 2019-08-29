@@ -53,7 +53,7 @@ int				scnd_stage(t_pack *data, char **arr)
 		else
 			res = 0;
 	}
-	else if (indirect_validation(data, arr[1]) )
+	else if (indirect_validation(data, arr[1]))
 		res = thrd_stage(data, arr);
 	else
 		res = 0;
@@ -66,7 +66,7 @@ int				handle_sti(t_pack *data, char **arr)
 
 	res = 0;
 	if (arr[0] && arr[0][0] == 'r' && register_check(arr[0]))
-		res = scnd_stage(data, arr);	
+		res = scnd_stage(data, arr);
 	else
 		res = 0;
 	if (res)

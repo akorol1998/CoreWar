@@ -12,34 +12,34 @@
 
 #include "core_war.h"
 
-int         char_in_array(char c)
+int			char_in_array(char c)
 {
-    int     i;
+	int		i;
 
-    i = -1;
-    while (LABEL_CHARS[++i])
-        if (LABEL_CHARS[i] == c)
-            return (1);
-    return (0);
+	i = -1;
+	while (LABEL_CHARS[++i])
+		if (LABEL_CHARS[i] == c)
+			return (1);
+	return (0);
 }
 
-void         merge_chars(char **buf, char c)
+void		merge_chars(char **buf, char c)
 {
-    char    *del;
-    char    *buf2;
+	char	*del;
+	char	*buf2;
 
-    if (!(*buf))
-    {
-        (*buf) = ft_strnew(1);
-        (*buf)[0] = c;
-    }
-    else
-    {
-        buf2 = ft_strnew(1);
-        buf2[0] = c;
-        del = (*buf);
-        (*buf) = ft_strjoin((*buf), buf2);
-        free(del);
-        free(buf2);
-    }
+	if (!(*buf))
+	{
+		(*buf) = ft_strnew(1);
+		(*buf)[0] = c;
+	}
+	else
+	{
+		buf2 = ft_strnew(1);
+		buf2[0] = c;
+		del = (*buf);
+		(*buf) = ft_strjoin((*buf), buf2);
+		free(del);
+		free(buf2);
+	}
 }

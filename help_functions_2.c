@@ -23,11 +23,12 @@ int			backwards(char *line)
 		while (i >= 0 && line[--i] && (line[i] == ' ' || line[i] == '\t'))
 			;
 		if (i >= 0 && line[i] != '\n')
-			b = 0;
+			if (line[i] != '#' && !ft_strrchr(line, '#'))
+				b = 0;
 		free(line);
 	}
 	else
-		b = 0;	
+		b = 0;
 	return (b);
 }
 
@@ -62,7 +63,7 @@ int			register_sti(char *line, int i)
 
 	j = -1;
 	nbr = ft_strsub(line, 1, i - 1);
-	while(nbr[++j])
+	while (nbr[++j])
 	{
 		if (nbr[j] == '+' || nbr[j] == '-')
 			return (0);

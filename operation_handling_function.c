@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operation_handling_function.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akorol <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/29 12:20:04 by akorol            #+#    #+#             */
+/*   Updated: 2019/08/29 12:20:05 by akorol           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "core_war.h"
 
 int			check_line_tail(t_pack *data, char **arr)
@@ -49,10 +61,11 @@ int			operation_valid(t_pack *data, char *op, char *line)
 		free(str);
 		exit(EXIT_FAILURE);
 	}
-	if (str && str[0] != ' ' && str[0] != '\t' && str[0] != '%' && str[0] != '-')
+	if (str && str[0] != ' ' && str[0] != '\t'
+	&& str[0] != '%' && str[0] != '-')
 	{
 		ft_printf("Invalid symbols after '%s' - %c\n", op, str[0]);
-		exit(EXIT_FAILURE);	
+		exit(EXIT_FAILURE);
 	}
 	return (operation_valid_part_2(data, op, str));
 }
