@@ -97,7 +97,6 @@ void		load_index_op_size(t_pack *da, int w)
 	char	**arr;
 
 	cmnd = allocating_for_comm(da);
-	ft_printf("The op - %s\n", da->cmnds[da->l][w]);
 	if (!ft_strcmp(da->cmnds[da->l][w], "ldi"))
 		cmnd->op_code = 0x0a;
 	else if (!ft_strcmp(da->cmnds[da->l][w], "lldi"))

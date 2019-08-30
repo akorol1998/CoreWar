@@ -96,7 +96,7 @@ int			read_instructions(t_pack *data)
 	data->pos = lseek(data->dsc, 0, 1);
 	if (!read_assm(data))
 	{
-		ft_printf("No SLASH N at the end of the line\n");
+		ft_printf("\033[1;31m No SLASH N at the end of the line\033[0m\n");
 		exit(EXIT_FAILURE);
 	}
 	lseek(data->dsc, data->pos, 0);

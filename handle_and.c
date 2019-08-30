@@ -107,8 +107,6 @@ void			and_op_size(t_pack *da, int w)
 	cmnd = allocating_for_comm(da);
 	cmnd->op = 1;
 	arr = da->cmnds[da->l];
-	ft_printf("ATTENTION ! |%s| -l %d -w %d\n",
-	da->cmnds[da->l][w], da->l, da->w);
 	if (!ft_strcmp(da->cmnds[da->l][w], "and"))
 		cmnd->op_code = 0x06;
 	else if (!ft_strcmp(da->cmnds[da->l][w], "or"))

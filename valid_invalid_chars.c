@@ -23,8 +23,8 @@ void		just_empty_line(t_pack *data, char *line)
 		;
 	if (line[i] && line[i] != '#')
 	{
-		ft_printf("Unknown command [%s]\n", line);
-		exit(1);
+		ft_printf("\033[1;31mUnknown command [%s]\033[0m \n", line);
+		exit(EXIT_FAILURE);
 	}
 }
 

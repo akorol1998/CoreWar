@@ -28,18 +28,13 @@ char		*delete_comments(char *line)
 	return (ptr);
 }
 
-int			name_comment_block_2(int res, t_pack *data)
+int			name_comment_block_2(int res)
 {
 	if (res)
-	{
-		ft_printf("Name [%s]\n", data->name);
-		ft_printf("Comment [%s]\n", data->comment);
 		return (1);
-	}
 	else
 	{
-		ft_printf("Something wrong with Name or Comment\n");
-		system("leaks asm");
+		ft_printf("\033[1;31mSomething wrong with Name or Comment\033[0m\n");
 		exit(EXIT_FAILURE);
 		return (0);
 	}
@@ -68,5 +63,5 @@ int			name_comment_block(t_pack *data)
 			c = 0;
 		free(line);
 	}
-	return (name_comment_block_2(res, data));
+	return (name_comment_block_2(res));
 }

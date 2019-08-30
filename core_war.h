@@ -160,4 +160,5 @@ void				and_op_size_2(t_cmnd *cmnd, char **arr, int w);
 int					count_comas_in_array(char *str, int n);
 void				load_index_op_size_2(t_cmnd *cmnd, char **arr, int w);
 void				stage_nmbr_2(t_cmnd *cmnd, char **arr, int w);
+int					comment_case(char *line, int i);
 #endif

@@ -56,9 +56,9 @@ void		invalid_argumnet_exit(t_pack *data, char **arr, char *op)
 		}
 		free(arr);
 	}
-	ft_printf("TOKEN ERROR in '%s' operation.\n%s\n", op, strerror(EINVAL));
-	system("leaks asm");
-	exit(1);
+	ft_printf("\033[1;31mTOKEN ERROR in '%s'"
+	"operation.\n%s \033[0m\n", op, strerror(EINVAL));
+	exit(EXIT_FAILURE);
 }
 
 int			choose_operation(t_pack *data, char *op, char **arr)

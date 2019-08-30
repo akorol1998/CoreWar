@@ -88,8 +88,7 @@ void		no_ops_check(t_pack *da)
 	}
 	if (!f)
 	{
-		ft_printf("NO OPERATIONS FOR THE CHAMPION!\n");
-		system("leaks asm");
+		ft_printf("\033[1;31mNO OPERATIONS FOR THE CHAMPION!\033[0m\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -110,6 +109,7 @@ int			writing_to_file(t_pack *data)
 	null_point_comment(data);
 	execution_code(data);
 	close(data->dsc);
-	ft_printf("SUCCESS!\n");
+	ft_printf(" \033[1;32mWriting output program"
+	"to %s\033[0m\n", data->file_name);
 	return (res);
 }

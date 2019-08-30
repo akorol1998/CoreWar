@@ -23,8 +23,10 @@ int			backwards(char *line)
 		while (i >= 0 && line[--i] && (line[i] == ' ' || line[i] == '\t'))
 			;
 		if (i >= 0 && line[i] != '\n')
-			if (line[i] != '#' && !ft_strrchr(line, '#'))
+		{
+			if (!comment_case(line, i))
 				b = 0;
+		}
 		free(line);
 	}
 	else

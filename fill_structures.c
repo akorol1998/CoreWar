@@ -20,12 +20,7 @@ void		print_tokens(t_pack *data)
 	i = -1;
 	j = -1;
 	while (data->cmnds[++i])
-	{
 		j = -1;
-		while (data->cmnds[i][++j])
-			ft_printf("%s ", data->cmnds[i][j]);
-		ft_printf("\n", i);
-	}
 }
 
 void		fill_ops(t_pack *data)

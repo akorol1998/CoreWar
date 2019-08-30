@@ -34,7 +34,8 @@ int			read_name_comment(t_pack *data, char *line)
 	}
 	else
 	{
-		ft_printf("Syntax error at token [NAME or COMMENT]\n");
+		ft_printf("\033[1;31mSyntax error"
+		"at token [NAME or COMMENT]\033[0m\n");
 		return (0);
 	}
 	return (1);
@@ -60,14 +61,13 @@ void		start_reading(t_pack *data)
 	int		nc;
 
 	nc = name_comment_block(data);
-	ft_printf("111111111");
 	if (nc)
 	{
 		read_instructions(data);
 	}
 	else
 	{
-		ft_printf("You suck!");
+		ft_printf("\033[1;31mSomething went wrong :( \033[0m\n");
 		exit(EXIT_FAILURE);
 	}
 	close(data->dsc);
@@ -84,11 +84,10 @@ int			main(int argc, char **argv)
 		return (0);
 	if ((data->dsc = open(argv[1], O_RDONLY)) == -1)
 	{
-		ft_printf("%s\n", strerror(EINVAL));
+		ft_printf("\033[1;31m%s \033[0m\n", strerror(EINVAL));
 		return (0);
 	}
 	start_reading(data);
 	writing_to_file(data);
-	system("leaks asm");
 	return (0);
 }

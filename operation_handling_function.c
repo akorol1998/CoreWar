@@ -55,16 +55,16 @@ int			operation_valid(t_pack *data, char *op, char *line)
 	str = delete_comments(line + ft_strlen(op));
 	if (!check_commas(op, str))
 	{
-		ft_printf("end - %s\n", str);
-		ft_printf("TOKEN ERROR operation - '%s'\nLINE - %s", op, line);
-		system("leaks asm");
+		ft_printf("\033[1;31mEnd - %s\n", str);
+		ft_printf("TOKEN ERROR operation - '%s'\nLINE - %s\033[0m\n", op, line);
 		free(str);
 		exit(EXIT_FAILURE);
 	}
 	if (str && str[0] != ' ' && str[0] != '\t'
 	&& str[0] != '%' && str[0] != '-')
 	{
-		ft_printf("Invalid symbols after '%s' - %c\n", op, str[0]);
+		ft_printf("\033[1;31mInvalid symbols after '%s'"
+		"- %c \033[0m\n", op, str[0]);
 		exit(EXIT_FAILURE);
 	}
 	return (operation_valid_part_2(data, op, str));
@@ -86,9 +86,8 @@ int			handle_operation_part_2(t_pack *data, char *line, int *res)
 		(*res) = 1;
 	else
 	{
-		ft_printf("Unknown command ahhhh [%s]\n", op);
-		system("leaks asm");
-		exit(1);
+		ft_printf("\033[1;31m Unknown command ahhhh [%s] \033[0m\n", op);
+		exit(EXIT_FAILURE);
 	}
 	free(line);
 	free(op);

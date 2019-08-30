@@ -35,3 +35,17 @@ int			is_operation(t_pack *data, char *line)
 	free(op);
 	return (res);
 }
+
+int			comment_case(char *line, int i)
+{
+	int		j;
+
+	j = 0;
+	while (line[--i] && line[i] != '\n')
+		;
+	while (line[++i] && (line[i] == ' ' || line[i] == '\t'))
+		;
+	if (line[i] == '#')
+		return (1);
+	return (0);
+}

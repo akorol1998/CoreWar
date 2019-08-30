@@ -10,18 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #ifndef GET_NEXT_LINE_H
-// # define GET_NEXT_LINE_H
-// # define BUFF_SIZE 1
-
-// int					get_next_line(const int fd, char **line);
-// typedef	struct		s_node
-// {
-// 	char			*data;
-// 	int				ds;
-// 	struct s_node	*next;
-// }					t_node;
-// #endif
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # include "libft.h"

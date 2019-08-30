@@ -51,6 +51,8 @@ int			indirect_validation(t_pack *data, char *line)
 		}
 		nbr = ft_strdup(line);
 		res = ft_atoi(nbr) ? 1 : 0;
+		if (!res && nbr && ft_strlen(nbr) == 1 && nbr[0] == '0')
+			res = 1;
 		free(nbr);
 		return (res ? res : 0);
 	}
@@ -108,10 +110,7 @@ int			direct_number(t_pack *data, char **line, int w)
 	{
 		if ((line[w][i] == '+' || (line[w][i] == '-' && i != 1)) ||
 		(!ft_isdigit(line[w][i]) && line[w][i] != '+' && line[w][i] != '-'))
-		{
-			ft_printf("Error [%c]-idx-[%d]\n", line[w][i], i);
 			return (0);
-		}
 	}
 	nbr = ft_strsub(line[w], 0, i);
 	free(nbr);

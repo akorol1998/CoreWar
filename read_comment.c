@@ -21,7 +21,6 @@ int			finish_comment(t_pack *data, int count)
 	del = data->comment;
 	data->comment = ft_strjoin(data->comment, "\n");
 	free(del);
-	ft_printf("LENGTH - %d\n", ft_strlen(data->comment));
 	if (data->comment && (ft_strlen(data->comment)
 	+ count - 1 > COMMENT_LENGTH))
 		return (0);
@@ -47,16 +46,14 @@ int			check_after(t_pack *da, char *line)
 			return (1);
 		if (!(line[i] == ' ') && !(line[i] == '\t'))
 		{
-			ft_printf("Unknown symbols [%c]\n", line[i]);
-			system("leaks asm");
+			ft_printf("\033[1;31m Unknown symbols [%c] \033[0m \n", line[i]);
 			exit(EXIT_FAILURE);
 		}
 	}
 	if (ft_strlen(da->comment) > COMMENT_LENGTH || ft_strlen(da->name)
 	> PROG_NAME_LENGTH)
 	{
-		ft_printf("INAPROPRIATE COMMENT or NAME size\n");
-		system("leaks asm");
+		ft_printf("\033[1;31m INAPROPRIATE COMMENT or NAME size \033[0m \n");
 		exit(EXIT_FAILURE);
 	}
 	return (1);
@@ -100,12 +97,14 @@ int			read_comment(t_pack *data, char *line)
 		;
 	if (line[i] && line[i] != '"')
 	{
-		ft_printf("Syntax error at token [TOKEN] ENDLINE\n");
+		ft_printf("\033[1;31m Syntax error at token"
+		"[TOKEN] ENDLINE \033[0m \n");
 		return (0);
 	}
 	if (!(res = actual_comment(data, line + i + 1)))
 	{
-		ft_printf("Serious error at token [COMMENT]: wrong size!\n");
+		ft_printf("\033[1;31m Serious error at token"
+		"[COMMENT]: wrong size! \033[0m \n");
 		return (0);
 	}
 	return (1);

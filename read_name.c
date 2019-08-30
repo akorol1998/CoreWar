@@ -72,12 +72,13 @@ int			read_name(t_pack *data, char *line)
 		;
 	if (line[i] && line[i] != '"')
 	{
-		ft_printf("Syntax error at token [TOKEN] ENDLINE\n");
+		ft_printf("\033[1;31mSyntax error at token [TOKEN] ENDLINE\033[0m\n");
 		return (0);
 	}
 	if (!(res = actual_name(data, line + i + 1)))
 	{
-		ft_printf("Serious error at token [NAME]: wrong size!\n");
+		ft_printf("\033[1;31mSerious error at token"
+		"[NAME]: wrong size!\033[0m\n");
 		return (0);
 	}
 	return (1);
@@ -97,7 +98,7 @@ int			check_file_name(t_pack *data, char *name)
 	}
 	else
 	{
-		ft_printf("Invalid file name [%s]\n", name);
+		ft_printf("\033[1;31m Invalid file name [%s]\033[0m\n", name);
 		return (0);
 	}
 }
