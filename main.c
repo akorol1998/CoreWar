@@ -89,5 +89,6 @@ int			main(int argc, char **argv)
 	}
 	start_reading(data);
 	writing_to_file(data);
+	system("afplay babki.mp3");
 	return (0);
 }
